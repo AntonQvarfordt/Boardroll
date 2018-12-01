@@ -1,0 +1,50 @@
+fileFormatVersion: 2
+guid: 9ace897aa3cfe814f881bfaefef7fca6
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: grunge_map_006_bitmap/grunge_map_006_bitmap
+    400000: grunge_map_006_bitmap/grunge_map_006_bitmap/Transform
+    2100000: mat.Grunge Map 006 Bitmap
+    2300000: grunge_map_006_bitmap/grunge_map_006_bitmap/MeshRenderer
+    3300000: grunge_map_006_bitmap/grunge_map_006_bitmap/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: grunge_map_006_bitmap/grunge_map_006_bitmap/SphereCollider
+    100100000: grunge_map_006_bitmap
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Grunge Map 006 Bitmap
+    prototypeName: Grunge Map 006 Bitmap
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://grunge_map_006_bitmap\" label=\"\" >\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: 
+    texturePackingList:
+    - outputName: output
+      alphaSource: output
+    textureParameters:
+    - textureName: Grunge Map 006 Bitmap_UNKNOWN
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: output
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {instanceID: 0}
+    generatedTextures: []

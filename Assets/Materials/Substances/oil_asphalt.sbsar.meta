@@ -1,0 +1,125 @@
+fileFormatVersion: 2
+guid: 38f86e663b1a5d84eafd06e3a862fe05
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: oil_asphalt/oil_asphalt
+    400000: oil_asphalt/oil_asphalt/Transform
+    2100000: mat.Oil Asphalt
+    2300000: oil_asphalt/oil_asphalt/MeshRenderer
+    2800000: Oil Asphalt_baseColor
+    2800002: Oil Asphalt_normal
+    2800004: Oil Asphalt_metallic
+    2800006: Oil Asphalt_height
+    3300000: oil_asphalt/oil_asphalt/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: oil_asphalt/oil_asphalt/SphereCollider
+    100100000: oil_asphalt
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Oil Asphalt
+    prototypeName: Oil Asphalt
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://oil_asphalt\" label=\"\" >\n  <presetinput
+      identifier=\"color\" uid=\"1963516690\" type=\"2\" value=\"0.216981,0.216981,0.216981\"
+      />\n  <presetinput identifier=\"oil_amount\" uid=\"1964905441\" type=\"0\" value=\"0.314\"
+      />\n  <presetinput identifier=\"crack_amount\" uid=\"1964075161\" type=\"0\"
+      value=\"0.567\" />\n  <presetinput identifier=\"roughness\" uid=\"1963516565\"
+      type=\"0\" value=\"0\" />\n  <presetinput identifier=\"channel_specular\" uid=\"1881530129\"
+      type=\"4\" value=\"1\" />\n  <presetinput identifier=\"luminosity\" uid=\"129138187\"
+      type=\"0\" value=\"0.514\" />\n  <presetinput identifier=\"contrast\" uid=\"2016917289\"
+      type=\"0\" value=\"-0.009\" />\n  <presetinput identifier=\"saturation\" uid=\"129138206\"
+      type=\"0\" value=\"0.505\" />\n  <presetinput identifier=\"height_range\" uid=\"2140376395\"
+      type=\"0\" value=\"0.495\" />\n  <presetinput identifier=\"height_position\"
+      uid=\"2140376378\" type=\"0\" value=\"0.476\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    textureParameters:
+    - textureName: Oil Asphalt_glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Oil Asphalt_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Oil Asphalt_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Oil Asphalt_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Oil Asphalt_specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Oil Asphalt_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Oil Asphalt_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Oil Asphalt_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 38f86e663b1a5d84eafd06e3a862fe05, type: 3}
+    generatedTextures:
+    - {fileID: 2800000, guid: 38f86e663b1a5d84eafd06e3a862fe05, type: 3}
+    - {fileID: 2800002, guid: 38f86e663b1a5d84eafd06e3a862fe05, type: 3}
+    - {fileID: 2800004, guid: 38f86e663b1a5d84eafd06e3a862fe05, type: 3}
+    - {fileID: 2800006, guid: 38f86e663b1a5d84eafd06e3a862fe05, type: 3}

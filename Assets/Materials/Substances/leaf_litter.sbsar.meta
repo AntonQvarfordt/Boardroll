@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 71e9808b6e8d9a14db226e3ea5c1b8b0
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: leaf_litter/leaf_litter
+    400000: leaf_litter/leaf_litter/Transform
+    2100000: mat.Leaf Litter
+    2100002: mat.Leaf Litter_1
+    2300000: leaf_litter/leaf_litter/MeshRenderer
+    2800000: Leaf Litter_baseColor
+    2800002: Leaf Litter_normal
+    2800004: Leaf Litter_metallic
+    2800006: Leaf Litter_height
+    2800008: Leaf Litter_ambientOcclusion
+    2800010: Leaf Litter_1_baseColor
+    2800012: Leaf Litter_1_normal
+    2800014: Leaf Litter_1_metallic
+    2800016: Leaf Litter_1_height
+    2800018: Leaf Litter_1_ambientOcclusion
+    3300000: leaf_litter/leaf_litter/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    11400004: graph1
+    13500000: leaf_litter/leaf_litter/SphereCollider
+    100100000: leaf_litter
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Leaf Litter
+    prototypeName: Leaf Litter
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://leaf_litter\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"3042107980\" type=\"8\" value=\"9,9\" />\n
+      \ <presetinput identifier=\"dirt_color\" uid=\"3245354134\" type=\"2\" value=\"0.283019,0.211477,0.156194\"
+      />\n  <presetinput identifier=\"leaf_tiling\" uid=\"3231891724\" type=\"4\"
+      value=\"4\" />\n  <presetinput identifier=\"leaf_density\" uid=\"3245779555\"
+      type=\"0\" value=\"0\" />\n  <presetinput identifier=\"leaf_dirt\" uid=\"3245357594\"
+      type=\"0\" value=\"0.068\" />\n  <presetinput identifier=\"big_rock_density\"
+      uid=\"3245913147\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"rock_below_density\"
+      uid=\"3245869555\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"needle_density\"
+      uid=\"3229785279\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"humidity\"
+      uid=\"3246027262\" type=\"0\" value=\"1\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: Leaf Litter_glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 71e9808b6e8d9a14db226e3ea5c1b8b0, type: 3}
+    generatedTextures: []
+  - graphLabel: Leaf Litter_1
+    prototypeName: Leaf Litter
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://leaf_litter\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"3042107980\" type=\"8\" value=\"9,9\" />\n
+      \ <presetinput identifier=\"$randomseed\" uid=\"3793810462\" type=\"4\" value=\"6739\"
+      />\n  <presetinput identifier=\"leaf_type_01_color\" uid=\"3245498028\" type=\"2\"
+      value=\"0.197579,0.698039,0\" />\n  <presetinput identifier=\"leaf_type_02_color\"
+      uid=\"3245496696\" type=\"2\" value=\"0.798986,0.8,0\" />\n  <presetinput identifier=\"leaf_tiling\"
+      uid=\"3231891724\" type=\"4\" value=\"4\" />\n  <presetinput identifier=\"leaf_type_01\"
+      uid=\"3231334711\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"leaf_type_02\"
+      uid=\"3231985104\" type=\"4\" value=\"4\" />\n  <presetinput identifier=\"leaf_density\"
+      uid=\"3245779555\" type=\"0\" value=\"0.15\" />\n  <presetinput identifier=\"leaf_dirt\"
+      uid=\"3245357594\" type=\"0\" value=\"0.23\" />\n  <presetinput identifier=\"big_rock_density\"
+      uid=\"3245913147\" type=\"0\" value=\"0.25\" />\n  <presetinput identifier=\"rock_below_density\"
+      uid=\"3245869555\" type=\"0\" value=\"0.54\" />\n  <presetinput identifier=\"needle_density\"
+      uid=\"3229785279\" type=\"0\" value=\"0.19\" />\n  <presetinput identifier=\"humidity\"
+      uid=\"3246027262\" type=\"0\" value=\"0.608\" />\n  <presetinput identifier=\"luminosity\"
+      uid=\"2953731063\" type=\"0\" value=\"0.48\" />\n  <presetinput identifier=\"contrast\"
+      uid=\"3482030805\" type=\"0\" value=\"0.04\" />\n  <presetinput identifier=\"hue_shift\"
+      uid=\"2953730949\" type=\"0\" value=\"0.54\" />\n  <presetinput identifier=\"ambientocclusion_intensity\"
+      uid=\"3262952508\" type=\"0\" value=\"0.56\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: Leaf Litter_1_glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Leaf Litter_1_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 1
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100002, guid: 71e9808b6e8d9a14db226e3ea5c1b8b0, type: 3}
+    generatedTextures:
+    - {fileID: 2800010, guid: 71e9808b6e8d9a14db226e3ea5c1b8b0, type: 3}
+    - {fileID: 2800012, guid: 71e9808b6e8d9a14db226e3ea5c1b8b0, type: 3}
+    - {fileID: 2800014, guid: 71e9808b6e8d9a14db226e3ea5c1b8b0, type: 3}
+    - {fileID: 2800016, guid: 71e9808b6e8d9a14db226e3ea5c1b8b0, type: 3}
+    - {fileID: 2800018, guid: 71e9808b6e8d9a14db226e3ea5c1b8b0, type: 3}

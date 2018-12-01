@@ -1,0 +1,5 @@
+<sbspresets count="1" formatversion="1.1">
+  <sbspreset pkgurl="pkg://asphalt_after_the_rain" label="" >
+  <presetinput identifier="waterLevel" uid="3729006894" type="0" value="0.352" />
+ </sbspreset>
+</sbspresets>

@@ -1,0 +1,124 @@
+fileFormatVersion: 2
+guid: cfeb2acb9c1adbe47a270830db51b894
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: asphalt_fine_cracked/asphalt_fine_cracked
+    400000: asphalt_fine_cracked/asphalt_fine_cracked/Transform
+    2100000: mat.Asphalt Fine Cracked
+    2300000: asphalt_fine_cracked/asphalt_fine_cracked/MeshRenderer
+    2800000: Asphalt Fine Cracked_baseColor
+    2800002: Asphalt Fine Cracked_normal
+    2800004: Asphalt Fine Cracked_metallic
+    2800006: Asphalt Fine Cracked_height
+    3300000: asphalt_fine_cracked/asphalt_fine_cracked/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: asphalt_fine_cracked/asphalt_fine_cracked/SphereCollider
+    100100000: asphalt_fine_cracked
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Asphalt Fine Cracked
+    prototypeName: Asphalt Fine Cracked
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://asphalt_fine_cracked\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"2965679822\" type=\"8\" value=\"9,9\" />\n
+      \ <presetinput identifier=\"color\" uid=\"3338467855\" type=\"2\" value=\"0.330189,0.330189,0.330189\"
+      />\n  <presetinput identifier=\"crack\" uid=\"3338464414\" type=\"0\" value=\"0.663\"
+      />\n  <presetinput identifier=\"relief_variation\" uid=\"3336769584\" type=\"0\"
+      value=\"1\" />\n  <presetinput identifier=\"roughness\" uid=\"3342308610\" type=\"0\"
+      value=\"0.687\" />\n  <presetinput identifier=\"roughness_variation\" uid=\"3342222945\"
+      type=\"0\" value=\"0.554\" />\n  <presetinput identifier=\"contrast\" uid=\"3390955095\"
+      type=\"0\" value=\"-0.01\" />\n  <presetinput identifier=\"normal_intensity\"
+      uid=\"3046762516\" type=\"0\" value=\"0.744\" />\n  <presetinput identifier=\"height_position\"
+      uid=\"3451511876\" type=\"0\" value=\"0.512\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    textureParameters:
+    - textureName: Asphalt Fine Cracked_glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Asphalt Fine Cracked_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Asphalt Fine Cracked_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Asphalt Fine Cracked_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Asphalt Fine Cracked_specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Asphalt Fine Cracked_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Asphalt Fine Cracked_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Asphalt Fine Cracked_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: cfeb2acb9c1adbe47a270830db51b894, type: 3}
+    generatedTextures:
+    - {fileID: 2800000, guid: cfeb2acb9c1adbe47a270830db51b894, type: 3}
+    - {fileID: 2800002, guid: cfeb2acb9c1adbe47a270830db51b894, type: 3}
+    - {fileID: 2800004, guid: cfeb2acb9c1adbe47a270830db51b894, type: 3}
+    - {fileID: 2800006, guid: cfeb2acb9c1adbe47a270830db51b894, type: 3}
