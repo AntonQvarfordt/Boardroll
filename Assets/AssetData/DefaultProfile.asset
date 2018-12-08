@@ -9,15 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: Main Camera Profile
+  m_Name: DefaultProfile
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 114459016460259194}
-  - {fileID: 114437042051354370}
-  - {fileID: 114315125078151816}
-  - {fileID: 114735817469703232}
-  - {fileID: 114249739359773888}
---- !u!114 &114249739359773888
+  - {fileID: 114150440841874988}
+  - {fileID: 114453385406245902}
+  - {fileID: 114872307754879106}
+  - {fileID: 114261884993835428}
+  - {fileID: 114870425284438406}
+--- !u!114 &114150440841874988
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25,35 +25,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
-  m_Name: ScreenSpaceReflections
+  m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
+  m_Name: Bloom
   m_EditorClassIdentifier: 
   active: 0
   enabled:
     overrideState: 1
     value: 1
-  preset:
+  intensity:
     overrideState: 1
-    value: 2
-  maximumIterationCount:
+    value: 1
+  threshold:
+    overrideState: 1
+    value: 1
+  softKnee:
+    overrideState: 1
+    value: 0.5
+  clamp:
     overrideState: 0
-    value: 16
-  resolution:
+    value: 100
+  diffusion:
+    overrideState: 1
+    value: 9
+  anamorphicRatio:
     overrideState: 0
     value: 0
-  thickness:
+  color:
     overrideState: 0
-    value: 8
-  maximumMarchDistance:
+    value: {r: 1, g: 1, b: 1, a: 1}
+  fastMode:
+    overrideState: 0
+    value: 0
+  dirtTexture:
     overrideState: 1
-    value: 40
-  distanceFade:
+    value: {fileID: 2800000, guid: 69e847bbff1cf5449a4ee0bbd045dbc9, type: 3}
+    defaultState: 1
+  dirtIntensity:
     overrideState: 1
-    value: 0.89
-  vignette:
-    overrideState: 1
-    value: 0.85
---- !u!114 &114315125078151816
+    value: 1
+--- !u!114 &114261884993835428
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,17 +80,17 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 3.36
+    value: 7.61
   aperture:
     overrideState: 1
-    value: 5
+    value: 2.1
   focalLength:
     overrideState: 1
-    value: 71
+    value: 67
   kernelSize:
-    overrideState: 1
-    value: 2
---- !u!114 &114437042051354370
+    overrideState: 0
+    value: 1
+--- !u!114 &114453385406245902
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,36 +134,36 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   ldrLut:
-    overrideState: 1
-    value: {fileID: 2800000, guid: d66e678fa8b350b48a53950aa9f2b13a, type: 3}
+    overrideState: 0
+    value: {fileID: 0}
     defaultState: 4
   ldrLutContribution:
-    overrideState: 1
-    value: 0.463
+    overrideState: 0
+    value: 1
   temperature:
     overrideState: 0
-    value: 0
+    value: -22.81
   tint:
     overrideState: 0
     value: 0
   colorFilter:
     overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    value: {r: 0.956601, g: 1, b: 0.7877358, a: 1}
   hueShift:
     overrideState: 0
-    value: 0
+    value: -50
   saturation:
-    overrideState: 1
-    value: -74
+    overrideState: 0
+    value: -30
   brightness:
     overrideState: 0
     value: 0
   postExposure:
     overrideState: 0
-    value: 0
+    value: 1
   contrast:
     overrideState: 0
-    value: 0
+    value: 100
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -183,13 +193,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0.06593407}
+    value: {x: 0, y: 0.27501464, z: 1, w: 0}
   gamma:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 0.5120175, z: 0.7736672, w: 0.8716322}
   gain:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 0.47655934, y: 0.5849189, z: 1, w: 0}
   masterCurve:
     overrideState: 0
     value:
@@ -1390,7 +1400,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
---- !u!114 &114459016460259194
+--- !u!114 &114870425284438406
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1398,45 +1408,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
-  m_Name: Bloom
+  m_Script: {fileID: 11500000, guid: b3f6f3f7c722b4544b97e3c75840aa33, type: 3}
+  m_Name: AutoExposure
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
-  intensity:
-    overrideState: 1
-    value: 1
-  threshold:
-    overrideState: 1
-    value: 1
-  softKnee:
+  filtering:
     overrideState: 0
-    value: 0.5
-  clamp:
-    overrideState: 0
-    value: 65472
-  diffusion:
-    overrideState: 0
-    value: 7
-  anamorphicRatio:
+    value: {x: 50, y: 95}
+  minLuminance:
     overrideState: 0
     value: 0
-  color:
-    overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
-  fastMode:
-    overrideState: 1
-    value: 1
-  dirtTexture:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
-  dirtIntensity:
+  maxLuminance:
     overrideState: 0
     value: 0
---- !u!114 &114735817469703232
+  keyValue:
+    overrideState: 0
+    value: 1
+  eyeAdaptation:
+    overrideState: 0
+    value: 0
+  speedUp:
+    overrideState: 0
+    value: 2
+  speedDown:
+    overrideState: 0
+    value: 1
+--- !u!114 &114872307754879106
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1444,8 +1444,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette
+  m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
+  m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
   active: 0
   enabled:
@@ -1454,28 +1454,33 @@ MonoBehaviour:
   mode:
     overrideState: 1
     value: 0
-  color:
-    overrideState: 1
-    value: {r: 0.5849056, g: 0.5222589, b: 0.31176573, a: 1}
-  center:
-    overrideState: 1
-    value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.603
-  smoothness:
+    value: 0.5
+  color:
     overrideState: 1
-    value: 0.824
-  roundness:
+    value: {r: 0.43529412, g: 0.36595413, b: 0.22352941, a: 1}
+  ambientOnly:
     overrideState: 1
-    value: 0.264
-  rounded:
+    value: 1
+  noiseFilterTolerance:
     overrideState: 0
     value: 0
-  mask:
+  blurTolerance:
     overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
-  opacity:
+    value: -4.6
+  upsampleTolerance:
     overrideState: 0
+    value: -12
+  thicknessModifier:
+    overrideState: 1
     value: 1
+  directLightingStrength:
+    overrideState: 0
+    value: 0
+  radius:
+    overrideState: 0
+    value: 0.25
+  quality:
+    overrideState: 0
+    value: 2

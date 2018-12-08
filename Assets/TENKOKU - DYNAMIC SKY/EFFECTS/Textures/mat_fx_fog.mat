@@ -32,4 +32,4 @@ Material:
     - _ShadowRange: 0.628
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 1.1350995, g: 1.1350995, b: 1.1350995, a: 0.038399998}
+    - _TintColor: {r: 1.0071398, g: 1.0071398, b: 1.0071398, a: 0.04}

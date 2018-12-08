@@ -3,18 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct BeatEventData
+{
+    public float volume;
+    public Intensity strength;
+}
 
+public enum Intensity
+{
+    Low,
+    Mid,
+    High
+}
 
 public class VisualizationBrain : MonoBehaviour {
 
-	public enum Intensity
-	{
-		Low, 
-		Mid, 
-		High
-	}
-
-	public List<Action<Intensity>> OnSetCallbacks = new List<Action<Intensity>>();
+    public List<Action<BeatEventData>> OnSetCallbacks = new List<Action<BeatEventData>>();
 
 	public RhythmTool rhythmTool;
 	public RhythmEventProvider eventProvider;
@@ -23,12 +27,21 @@ public class VisualizationBrain : MonoBehaviour {
 	public List<AudioClip> audioClips = new List<AudioClip>();
 	private int currentSong;
 
-	public float GetVolume
+    public float GetVolume
+    {
+        get
+        {
+            AnalysisData all = rhythmTool.all;
+            return all.magnitude[rhythmTool.currentFrame];
+        }
+    }
+
+    public float GetSmoothVolume
 	{
 		get
 		{
 			AnalysisData all = rhythmTool.all;
-			return all.magnitudeSmooth[rhythmTool.currentFrame];
+            return all.magnitudeSmooth[rhythmTool.currentFrame];
 		}
 	}
 
@@ -88,7 +101,23 @@ public class VisualizationBrain : MonoBehaviour {
 		//Debug.Log("Beat| " + beat.length + "|");
 	}
 
-	private void OnOnset( OnsetType type , Onset onset )
+    public void OnSetSubscribe (Action<BeatEventData> action)
+    {
+        if (OnSetCallbacks.Contains(action))
+            return;
+
+        OnSetCallbacks.Add(action);
+    }
+
+    public void OnSetUnsubscribe(Action<BeatEventData> action)
+    {
+        if (!OnSetCallbacks.Contains(action))
+            return;
+
+        OnSetCallbacks.Remove(action);
+    }
+
+    private void OnOnset( OnsetType type , Onset onset )
 	{
 		if (onset.rank < 4 && onset.strength < 5)
 			return;
@@ -105,9 +134,21 @@ public class VisualizationBrain : MonoBehaviour {
 				//Debug.Log("OnSet|high");
 				break;
 			case OnsetType.All:
-				Debug.Log("OnSet|all");
+				//Debug.Log("OnSet|all");
+                foreach (Action<BeatEventData> callback in OnSetCallbacks)
+                {
+                    callback.Invoke(GetBeatData());
+                }
 				break;
 		}
 	}
+
+    private BeatEventData GetBeatData ()
+    {
+        var returnValue = new BeatEventData();
+        returnValue.volume = GetSmoothVolume;
+        returnValue.strength = Intensity.Mid;
+        return returnValue;
+    }
 
 }

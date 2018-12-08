@@ -17,7 +17,7 @@ public class VisualizationBrainEditor : Editor
 		var volume = 0f;
 
 		if (targetScript.IsSongLoaded)
-			volume = targetScript.GetVolume;
+			volume = targetScript.GetSmoothVolume;
 
 		GUILayout.HorizontalSlider(volume , 0 , 80);
 
