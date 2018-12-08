@@ -1,25 +1,47 @@
 ﻿using Cinemachine;
+using System.Collections;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour
+public class CameraManager : MonoBehaviourSingleton<CameraManager>
 {
-    CinemachineVirtualCamera _activeCamera;
+    public CinemachineVirtualCamera _activeCamera;
 
     private void Awake()
     {
-        Debug.Break();
+        Debug.Log("Awake CM - " + frameCount);
+    }
+
+    private void Start()
+    {
+        Debug.Log("Start CM");
+        StartCoroutine(InitCall());
+    }
+    public void Init()
+    {
+        Debug.Log("Init CM - " + frameCount);
+        _initialized = true;
+    }
+
+    private void OnEnable()
+    {
         FindObjectOfType<PlayManager>().SubscribeOnPlayerSpawned(OnPlayerSpawned);
-        _activeCamera = gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+        Debug.Log("Enable CM - " + frameCount);
+    }
 
-        var player = FindObjectOfType<Player>();
-
-        if (player != null)
-            _activeCamera.Follow = player.transform;
+    private void Update()
+    {
+        frameCount++;
     }
 
     public void OnPlayerSpawned(Player player)
     {
         Debug.Log("On Player Spawned: CameraManager");
         _activeCamera.Follow = player.transform;
+    }
+
+    private IEnumerator InitCall()
+    {
+        yield return null;
+        Init();
     }
 }

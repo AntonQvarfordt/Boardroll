@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum GameState
@@ -6,19 +7,40 @@ public enum GameState
     Menu,
     Play
 }
-public class GameManager : MonoBehaviourSingletonPersistent<GameManager>
+public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public Player ActivePlayer;
+
     public GameState ActiveGameState;
 
     public string PlayScene;
     public string MenuScene;
 
-    public override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        Debug.Log("Awake GM - " + frameCount);
     }
 
+    private void Start()
+    {
+        Debug.Log("Start GM - " + frameCount);
+        StartCoroutine(InitCall());
+    }
+
+    private IEnumerator InitCall()
+    {
+        yield return null;
+        Init();
+    }
+
+    public void Init ()
+    {
+        Debug.Log("Init GM - " + frameCount);
+        _initialized = true;
+    }
+    private void Update()
+    {
+        frameCount++;
+    }
     public void StartPlayScene()
     {
         SceneManager.sceneLoaded += OnPlaySceneLoaded;
@@ -38,8 +60,6 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager>
         }
 
         ActiveGameState = GameState.Play;
-        var newPlayer = playManager.SpawnPlayer();
-        playManager.Init(newPlayer.gameObject);
     }
 
     public void OpenMenu()

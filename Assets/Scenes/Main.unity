@@ -422,12 +422,50 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114552009274668350, guid: f0200fdb40b4e144d830b805c82770c0,
+    - target: {fileID: 114722198470321288, guid: f0200fdb40b4e144d830b805c82770c0,
         type: 2}
-      propertyPath: sharedProfile
+      propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 11400000, guid: a2c5621595413ca4a81d437f1d534aff,
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322568644143976, guid: f0200fdb40b4e144d830b805c82770c0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.9835546
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322568644143976, guid: f0200fdb40b4e144d830b805c82770c0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.6787077
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322568644143976, guid: f0200fdb40b4e144d830b805c82770c0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906538510955328, guid: f0200fdb40b4e144d830b805c82770c0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.9835546
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906538510955328, guid: f0200fdb40b4e144d830b805c82770c0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.6787077
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906538510955328, guid: f0200fdb40b4e144d830b805c82770c0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114760628730353342, guid: f0200fdb40b4e144d830b805c82770c0,
         type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20062882092937396, guid: f0200fdb40b4e144d830b805c82770c0,
+        type: 2}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114722198470321288, guid: f0200fdb40b4e144d830b805c82770c0,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0200fdb40b4e144d830b805c82770c0, type: 2}
   m_IsPrefabAsset: 0
@@ -1116,7 +1154,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.9386792, g: 1, b: 0.9816425, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.6
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1135,7 +1173,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

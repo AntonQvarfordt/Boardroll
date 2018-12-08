@@ -1,47 +1,37 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Audio;
 [RequireComponent(typeof(AudioSourcePool))]
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviourSingleton<AudioManager>
 {
-    public static AudioManager Instance
-    {
-        get
-        {
-            if (instance != null)
-                return instance;
-
-            instance = FindObjectOfType<AudioManager>();
-
-            if (instance != null)
-                return instance;
-
-            Create();
-
-            return instance;
-        }
-    }
-
-    protected static AudioManager instance;
-
 	public AudioMixerGroup SFXMixer;
-
 	private AudioSourcePool _audioSourcePool;
-
-    public static AudioManager Create()
-    {
-        GameObject sceneControllerGameObject = new GameObject("AudioManager");
-        instance = sceneControllerGameObject.AddComponent<AudioManager>();
-
-        return instance;
-    }
 
     private void Awake()
     {
         _audioSourcePool = GetComponent<AudioSourcePool>();
+        Debug.Log("Awake AM - " + frameCount);
+
     }
 
     private void Start()
     {
+        Debug.Log("Start AM - " + frameCount);
+        StartCoroutine(InitCall());
+    }
+    private void Update()
+    {
+        frameCount++;
+    }
+    private IEnumerator InitCall()
+    {
+        yield return null;
+        Init();
+    }
+    public void Init()
+    {
+        Debug.Log("Init AM - " + frameCount);
+        _initialized = true;
     }
 
     public void PlayClipTrigger (AudioClip clip)

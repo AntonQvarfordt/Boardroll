@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayManager : MonoBehaviourSingletonPersistent<PlayManager>
+public class PlayManager : MonoBehaviourSingleton<PlayManager>
 {
+    public Player ActivePlayer;
     private List<Action<Player>> OnPlayerSpawnedCallbacks = new List<Action<Player>>();
 
     public float FillRange = 50;
@@ -16,18 +18,34 @@ public class PlayManager : MonoBehaviourSingletonPersistent<PlayManager>
     public Transform SpawnPoint;
     public GameObject PlayerPrefab;
 
-    private bool _initialized;
+    //private bool _initialized;
+    private bool _hasPlayerReference
+    {
+        get
+        {
+            return ActivePlayer;
+        }
+    }
     private GameObject _populateAroundTarget;
 
-    public override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        Debug.Log("Awake PM - " + frameCount);
+    }
+    private void Start()
+    {
+        Debug.Log("Start PM - " + frameCount);
+        StartCoroutine(InitCall());
     }
 
-    public void Init(GameObject target)
+    public void Init()
     {
-        _populateAroundTarget = target;
+        Debug.Log("Init PM - " + frameCount);
         _initialized = true;
+        ActivePlayer = SpawnPlayer();
+        _populateAroundTarget = ActivePlayer.gameObject;
+        OnPlayerSpawned(ActivePlayer);
+
     }
 
     public void SubscribeOnPlayerSpawned(Action<Player> callbackMethod)
@@ -56,7 +74,8 @@ public class PlayManager : MonoBehaviourSingletonPersistent<PlayManager>
 
     private void Update()
     {
-        if (!_initialized)
+        frameCount++;
+        if (!_hasPlayerReference)
             return;
 
         FillCheck();
@@ -210,5 +229,11 @@ public class PlayManager : MonoBehaviourSingletonPersistent<PlayManager>
         var player = Instantiate(PlayerPrefab);
         player.transform.position = SpawnPoint.position;
         return player.GetComponent<Player>();
+    }
+
+    private IEnumerator InitCall()
+    {
+        yield return null;
+        Init();
     }
 }
