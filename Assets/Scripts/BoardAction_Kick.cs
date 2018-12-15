@@ -10,15 +10,16 @@ public class BoardAction_Kick : MonoBehaviour {
 	public float KickApplyTime = 2;
 
 	private Rigidbody _rigidbody;
+    private BoardState _boardStateScript;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _boardStateScript = GetComponent<BoardState>();
     }
-
     private void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("e") && _boardStateScript.IsGrounded)
         {
             Kick();
         }

@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3019aebc54150964ea58952f5a4dd5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivePlayer: {fileID: 0}
   ActiveGameState: 0
   PlayScene: Main
   MenuScene: Menu

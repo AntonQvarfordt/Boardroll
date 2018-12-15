@@ -8,9 +8,9 @@ QualitySettings:
   m_QualitySettings:
   - serializedVersion: 2
     name: Fantastic
-    pixelLightCount: 4
+    pixelLightCount: 8
     shadows: 2
-    shadowResolution: 2
+    shadowResolution: 3
     shadowProjection: 1
     shadowCascades: 4
     shadowDistance: 150

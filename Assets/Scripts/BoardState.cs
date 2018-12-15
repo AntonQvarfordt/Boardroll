@@ -19,6 +19,22 @@ public class BoardState : MonoBehaviour
 		}
 	}
 
+    public bool IsRolling
+    {
+        get
+        {
+            //var returnValue = false;
+
+            if (GetVelocity.x < 1)
+                return false;
+            else if (IsGrounded)
+                return true;
+
+            return false;
+
+        }
+    }
+
 	public Transform GroundProbe;
 	public string GroundLayer;
 

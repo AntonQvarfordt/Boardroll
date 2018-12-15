@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardEffects : MonoBehaviour {
+public class BoardAction_Brace : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

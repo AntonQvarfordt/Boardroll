@@ -51,11 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1ffbec5bb9fa44088f5b6f1f1cd814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivePlayer: {fileID: 0}
   FillRange: 50
   ModuleSpan: 10
   SceneModuleContainer: {fileID: 0}
   SceneModules: []
-  SceneModulePrefab: {fileID: 1370272605183868, guid: daa289f9a38f0e74a81759fa1e394484,
+  SceneModulePrefab: {fileID: 1562151603131846, guid: daa289f9a38f0e74a81759fa1e394484,
     type: 2}
   SpawnPoint: {fileID: 0}
   PlayerPrefab: {fileID: 1974359712764184, guid: 76e370b06ef5d6a499d0754085c6946b,
