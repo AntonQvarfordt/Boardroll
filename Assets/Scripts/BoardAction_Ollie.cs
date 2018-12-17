@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class BoardAction_Ollie : MonoBehaviour {
 
     private Rigidbody _rigidbody;
     private BoardState _boardStateScript;
+
+    private List<Action> _ollieCallback = new List<Action>();
 
     private void Awake()
     {
@@ -27,20 +30,43 @@ public class BoardAction_Ollie : MonoBehaviour {
             Ollie();
         }
 
-        if (!_boardStateScript.IsGrounded)
-        {
-            BoardPrimaryAnimator.SetBool("AirHold", true);
-        }
-        else
-        {
-            BoardPrimaryAnimator.SetBool("AirHold", false);
-        }
+        //if (!_boardStateScript.IsGrounded)
+        //{
+        //    BoardPrimaryAnimator.SetBool("AirHold", true);
+        //}
+        //else
+        //{
+        //    BoardPrimaryAnimator.SetBool("AirHold", false);
+        //}
     }
+
+    public void OllieSubscribe(Action callback)
+    {
+        if (_ollieCallback.Contains(callback))
+            return;
+
+        _ollieCallback.Add(callback);
+    }
+
+    public void OllieUnscubscribe(Action callback)
+    {
+        if (!_ollieCallback.Contains(callback))
+            return;
+
+        _ollieCallback.Remove(callback);
+    }
+
 
     public void Ollie()
     {
         StartCoroutine(OllieCoroutine(OllieApplyTime, OllieForceCurve));
-        BoardPrimaryAnimator.SetTrigger("Ollie");
+
+        foreach (Action cb in _ollieCallback)
+        {
+            cb.Invoke();
+        }
+        
+        //BoardPrimaryAnimator.SetTrigger("Ollie");
         //AudioManager.Instance.PlayOneShot(GetComponent<AudioClipContainer>().GetClip("Air") , AudioManager.Instance.SFXMixer , 0.3f);
         //E.DOColor(Color.blue , 1f).From();
     }

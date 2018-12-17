@@ -5,7 +5,7 @@ using UnityEngine;
 public enum BoardStates
 {
 	Grounded,
-	InAir
+	FreeFall
 }
 
 public class BoardState : MonoBehaviour
@@ -23,8 +23,6 @@ public class BoardState : MonoBehaviour
     {
         get
         {
-            //var returnValue = false;
-
             if (GetVelocity.x < 1)
                 return false;
             else if (IsGrounded)
@@ -32,6 +30,21 @@ public class BoardState : MonoBehaviour
 
             return false;
 
+        }
+    }
+
+    public bool InFreeFall
+    {
+        get
+        {
+            if (!IsGrounded)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -123,4 +136,5 @@ public class BoardState : MonoBehaviour
 			_rigidbody.velocity = new Vector3(10 , _rigidbody.velocity.y , _rigidbody.velocity.z);
 		}
 	}
+
 }

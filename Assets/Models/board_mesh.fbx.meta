@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 9f28a6d32c5ab85468635bfc8fb31847
+guid: 8ffb35d63f446fe479a5ac7f66795994
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: baseDeck
     100002: //RootNode
-    100004: deck
+    100004: deckPivot
     100006: grip
     100008: l_wheel
     100010: lMutter
@@ -14,9 +14,11 @@ ModelImporter:
     100016: rMutter
     100018: rWheel
     100020: truck
+    100022: truckPivot
+    100024: board_mesh
     400000: baseDeck
     400002: //RootNode
-    400004: deck
+    400004: deckPivot
     400006: grip
     400008: l_wheel
     400010: lMutter
@@ -25,6 +27,8 @@ ModelImporter:
     400016: rMutter
     400018: rWheel
     400020: truck
+    400022: truckPivot
+    400024: board_mesh
     2100000: lambert1
     2100002: lambert9
     2100004: lambert7
@@ -43,17 +47,17 @@ ModelImporter:
     3300008: rMutter
     3300010: rWheel
     3300012: truck
-    4300000: lWheel
-    4300002: lMutter
-    4300004: rMutter
-    4300006: rWheel
+    4300000: rMutter
+    4300002: rWheel
+    4300004: lWheel
+    4300006: lMutter
     4300008: truck
     4300010: grip
     4300012: baseDeck
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -85,12 +89,13 @@ ModelImporter:
     globalScale: 0.25
     meshCompression: 0
     addColliders: 0
-    importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -101,7 +106,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
@@ -109,6 +114,9 @@ ModelImporter:
     normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
