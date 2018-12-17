@@ -1,5 +1,82 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &168265299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 168265300}
+  - component: {fileID: 168265302}
+  - component: {fileID: 168265301}
+  m_Layer: 12
+  m_Name: grip (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &168265300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168265299}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.000087075794, y: 0.0334706, z: -0.00006934816}
+  m_LocalScale: {x: 0.90000045, y: 0.9, z: 1.0000005}
+  m_Children: []
+  m_Father: {fileID: 8471510511300278653}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &168265302
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168265299}
+  m_Mesh: {fileID: 4300010, guid: 8ffb35d63f446fe479a5ac7f66795994, type: 3}
+--- !u!23 &168265301
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168265299}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: d668501ed4de6b34883a843954657e78, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1234981019284982
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4110778524809426
 Transform:
   m_ObjectHideFlags: 0
@@ -55,7 +132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337622814412152}
   m_LocalRotation: {x: 0.70710635, y: -0, z: -0, w: 0.70710725}
-  m_LocalPosition: {x: -0.5, y: 5, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0.613, z: -0.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4221002154417286}
@@ -70,10 +147,10 @@ Light:
   m_GameObject: {fileID: 1337622814412152}
   m_Enabled: 1
   serializedVersion: 8
-  m_Type: 0
-  m_Color: {r: 0, g: 1, b: 0.96124196, a: 1}
-  m_Intensity: 8
-  m_Range: 6
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 3
+  m_Range: 3
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -84,17 +161,17 @@ Light:
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
-  m_Cookie: {fileID: 2800000, guid: 2b02214ec64f085428a3cb3e44a6d374, type: 3}
+  m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4096
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 2
+  m_BounceIntensity: 4
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -341,22 +418,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb4df7cbb08b1e4a80af55cd42d0fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OlliePower: 2
+  OlliePower: 1.5
   OllieForceCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1.5488802
-      outSlope: 1.5488802
+      inSlope: 4.209947
+      outSlope: 4.209947
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.27686706
-      value: 0.4288339
+      time: 0.1582605
+      value: 0.6662683
       inSlope: 3.535628
       outSlope: 3.535628
       tangentMode: 0
@@ -364,10 +441,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.3731907
-      value: 1.0036997
-      inSlope: 1.4201247
-      outSlope: 1.4201247
+      time: 0.2484501
+      value: 1.1315492
+      inSlope: 1.2623101
+      outSlope: 1.2623101
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -393,7 +470,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  OllieApplyTime: 0.3
+  OllieApplyTime: 0.2
   BoardPrimaryAnimator: {fileID: 0}
 --- !u!114 &114711116003368006
 MonoBehaviour:
@@ -466,7 +543,7 @@ GameObject:
   - component: {fileID: 7736269887813640328}
   - component: {fileID: 1542806289041652329}
   - component: {fileID: 4810588677995144858}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rMutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +652,7 @@ GameObject:
   - component: {fileID: 7505107950522077594}
   - component: {fileID: 1439493257274086523}
   - component: {fileID: 8354097811559035028}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: lWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +728,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 716226905610199910}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: l_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -716,7 +793,7 @@ GameObject:
   - component: {fileID: 240662653794269678}
   - component: {fileID: 9069291463821651842}
   - component: {fileID: 4248427826246709088}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -794,7 +871,7 @@ GameObject:
   - component: {fileID: 8322555237684205822}
   - component: {fileID: 2088365516222082351}
   - component: {fileID: 6726513341452136259}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: lMutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -922,7 +999,7 @@ GameObject:
   - component: {fileID: 6331064929641347446}
   - component: {fileID: 4667200317092603804}
   - component: {fileID: 6286235099628490012}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: truck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -997,7 +1074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5990877857249888715}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: r_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1029,7 +1106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 841625631482646922}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: truckPivotB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1116,7 +1193,7 @@ GameObject:
   - component: {fileID: 8471510511300278633}
   - component: {fileID: 8471510511303670097}
   - component: {fileID: 8471510511302704017}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rMutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1193,7 +1270,7 @@ GameObject:
   - component: {fileID: 8471510511300278635}
   - component: {fileID: 8471510511303670099}
   - component: {fileID: 8471510511302704019}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1271,7 +1348,7 @@ GameObject:
   - component: {fileID: 8471510511300278637}
   - component: {fileID: 8471510511303670101}
   - component: {fileID: 8471510511302704021}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: truck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8471510511300278639}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: truckPivotF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1379,7 +1456,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8471510511300278641}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: l_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1413,7 +1490,7 @@ GameObject:
   - component: {fileID: 8471510511300278643}
   - component: {fileID: 8471510511303670109}
   - component: {fileID: 8471510511302704029}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: lMutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1490,7 +1567,7 @@ GameObject:
   - component: {fileID: 8471510511300278645}
   - component: {fileID: 8471510511303670111}
   - component: {fileID: 8471510511302704031}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: lWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1566,7 +1643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8471510511300278647}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: r_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1600,7 +1677,7 @@ GameObject:
   - component: {fileID: 8471510511300278649}
   - component: {fileID: 8471510511303670105}
   - component: {fileID: 8471510511302704025}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: baseDeck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1675,7 +1752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8471510511300278653}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: deckPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1695,6 +1772,7 @@ Transform:
   m_Children:
   - {fileID: 8471510511300278649}
   - {fileID: 8471510511300278655}
+  - {fileID: 168265300}
   m_Father: {fileID: 2020895002884051501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1709,7 +1787,7 @@ GameObject:
   - component: {fileID: 8471510511300278655}
   - component: {fileID: 8471510511303670107}
   - component: {fileID: 8471510511302704027}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1724,8 +1802,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8471510511300502879}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00008707578, y: 0.033470593, z: -0.00006934815}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.00008707578, y: 0.05, z: -0.00006934815}
+  m_LocalScale: {x: 0.9, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 8471510511300278653}
   m_RootOrder: 1

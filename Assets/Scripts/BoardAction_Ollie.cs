@@ -30,6 +30,12 @@ public class BoardAction_Ollie : MonoBehaviour {
             Ollie();
         }
 
+        if (Input.GetKeyDown(KeyCode.DownArrow) && _boardStateScript.InFreeFall)
+        {
+            Debug.Log("Catch");
+            _boardStateScript.Catch();
+        }
+
         //if (!_boardStateScript.IsGrounded)
         //{
         //    BoardPrimaryAnimator.SetBool("AirHold", true);

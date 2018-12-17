@@ -20,6 +20,34 @@ MonoBehaviour:
   - {fileID: 114455831928527358}
   - {fileID: 114721548366295708}
   - {fileID: 114901831383546844}
+  - {fileID: 114750926130453356}
+  - {fileID: 114320382785796470}
+--- !u!114 &114320382785796470
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  spectralLut:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 26534f2d5894add499249fc1b8373a24, type: 3}
+    defaultState: 1
+  intensity:
+    overrideState: 1
+    value: 0.22
+  fastMode:
+    overrideState: 0
+    value: 0
 --- !u!114 &114352226822736692
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1343,19 +1371,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 10
   threshold:
     overrideState: 1
-    value: 1
+    value: 0.9
   softKnee:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 0.3
   clamp:
     overrideState: 0
     value: 20
@@ -1396,7 +1424,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: -46
+    value: 68.51
   intensityX:
     overrideState: 1
     value: 0.5
@@ -1410,8 +1438,8 @@ MonoBehaviour:
     overrideState: 1
     value: -0.24
   scale:
-    overrideState: 0
-    value: 1.01
+    overrideState: 1
+    value: 0.8
 --- !u!114 &114487089341529460
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1430,10 +1458,10 @@ MonoBehaviour:
     value: 1
   shutterAngle:
     overrideState: 1
-    value: 270
+    value: 360
   sampleCount:
     overrideState: 1
-    value: 17
+    value: 4
 --- !u!114 &114669312594418816
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1446,22 +1474,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   focusDistance:
     overrideState: 1
-    value: 5.13
+    value: 6
   aperture:
     overrideState: 1
-    value: 6.3
+    value: 7
   focalLength:
     overrideState: 1
-    value: 131
+    value: 218
   kernelSize:
     overrideState: 1
-    value: 0
+    value: 2
 --- !u!114 &114721548366295708
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1506,6 +1534,55 @@ MonoBehaviour:
   opacity:
     overrideState: 0
     value: 1
+--- !u!114 &114750926130453356
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
+  m_Name: AmbientOcclusion
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 0
+  intensity:
+    overrideState: 1
+    value: 2
+  color:
+    overrideState: 1
+    value: {r: 1, g: 0.6927224, b: 0.0141509175, a: 1}
+  ambientOnly:
+    overrideState: 1
+    value: 0
+  noiseFilterTolerance:
+    overrideState: 0
+    value: 0
+  blurTolerance:
+    overrideState: 0
+    value: -4.6
+  upsampleTolerance:
+    overrideState: 0
+    value: -12
+  thicknessModifier:
+    overrideState: 1
+    value: 10
+  directLightingStrength:
+    overrideState: 0
+    value: 0
+  radius:
+    overrideState: 1
+    value: 0.3
+  quality:
+    overrideState: 1
+    value: 2
 --- !u!114 &114901831383546844
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1536,10 +1613,10 @@ MonoBehaviour:
     value: 8
   maximumMarchDistance:
     overrideState: 1
-    value: 100
+    value: 367.6
   distanceFade:
     overrideState: 1
-    value: 0.447
+    value: 0.502
   vignette:
     overrideState: 1
-    value: 0.5
+    value: 0.436

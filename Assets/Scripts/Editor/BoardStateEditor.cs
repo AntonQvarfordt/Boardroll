@@ -18,9 +18,17 @@ public class BoardStateEditor : Editor {
 		EditorGUILayout.PrefixLabel("Is Grounded");
 		EditorGUILayout.Toggle(targetScript.IsGrounded);
 		EditorGUILayout.EndHorizontal();
-		EditorGUILayout.Space();
 
-		var activeStates = targetScript.ActiveStates;
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PrefixLabel("Catch Window");
+        EditorGUILayout.Toggle(targetScript.InCatchWindow);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
+
+
+
+
+        var activeStates = targetScript.ActiveStates;
 
 		foreach (BoardStates state in activeStates)
 		{
