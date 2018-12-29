@@ -7,10 +7,10 @@ PhysicMaterial:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ice
-  dynamicFriction: 0.2
-  staticFriction: 0.2
-  bounciness: 0.1
-  frictionCombine: 0
+  dynamicFriction: 0.05
+  staticFriction: 0.05
+  bounciness: 0
+  frictionCombine: 1
   bounceCombine: 2
 --- !u!1002 &13400001
 EditorExtensionImpl:
