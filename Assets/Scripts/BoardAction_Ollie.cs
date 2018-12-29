@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoardAction_Ollie : MonoBehaviour {
 
@@ -25,6 +26,14 @@ public class BoardAction_Ollie : MonoBehaviour {
 
     private void Update()
     {
+        if (_boardStateScript.IsIncapacitated)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+
         if (Input.GetKeyDown("space")  && _boardStateScript.IsGrounded)
         {
             Ollie();

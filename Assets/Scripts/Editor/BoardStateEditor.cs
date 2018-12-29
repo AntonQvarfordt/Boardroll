@@ -23,10 +23,12 @@ public class BoardStateEditor : Editor {
         EditorGUILayout.PrefixLabel("Catch Window");
         EditorGUILayout.Toggle(targetScript.InCatchWindow);
         EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PrefixLabel("Incapacitated");
+        EditorGUILayout.Toggle(targetScript.IsIncapacitated);
+        EditorGUILayout.EndHorizontal();
         EditorGUILayout.Space();
-
-
-
 
         var activeStates = targetScript.ActiveStates;
 

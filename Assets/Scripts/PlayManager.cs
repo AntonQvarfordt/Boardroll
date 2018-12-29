@@ -18,7 +18,6 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
     public Transform SpawnPoint;
     public GameObject PlayerPrefab;
 
-    //private bool _initialized;
     private bool _hasPlayerReference
     {
         get
@@ -30,22 +29,18 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
 
     private void Awake()
     {
-        Debug.Log("Awake PM - " + frameCount);
     }
     private void Start()
     {
-        Debug.Log("Start PM - " + frameCount);
         StartCoroutine(InitCall());
     }
 
     public void Init()
     {
-        Debug.Log("Init PM - " + frameCount);
         _initialized = true;
         ActivePlayer = SpawnPlayer();
         _populateAroundTarget = ActivePlayer.gameObject;
         OnPlayerSpawned(ActivePlayer);
-
     }
 
     public void SubscribeOnPlayerSpawned(Action<Player> callbackMethod)
@@ -112,15 +107,6 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
             Destroy(module.gameObject);
         }
     }
-
-    //private void CalculateSceneModuleOrder()
-    //{
-    //	var modulePositions = new List<KeyValuePair<GameObject , float>>();
-    //	foreach (LevelBlock module in SceneModules)
-    //	{
-    //		modulePositions.Add(new KeyValuePair<GameObject , float>(gameObject , module.transform.position.x));
-    //	}
-    //}
 
     private void PlaceNewSceneModule(bool right = true)
     {
@@ -228,6 +214,15 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
     {
         var player = Instantiate(PlayerPrefab);
         player.transform.position = SpawnPoint.position;
+
+        var collider = player.GetComponentInChildren<Collider>();
+        var newMatValues = collider.sharedMaterial;
+        newMatValues.bounciness = 0.0f;
+        newMatValues.dynamicFriction = 0.05f;
+        newMatValues.staticFriction = 0.05f;
+        newMatValues.frictionCombine = PhysicMaterialCombine.Minimum;
+        collider.sharedMaterial = newMatValues;
+
         return player.GetComponent<Player>();
     }
 

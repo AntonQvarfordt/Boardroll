@@ -15,14 +15,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public string PlayScene;
     public string MenuScene;
 
-    private void Awake()
-    {
-        Debug.Log("Awake GM - " + frameCount);
-    }
-
     private void Start()
     {
-        Debug.Log("Start GM - " + frameCount);
         StartCoroutine(InitCall());
     }
 
@@ -34,7 +28,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public void Init ()
     {
-        Debug.Log("Init GM - " + frameCount);
         _initialized = true;
     }
     private void Update()

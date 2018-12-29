@@ -10,13 +10,10 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     private void Awake()
     {
         _audioSourcePool = GetComponent<AudioSourcePool>();
-        Debug.Log("Awake AM - " + frameCount);
-
     }
 
     private void Start()
     {
-        Debug.Log("Start AM - " + frameCount);
         StartCoroutine(InitCall());
     }
     private void Update()
@@ -30,10 +27,10 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     }
     public void Init()
     {
-        Debug.Log("Init AM - " + frameCount);
         _initialized = true;
     }
 
+    //Used for calling from UnityEvents
     public void PlayClipTrigger (AudioClip clip)
     {
         PlayOneShot(clip);

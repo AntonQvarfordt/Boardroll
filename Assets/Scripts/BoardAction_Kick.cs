@@ -19,6 +19,9 @@ public class BoardAction_Kick : MonoBehaviour {
     }
     private void Update()
     {
+        if (_boardStateScript.IsIncapacitated)
+            return;
+
         if (Input.GetKeyDown("e") && _boardStateScript.IsGrounded)
         {
             Kick();
