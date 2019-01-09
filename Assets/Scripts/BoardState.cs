@@ -165,6 +165,7 @@ public class BoardState : MonoBehaviour
 
     public void Catch(float windowOfOpporunity = 0.2f)
     {
+        _rigidbody.AddForce(new Vector3(0, -10, 0), ForceMode.Impulse);
         SetCatchWindowOpen(windowOfOpporunity);
     }
 

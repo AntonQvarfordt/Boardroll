@@ -21,7 +21,6 @@ public class BoardAction_Ollie : MonoBehaviour {
     {
         _rigidbody = GetComponent<Rigidbody>();
         _boardStateScript = GetComponent<BoardState>();
-      
     }
 
     private void Update()
@@ -41,7 +40,7 @@ public class BoardAction_Ollie : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.DownArrow) && _boardStateScript.InFreeFall)
         {
-            Debug.Log("Catch");
+            //Debug.Log("Catch");
             _boardStateScript.Catch();
         }
 
@@ -70,7 +69,6 @@ public class BoardAction_Ollie : MonoBehaviour {
 
         _ollieCallback.Remove(callback);
     }
-
 
     public void Ollie()
     {
