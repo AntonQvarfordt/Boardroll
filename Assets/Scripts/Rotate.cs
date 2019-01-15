@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour {
 
-	public int speed = 100;
+	public int speed = 5;
 
-    // Use this for initialization
-    void Update () 
+	// Use this for initialization
+	void Update () 
 	{
-		transform.Rotate (speed * Time.deltaTime, 0, 0);
+		transform.Rotate (0,0, speed * Time.deltaTime);
 	}
 }
