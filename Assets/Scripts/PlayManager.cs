@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class PlayManager : MonoBehaviourSingleton<PlayManager>
 {
     public Player ActivePlayer;
@@ -28,11 +26,9 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
             return ActivePlayer;
         }
     }
+
     private GameObject _populateAroundTarget;
 
-    private void Awake()
-    {
-    }
     private void Start()
     {
         StartCoroutine(InitCall());
@@ -69,10 +65,10 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
             action.Invoke(player);
         }
 
-        var boardGuy = Instantiate(BoardGuyPrefab, ActivePlayer.transform);
-        var newPos = boardGuy.transform.localPosition;
-        newPos.y += 0.15f;
-        boardGuy.transform.localPosition = newPos;
+        //var boardGuy = Instantiate(BoardGuyPrefab, ActivePlayer.transform);
+        //var newPos = boardGuy.transform.localPosition;
+        //newPos.y += 0.15f;
+        //boardGuy.transform.localPosition = newPos;
     }
 
     private void Update()
