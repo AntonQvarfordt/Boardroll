@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Unity.Collections;
-using UnityEngine.Experimental.Animations;
+
+using UnityEngine.Animations;
 
 // TODO Icons
 
@@ -11,36 +12,36 @@ namespace RootMotion.FinalIK
     /// <summary>
     /// AimIK AnimationJob.
     /// </summary>
-    public struct AimIKJob : IAnimationJob
+    public struct AimIKJob : UnityEngine.Animations.IAnimationJob
     {
 
-        public TransformSceneHandle _target;
-        public TransformSceneHandle _poleTarget;
-        public TransformStreamHandle _transform;
-        public PropertySceneHandle _IKPositionWeight;
-        public PropertySceneHandle _poleWeight;
-        public PropertySceneHandle _axisX;
-        public PropertySceneHandle _axisY;
-        public PropertySceneHandle _axisZ;
-        public PropertySceneHandle _poleAxisX;
-        public PropertySceneHandle _poleAxisY;
-        public PropertySceneHandle _poleAxisZ;
-        public PropertySceneHandle _clampWeight;
-        public PropertySceneHandle _clampSmoothing;
-        public PropertySceneHandle _maxIterations;
-        public PropertySceneHandle _tolerance;
-        public PropertySceneHandle _XY;
-        public PropertySceneHandle _useRotationLimits;
+        public UnityEngine.Animations.TransformSceneHandle _target;
+        public UnityEngine.Animations.TransformSceneHandle _poleTarget;
+        public UnityEngine.Animations.TransformStreamHandle _transform;
+        public UnityEngine.Animations.PropertySceneHandle _IKPositionWeight;
+        public UnityEngine.Animations.PropertySceneHandle _poleWeight;
+        public UnityEngine.Animations.PropertySceneHandle _axisX;
+        public UnityEngine.Animations.PropertySceneHandle _axisY;
+        public UnityEngine.Animations.PropertySceneHandle _axisZ;
+        public UnityEngine.Animations.PropertySceneHandle _poleAxisX;
+        public UnityEngine.Animations.PropertySceneHandle _poleAxisY;
+        public UnityEngine.Animations.PropertySceneHandle _poleAxisZ;
+        public UnityEngine.Animations.PropertySceneHandle _clampWeight;
+        public UnityEngine.Animations.PropertySceneHandle _clampSmoothing;
+        public UnityEngine.Animations.PropertySceneHandle _maxIterations;
+        public UnityEngine.Animations.PropertySceneHandle _tolerance;
+        public UnityEngine.Animations.PropertySceneHandle _XY;
+        public UnityEngine.Animations.PropertySceneHandle _useRotationLimits;
 
-        private NativeArray<TransformStreamHandle> bones;
-        private NativeArray<PropertySceneHandle> boneWeights;
+        private NativeArray<UnityEngine.Animations.TransformStreamHandle> bones;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> boneWeights;
         private Vector3 lastLocalDirection;
         private float step;
 
         public void Setup(Animator animator, Transform[] bones, Transform target, Transform poleTarget, Transform aimTransform)
         {
-            this.bones = new NativeArray<TransformStreamHandle>(bones.Length, Allocator.Persistent);
-            this.boneWeights = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.bones = new NativeArray<UnityEngine.Animations.TransformStreamHandle>(bones.Length, Allocator.Persistent);
+            this.boneWeights = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
             
             for (int i = 0; i < this.bones.Length; i++)
             {
@@ -88,17 +89,17 @@ namespace RootMotion.FinalIK
 
         // Hinge
         private NativeArray<int> hingeFlags;
-        private NativeArray<PropertySceneHandle> hingeMinArray;
-        private NativeArray<PropertySceneHandle> hingeMaxArray;
-        private NativeArray<PropertySceneHandle> hingeUseLimitsArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> hingeMinArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> hingeMaxArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> hingeUseLimitsArray;
         private NativeArray<Quaternion> hingeLastRotations;
         private NativeArray<float> hingeLastAngles;
 
         // Angle
         private NativeArray<int> angleFlags;
         private NativeArray<Vector3> angleSecondaryAxisArray;
-        private NativeArray<PropertySceneHandle> angleLimitArray;
-        private NativeArray<PropertySceneHandle> angleTwistLimitArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> angleLimitArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> angleTwistLimitArray;
 
         private void SetUpRotationLimits(Animator animator, Transform[] bones)
         {
@@ -108,17 +109,17 @@ namespace RootMotion.FinalIK
 
             // Hinge
             this.hingeFlags = new NativeArray<int>(bones.Length, Allocator.Persistent);
-            this.hingeMinArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
-            this.hingeMaxArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
-            this.hingeUseLimitsArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.hingeMinArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.hingeMaxArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.hingeUseLimitsArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
             this.hingeLastRotations = new NativeArray<Quaternion>(bones.Length, Allocator.Persistent);
             this.hingeLastAngles = new NativeArray<float>(bones.Length, Allocator.Persistent);
 
             // Angle
             this.angleFlags = new NativeArray<int>(bones.Length, Allocator.Persistent);
             this.angleSecondaryAxisArray = new NativeArray<Vector3>(bones.Length, Allocator.Persistent);
-            this.angleLimitArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
-            this.angleTwistLimitArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.angleLimitArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.angleTwistLimitArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
 
             for (int i = 0; i < bones.Length - 1; i++)
             {
@@ -185,16 +186,16 @@ namespace RootMotion.FinalIK
 
         #endregion Rotation Limits
 
-        public void ProcessRootMotion(AnimationStream stream)
+        public void ProcessRootMotion(UnityEngine.Animations.AnimationStream stream)
         {
         }
 
-        public void ProcessAnimation(AnimationStream stream)
+        public void ProcessAnimation(UnityEngine.Animations.AnimationStream stream)
         {
             Update(stream);
         }
 
-        private void Update(AnimationStream s)
+        private void Update(UnityEngine.Animations.AnimationStream s)
         {
             if (!_target.IsValid(s)) return;
             if (!_poleTarget.IsValid(s)) return;
@@ -259,7 +260,7 @@ namespace RootMotion.FinalIK
         }
 
         // Rotating bone to get transform aim closer to target
-        private void RotateToTarget(AnimationStream s, Vector3 targetPosition, Vector3 polePosition, int i, float weight, float poleWeight, bool XY, bool useRotationLimits, Vector3 axis, Vector3 poleAxis)
+        private void RotateToTarget(UnityEngine.Animations.AnimationStream s, Vector3 targetPosition, Vector3 polePosition, int i, float weight, float poleWeight, bool XY, bool useRotationLimits, Vector3 axis, Vector3 poleAxis)
         {
             // Swing
             if (XY)
@@ -329,13 +330,13 @@ namespace RootMotion.FinalIK
         }
 
 
-        public float GetAngle(AnimationStream s, Vector3 axis, Vector3 IKPosition)
+        public float GetAngle(UnityEngine.Animations.AnimationStream s, Vector3 axis, Vector3 IKPosition)
         {
             return Vector3.Angle(_transform.GetRotation(s) * axis, IKPosition - _transform.GetPosition(s));
         }
 
         //Clamping the IKPosition to legal range
-        private Vector3 GetClampedIKPosition(AnimationStream s, float clampWeight, int clampSmoothing, Vector3 IKPosition, Vector3 transformPosition, Vector3 transformAxis)
+        private Vector3 GetClampedIKPosition(UnityEngine.Animations.AnimationStream s, float clampWeight, int clampSmoothing, Vector3 IKPosition, Vector3 transformPosition, Vector3 transformAxis)
         {
             if (clampWeight <= 0f) return IKPosition;
 
@@ -362,13 +363,13 @@ namespace RootMotion.FinalIK
         }
 
         //Gets the direction from last bone to first bone in first bone's local space.
-        private Vector3 GetLocalDirection(AnimationStream s, Vector3 transformAxis)
+        private Vector3 GetLocalDirection(UnityEngine.Animations.AnimationStream s, Vector3 transformAxis)
         {
             return Quaternion.Inverse(bones[0].GetRotation(s)) * transformAxis;
         }
 
         //Gets the offset from last position of the last bone to its current position.
-        private float GetPositionOffset(AnimationStream s, Vector3 localDirection)
+        private float GetPositionOffset(UnityEngine.Animations.AnimationStream s, Vector3 localDirection)
         {
             return Vector3.SqrMagnitude(localDirection - lastLocalDirection);
         }

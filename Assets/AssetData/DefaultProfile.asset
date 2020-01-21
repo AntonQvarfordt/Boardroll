@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,21 +15,22 @@ MonoBehaviour:
   settings:
   - {fileID: 114150440841874988}
   - {fileID: 114453385406245902}
-  - {fileID: 114872307754879106}
+  - {fileID: 302276825963941706}
   - {fileID: 114261884993835428}
   - {fileID: 114870425284438406}
 --- !u!114 &114150440841874988
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -37,7 +39,7 @@ MonoBehaviour:
     value: 1
   threshold:
     overrideState: 1
-    value: 1
+    value: 0.8
   softKnee:
     overrideState: 1
     value: 0.5
@@ -67,7 +69,8 @@ MonoBehaviour:
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -80,21 +83,22 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 7.61
+    value: 8
   aperture:
     overrideState: 1
-    value: 2.1
+    value: 2.6
   focalLength:
     overrideState: 1
     value: 67
   kernelSize:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 3
 --- !u!114 &114453385406245902
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -141,29 +145,29 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   temperature:
-    overrideState: 0
-    value: -22.81
+    overrideState: 1
+    value: 32.4
   tint:
     overrideState: 0
-    value: 0
+    value: -30.2
   colorFilter:
     overrideState: 0
-    value: {r: 0.956601, g: 1, b: 0.7877358, a: 1}
+    value: {r: 0.86788005, g: 0.9339623, b: 0.929961, a: 1}
   hueShift:
     overrideState: 0
     value: -50
   saturation:
-    overrideState: 0
-    value: -30
+    overrideState: 1
+    value: -41
   brightness:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 0.67
   contrast:
-    overrideState: 0
-    value: 100
+    overrideState: 1
+    value: -26
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -1404,7 +1408,8 @@ MonoBehaviour:
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1436,32 +1441,33 @@ MonoBehaviour:
   speedDown:
     overrideState: 0
     value: 1
---- !u!114 &114872307754879106
+--- !u!114 &302276825963941706
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
   m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   mode:
     overrideState: 1
-    value: 0
+    value: 1
   intensity:
     overrideState: 1
-    value: 0.5
+    value: 4
   color:
-    overrideState: 1
-    value: {r: 0.43529412, g: 0.36595413, b: 0.22352941, a: 1}
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
-    overrideState: 1
+    overrideState: 0
     value: 1
   noiseFilterTolerance:
     overrideState: 0
@@ -1474,7 +1480,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 1
+    value: 2.3
   directLightingStrength:
     overrideState: 0
     value: 0

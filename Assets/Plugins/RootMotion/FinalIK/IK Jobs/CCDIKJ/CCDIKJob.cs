@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Unity.Collections;
-using UnityEngine.Experimental.Animations;
+using UnityEngine.Animations;
 
 namespace RootMotion.FinalIK
 {
@@ -9,26 +9,26 @@ namespace RootMotion.FinalIK
     /// <summary>
     /// CCDIK AnimationJob.
     /// </summary>
-    public struct CCDIKJob : IAnimationJob
+    public struct CCDIKJob : UnityEngine.Animations.IAnimationJob
     {
 
-        public TransformSceneHandle _target;
-        public PropertySceneHandle _IKPositionWeight;
-        public PropertySceneHandle _maxIterations;
-        public PropertySceneHandle _tolerance;
-        public PropertySceneHandle _XY;
-        public PropertySceneHandle _useRotationLimits;
+        public UnityEngine.Animations.TransformSceneHandle _target;
+        public UnityEngine.Animations.PropertySceneHandle _IKPositionWeight;
+        public UnityEngine.Animations.PropertySceneHandle _maxIterations;
+        public UnityEngine.Animations.PropertySceneHandle _tolerance;
+        public UnityEngine.Animations.PropertySceneHandle _XY;
+        public UnityEngine.Animations.PropertySceneHandle _useRotationLimits;
 
-        private NativeArray<TransformStreamHandle> bones;
-        private NativeArray<PropertySceneHandle> boneWeights;
+        private NativeArray<UnityEngine.Animations.TransformStreamHandle> bones;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> boneWeights;
         private NativeArray<float> boneSqrMags;
         private float chainSqrMag;
         private Vector3 lastLocalDirection;
 
         public void Setup(Animator animator, Transform[] bones, Transform target)
         {
-            this.bones = new NativeArray<TransformStreamHandle>(bones.Length, Allocator.Persistent);
-            this.boneWeights = new NativeArray<PropertySceneHandle>(bones.Length - 1, Allocator.Persistent);
+            this.bones = new NativeArray<UnityEngine.Animations.TransformStreamHandle>(bones.Length, Allocator.Persistent);
+            this.boneWeights = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length - 1, Allocator.Persistent);
             this.boneSqrMags = new NativeArray<float>(bones.Length - 1, Allocator.Persistent);
 
             for (int i = 0; i < this.bones.Length; i++)
@@ -63,17 +63,17 @@ namespace RootMotion.FinalIK
 
         // Hinge
         private NativeArray<int> hingeFlags;
-        private NativeArray<PropertySceneHandle> hingeMinArray;
-        private NativeArray<PropertySceneHandle> hingeMaxArray;
-        private NativeArray<PropertySceneHandle> hingeUseLimitsArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> hingeMinArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> hingeMaxArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> hingeUseLimitsArray;
         private NativeArray<Quaternion> hingeLastRotations;
         private NativeArray<float> hingeLastAngles;
 
         // Angle
         private NativeArray<int> angleFlags;
         private NativeArray<Vector3> angleSecondaryAxisArray;
-        private NativeArray<PropertySceneHandle> angleLimitArray;
-        private NativeArray<PropertySceneHandle> angleTwistLimitArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> angleLimitArray;
+        private NativeArray<UnityEngine.Animations.PropertySceneHandle> angleTwistLimitArray;
 
         private void SetUpRotationLimits(Animator animator, Transform[] bones)
         {
@@ -83,17 +83,17 @@ namespace RootMotion.FinalIK
 
             // Hinge
             this.hingeFlags = new NativeArray<int>(bones.Length, Allocator.Persistent);
-            this.hingeMinArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
-            this.hingeMaxArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
-            this.hingeUseLimitsArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.hingeMinArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.hingeMaxArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.hingeUseLimitsArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
             this.hingeLastRotations = new NativeArray<Quaternion>(bones.Length, Allocator.Persistent);
             this.hingeLastAngles = new NativeArray<float>(bones.Length, Allocator.Persistent);
 
             // Angle
             this.angleFlags = new NativeArray<int>(bones.Length, Allocator.Persistent);
             this.angleSecondaryAxisArray = new NativeArray<Vector3>(bones.Length, Allocator.Persistent);
-            this.angleLimitArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
-            this.angleTwistLimitArray = new NativeArray<PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.angleLimitArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
+            this.angleTwistLimitArray = new NativeArray<UnityEngine.Animations.PropertySceneHandle>(bones.Length, Allocator.Persistent);
 
             for (int i = 0; i < bones.Length - 1; i++)
             {
@@ -160,16 +160,16 @@ namespace RootMotion.FinalIK
 
         #endregion Rotation Limits
 
-        public void ProcessRootMotion(AnimationStream stream)
+        public void ProcessRootMotion(UnityEngine.Animations.AnimationStream stream)
         {
         }
 
-        public void ProcessAnimation(AnimationStream stream)
+        public void ProcessAnimation(UnityEngine.Animations.AnimationStream stream)
         {
             Update(stream);
         }
 
-        private void Update(AnimationStream s)
+        private void Update(UnityEngine.Animations.AnimationStream s)
         {
             if (!_target.IsValid(s)) return;
 
@@ -209,7 +209,7 @@ namespace RootMotion.FinalIK
             lastLocalDirection = GetLocalDirection(s);
         }
 
-        private void Read(AnimationStream s)
+        private void Read(UnityEngine.Animations.AnimationStream s)
         {
             chainSqrMag = 0;
 
@@ -224,7 +224,7 @@ namespace RootMotion.FinalIK
             }
         }
 
-        private void Solve(AnimationStream s, Vector3 targetPosition, bool XY, float weight, int it, bool useRotationLimits)
+        private void Solve(UnityEngine.Animations.AnimationStream s, Vector3 targetPosition, bool XY, float weight, int it, bool useRotationLimits)
         {
             for (int i = bones.Length - 2; i > -1; i--)
             {
@@ -280,19 +280,19 @@ namespace RootMotion.FinalIK
         }
 
         //Gets the direction from last bone to first bone in first bone's local space.
-        private Vector3 GetLocalDirection(AnimationStream s)
+        private Vector3 GetLocalDirection(UnityEngine.Animations.AnimationStream s)
         {
             return Quaternion.Inverse(bones[0].GetRotation(s)) * (bones[bones.Length - 1].GetPosition(s) - bones[0].GetPosition(s));
         }
 
         //Gets the offset from last position of the last bone to its current position.
-        private float GetPositionOffset(AnimationStream s, Vector3 localDirection)
+        private float GetPositionOffset(UnityEngine.Animations.AnimationStream s, Vector3 localDirection)
         {
             return Vector3.SqrMagnitude(localDirection - lastLocalDirection);
         }
 
         // Get target offset to break out of the linear singularity issue
-        private Vector3 GetSingularityOffset(AnimationStream s, Vector3 IKPosition, bool useRotationLimits)
+        private Vector3 GetSingularityOffset(UnityEngine.Animations.AnimationStream s, Vector3 IKPosition, bool useRotationLimits)
         {
             if (!SingularityDetected(s, IKPosition)) return Vector3.zero;
 
@@ -310,7 +310,7 @@ namespace RootMotion.FinalIK
         }
 
         // Detects linear singularity issue when the direction from first bone to IKPosition matches the direction from first bone to the last bone.
-        private bool SingularityDetected(AnimationStream s, Vector3 IKPosition)
+        private bool SingularityDetected(UnityEngine.Animations.AnimationStream s, Vector3 IKPosition)
         {
             Vector3 firstBonePos = bones[0].GetPosition(s);
             Vector3 toLastBone = bones[bones.Length - 1].GetPosition(s) - firstBonePos;
