@@ -48,10 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _GIntensity: 0.055225246
+    - _GIntensity: 0.055225194
     - _Intensity: 0
     - _SIntensity: 0.84
     - _perturbation: 0.405
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

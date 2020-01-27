@@ -7,23 +7,23 @@ public class BoardAction_Break : MonoBehaviour
 
 	[Header("Skate Params")]
 	public float BreakPower = 10;
-	public AnimationCurve BreakForceCurve = new AnimationCurve();
-	public float BreakApplyTime = 2;
 
 	private Rigidbody _rigidbody;
 	private BoardState _boardStateScript;
-	public bool fUpdate = false;
+	public Animator BoardAnimator;
+	private float _startDrag;
+	public float BoardVelocity;
+
+	public BreakParticle BreakParticles;
+
+	bool isBreaking;
 
 	private void Awake()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
 		_boardStateScript = GetComponent<BoardState>();
-		Invoke("StartFUpdate", 1);
-	}
-
-	private void StartFUpdate()
-	{
-		fUpdate = true;
+		_startDrag = _rigidbody.drag;
+		
 	}
 
 	private void Update()
@@ -31,37 +31,50 @@ public class BoardAction_Break : MonoBehaviour
 		if (_boardStateScript.IsIncapacitated)
 			return;
 
-		if (Input.GetKey("q") && _boardStateScript.IsGrounded)
+		BoardVelocity = _boardStateScript.GetVelocity.magnitude;
+
+		if (Input.GetKeyDown("q") && _boardStateScript.IsGrounded)
 		{
+			if (isBreaking)
+				return;
+
 			Break();
+		}
+		
+		if (Input.GetKeyUp("q") && isBreaking)
+		{
+			CancelBreaking();
+		}
+
+		if ((_boardStateScript.GetVelocity.magnitude < 2) && isBreaking)
+		{
+			CancelBreaking();
 		}
 	}
 
 	public void Break()
 	{
-		StartCoroutine(BreakCoroutine(BreakApplyTime, BreakForceCurve));
+
+		isBreaking = true;
 		//AudioManager.Instance.PlayOneShot(GetComponent<AudioClipContainer>().GetClip("Air") , AudioManager.Instance.SFXMixer , 0.3f);
 		//E.DOColor(Color.blue , 1f).From();
+		BoardAnimator.SetBool("Breaking", true);
+		_rigidbody.drag = _startDrag * BreakPower;
+		BreakParticles.Activate();
 	}
 
 	private void FixedUpdate()
 	{
-		if (fUpdate)
-			_rigidbody.AddTorque(new Vector3(0, 100 * BreakPower, 0));
+		
 	}
 
-	private IEnumerator BreakCoroutine(float time, AnimationCurve curve)
+	public void CancelBreaking()
 	{
-		var tickTime = Time.fixedDeltaTime;
-		var timePool = 0f;
-
-		while (timePool < time)
-		{
-			var curveStep = timePool / time;
-			timePool += tickTime;
-			_rigidbody.AddForce(new Vector2(BreakPower * curve.Evaluate(curveStep), 0));
-			yield return new WaitForFixedUpdate();
-		}
-		yield return null;
+		isBreaking = false;
+		BreakParticles.Deactivate();
+		_rigidbody.drag = _startDrag ;
+		BoardAnimator.SetBool("Breaking", false);
 	}
+
+
 }

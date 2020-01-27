@@ -33,4 +33,5 @@ Material:
     - _ShadowRange: 0.628
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 2.115957, g: 2.115957, b: 2.115957, a: 0.02508}
+    - _TintColor: {r: 0.0000013970589, g: 0.0000013970589, b: 0.0000013970589, a: 0.02508}
+  m_BuildTextureStacks: []

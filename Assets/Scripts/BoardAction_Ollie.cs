@@ -12,6 +12,8 @@ public class BoardAction_Ollie : MonoBehaviour {
     public float OllieApplyTime = 2;
     public Animator BoardPrimaryAnimator;
 
+	public OllieParticles OllieParticle;
+
     private Rigidbody _rigidbody;
     private BoardState _boardStateScript;
 
@@ -73,7 +75,7 @@ public class BoardAction_Ollie : MonoBehaviour {
     public void Ollie()
     {
         StartCoroutine(OllieCoroutine(OllieApplyTime, OllieForceCurve));
-
+		OllieParticle.Trigger();
         foreach (Action cb in _ollieCallback)
         {
             cb.Invoke();
