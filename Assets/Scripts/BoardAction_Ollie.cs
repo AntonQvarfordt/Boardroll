@@ -11,6 +11,7 @@ public class BoardAction_Ollie : MonoBehaviour {
     public AnimationCurve OllieForceCurve = new AnimationCurve();
     public float OllieApplyTime = 2;
     public Animator BoardPrimaryAnimator;
+	public AudioClip OllieSound;
 
 	public OllieParticles OllieParticle;
 
@@ -80,11 +81,11 @@ public class BoardAction_Ollie : MonoBehaviour {
         {
             cb.Invoke();
         }
-        
-        //BoardPrimaryAnimator.SetTrigger("Ollie");
-        //AudioManager.Instance.PlayOneShot(GetComponent<AudioClipContainer>().GetClip("Air") , AudioManager.Instance.SFXMixer , 0.3f);
-        //E.DOColor(Color.blue , 1f).From();
-    }
+
+		//BoardPrimaryAnimator.SetTrigger("Ollie");
+		AudioManager.Instance.PlayOneShot(OllieSound, AudioManager.Instance.SFXMixer, 0.3f);
+		//E.DOColor(Color.blue, 1f).From();
+	}
 
     private IEnumerator OllieCoroutine(float time, AnimationCurve curve)
     {

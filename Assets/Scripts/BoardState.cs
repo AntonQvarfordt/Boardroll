@@ -64,6 +64,8 @@ public class BoardState : MonoBehaviour
 
     public Transform GroundProbe;
     public string GroundLayer;
+	public LandParticles LandParticle;
+	public AudioClip LandSound;
 
     public Vector3 GetVelocity
     {
@@ -147,10 +149,14 @@ public class BoardState : MonoBehaviour
 
     private void FromFreeFallToStreet()
     {
-        if (!InCatchWindow)
+		AudioManager.Instance.PlayOneShot(LandSound, AudioManager.Instance.SFXMixer, 0.3f);
+		if (!InCatchWindow)
             Bail();
         else
-            _rigidbody.AddForce(Vector3.right * GetVelocity.x * 20);
+		{
+			_rigidbody.AddForce(Vector3.right * GetVelocity.x * 20);
+			LandParticle.Activate();
+		}
     }
 
     private void VelocityClamp()
@@ -217,14 +223,14 @@ public class BoardState : MonoBehaviour
         collider.sharedMaterial = newMatValues;
 
         var randomForce = new Vector3();
-        randomForce.y = Random.Range(-0.5f, -1.5f) * GetVelocity.x;
+        randomForce.y = Random.Range(0.5f, 1.5f) * GetVelocity.x;
         randomForce.x = Random.Range(0.75f, 1.5f) * GetVelocity.x;
         randomForce.z = Random.Range(-4, 4);
 
         var randomTorqueForce = new Vector3();
         randomTorqueForce.y = randomForce.x * 8;
-        randomTorqueForce.x = Random.Range(0, 40) * GetVelocity.x + 1;
-        randomTorqueForce.z = Random.Range(0, 40) * GetVelocity.x + 1;
+        randomTorqueForce.x = Random.Range(-70, 70) * GetVelocity.x + 1;
+        randomTorqueForce.z = Random.Range(-70, 70) * GetVelocity.x + 1;
 
         _rigidbody.AddForce(randomForce, ForceMode.VelocityChange);
         _rigidbody.AddTorque(randomTorqueForce * 2, ForceMode.VelocityChange);

@@ -40,7 +40,7 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     {
         var audioSourceObject = _audioSourcePool.GetAudoSourceObject();
         var audioSource = audioSourceObject.GetAudioSource;
-
+		Debug.Log(clip.name);
 		if (mixerGroup == null)
 			mixerGroup = SFXMixer;
 

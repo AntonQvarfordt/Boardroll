@@ -13,6 +13,7 @@ public class BoardAction_Break : MonoBehaviour
 	public Animator BoardAnimator;
 	private float _startDrag;
 	public float BoardVelocity;
+	public AudioClip BreakSound;
 
 	public BreakParticle BreakParticles;
 
@@ -56,7 +57,7 @@ public class BoardAction_Break : MonoBehaviour
 	{
 
 		isBreaking = true;
-		//AudioManager.Instance.PlayOneShot(GetComponent<AudioClipContainer>().GetClip("Air") , AudioManager.Instance.SFXMixer , 0.3f);
+		AudioManager.Instance.PlayOneShot(BreakSound, AudioManager.Instance.SFXMixer, 0.3f);
 		//E.DOColor(Color.blue , 1f).From();
 		BoardAnimator.SetBool("Breaking", true);
 		_rigidbody.drag = _startDrag * BreakPower;

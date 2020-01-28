@@ -8,7 +8,7 @@ public class BoardAction_Kick : MonoBehaviour {
 	public float KickPower = 10;
 	public AnimationCurve KickForceCurve = new AnimationCurve();
 	public float KickApplyTime = 2;
-
+	public AudioClip KickSound;
 	private Rigidbody _rigidbody;
     private BoardState _boardStateScript;
 
@@ -31,7 +31,7 @@ public class BoardAction_Kick : MonoBehaviour {
 	public void Kick()
 	{
 		StartCoroutine(KickCoroutine(KickApplyTime , KickForceCurve));
-		//AudioManager.Instance.PlayOneShot(GetComponent<AudioClipContainer>().GetClip("Air") , AudioManager.Instance.SFXMixer , 0.3f);
+		AudioManager.Instance.PlayOneShot(KickSound, AudioManager.Instance.SFXMixer , 0.3f);
 		//E.DOColor(Color.blue , 1f).From();
 	}
 
