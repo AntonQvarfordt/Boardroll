@@ -224,7 +224,7 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
         newMatValues.bounciness = 0.0f;
         newMatValues.dynamicFriction = 0.05f;
         newMatValues.staticFriction = 0.05f;
-        newMatValues.frictionCombine = PhysicMaterialCombine.Minimum;
+        newMatValues.frictionCombine = PhysicsMaterialCombine.Minimum;
         collider.sharedMaterial = newMatValues;
 
         return player.GetComponent<Player>();

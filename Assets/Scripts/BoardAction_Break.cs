@@ -23,7 +23,7 @@ public class BoardAction_Break : MonoBehaviour
 	{
 		_rigidbody = GetComponent<Rigidbody>();
 		_boardStateScript = GetComponent<BoardState>();
-		_startDrag = _rigidbody.drag;
+		_startDrag = _rigidbody.linearDamping;
 		
 	}
 
@@ -60,7 +60,7 @@ public class BoardAction_Break : MonoBehaviour
 		AudioManager.Instance.PlayOneShot(BreakSound, AudioManager.Instance.SFXMixer, 0.3f);
 		//E.DOColor(Color.blue , 1f).From();
 		BoardAnimator.SetBool("Breaking", true);
-		_rigidbody.drag = _startDrag * BreakPower;
+		_rigidbody.linearDamping = _startDrag * BreakPower;
 		BreakParticles.Activate();
 	}
 
@@ -73,7 +73,7 @@ public class BoardAction_Break : MonoBehaviour
 	{
 		isBreaking = false;
 		BreakParticles.Deactivate();
-		_rigidbody.drag = _startDrag ;
+		_rigidbody.linearDamping = _startDrag ;
 		BoardAnimator.SetBool("Breaking", false);
 	}
 

@@ -2,11 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[System.Serializable]
+public struct KickValues
+{
+    public float KickPower;
+    public AnimationCurve KickForceCurve;
+    public float KickApplyTime;
+    public AudioClip KickSound;
+}
+
 public class BoardAction_Kick : MonoBehaviour {
+
+	public KickValues[] KValues;
 
 	[Header("Skate Params")]
 	public float KickPower = 10;
-	public AnimationCurve KickForceCurve = new AnimationCurve();
+	public AnimationCurve KickForceCurve;
 	public float KickApplyTime = 2;
 	public AudioClip KickSound;
 	private Rigidbody _rigidbody;

@@ -1,13 +1,13 @@
-﻿using Cinemachine;
-using System.Collections;
+﻿using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviourSingleton<CameraManager>
 {
-    public CinemachineVirtualCamera _activeCamera;
+    public CinemachineCamera _activeCamera;
 
-    public CinemachineVirtualCamera _followCamera;
-    public CinemachineVirtualCamera _deathCamera;
+    public CinemachineCamera _followCamera;
+    public CinemachineCamera _deathCamera;
 
     private CinemachineBrain _cameraBrain;
 
@@ -44,7 +44,7 @@ public class CameraManager : MonoBehaviourSingleton<CameraManager>
         _deathCamera.LookAt = player.transform;
     }
 
-    public void ChangeCamera (CinemachineVirtualCamera camera)
+    public void ChangeCamera (CinemachineCamera camera)
     {
         camera.gameObject.SetActive(true);
         _activeCamera.gameObject.SetActive(false);

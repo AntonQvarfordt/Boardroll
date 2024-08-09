@@ -73,7 +73,7 @@ public class BoardState : MonoBehaviour
         {
             var returnValue = new Vector3();
             if (_rigidbody != null)
-                returnValue = _rigidbody.velocity;
+                returnValue = _rigidbody.linearVelocity;
 
             return returnValue;
         }
@@ -94,7 +94,7 @@ public class BoardState : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.drag = _rBodyBaseDrag;
+        _rigidbody.linearDamping = _rBodyBaseDrag;
     }
 
     private void Start()
@@ -161,9 +161,9 @@ public class BoardState : MonoBehaviour
 
     private void VelocityClamp()
     {
-        if (_rigidbody.velocity.x > _velocityClamp)
+        if (_rigidbody.linearVelocity.x > _velocityClamp)
         {
-            _rigidbody.velocity = new Vector3(_velocityClamp, _rigidbody.velocity.y, _rigidbody.velocity.z);
+            _rigidbody.linearVelocity = new Vector3(_velocityClamp, _rigidbody.linearVelocity.y, _rigidbody.linearVelocity.z);
         }
     }
 
@@ -212,7 +212,7 @@ public class BoardState : MonoBehaviour
         IsIncapacitated = true;
 
         _rigidbody.constraints = RigidbodyConstraints.None;
-        _rigidbody.drag = 0.75f;
+        _rigidbody.linearDamping = 0.75f;
 
         var collider = GetComponentInChildren<Collider>();
         var newMatValues = collider.sharedMaterial;
@@ -252,7 +252,7 @@ public class BoardState : MonoBehaviour
         newMatValues.bounciness = 0.1f;
         newMatValues.dynamicFriction = 0.2f;
         newMatValues.staticFriction = 0.2f;
-        newMatValues.frictionCombine = PhysicMaterialCombine.Average;
+        newMatValues.frictionCombine = PhysicsMaterialCombine.Average;
         collider.sharedMaterial = newMatValues;
     }
 
