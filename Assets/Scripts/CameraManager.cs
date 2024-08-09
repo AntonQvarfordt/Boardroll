@@ -29,7 +29,7 @@ public class CameraManager : MonoBehaviourSingleton<CameraManager>
 
     private void OnEnable()
     {
-        FindObjectOfType<PlayManager>().SubscribeOnPlayerSpawned(OnPlayerSpawned);
+        FindFirstObjectByType<PlayManager>().SubscribeOnPlayerSpawned(OnPlayerSpawned);
     }
 
     private void Update()

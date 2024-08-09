@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 555039347498124441}
   - component: {fileID: 449746021317171111}
   m_Layer: 12
-  m_Name: Point Light
+  m_Name: pLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,9 +453,9 @@ GameObject:
   - component: {fileID: 554946335886760505}
   - component: {fileID: 540321837406887715}
   - component: {fileID: 443653601750521671}
+  - component: {fileID: 444438840483930125}
   - component: {fileID: 444316426750205171}
   - component: {fileID: 444397091904649837}
-  - component: {fileID: 444438840483930125}
   - component: {fileID: 443696806550312713}
   - component: {fileID: 557742545678177704}
   m_Layer: 12
@@ -494,7 +494,7 @@ Rigidbody:
   m_GameObject: {fileID: 556894155886013779}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.1
+  m_Drag: 0.05
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -505,13 +505,13 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 40
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &443653601750521671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +524,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd0e5cf2d9a7e44d935c6fb89556524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &444438840483930125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556894155886013779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9f0fd70119666459604c7432a44314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroundProbe: {fileID: 554632387006686755}
+  GroundLayer: Street
+  LandParticle: {fileID: 2141045637}
+  LandSound: {fileID: 8300000, guid: 96bbf34d7aee725449bb8a5f1a46bfbb, type: 3}
+  ActiveStates: 
 --- !u!114 &444316426750205171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,7 +606,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  KickApplyTime: 1.4
+  KickApplyTime: 0.6
   KickSound: {fileID: 8300000, guid: dbc17452b5c57c74381e22f45a9e5b2e, type: 3}
 --- !u!114 &444397091904649837
 MonoBehaviour:
@@ -603,7 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb4df7cbb08b1e4a80af55cd42d0fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OlliePower: 2
+  OlliePower: 0.8
   OllieForceCurve:
     serializedVersion: 2
     m_Curve:
@@ -657,25 +674,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   OllieApplyTime: 0.2
   BoardPrimaryAnimator: {fileID: 0}
-  OllieSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
+  OllieSound: {fileID: 8300000, guid: 31d4354cef3a92a4481b8c1464e22afd, type: 3}
   OllieParticle: {fileID: 1903640702}
---- !u!114 &444438840483930125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556894155886013779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b9f0fd70119666459604c7432a44314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GroundProbe: {fileID: 554632387006686755}
-  GroundLayer: Street
-  LandParticle: {fileID: 2141045637}
-  LandSound: {fileID: 8300000, guid: 96bbf34d7aee725449bb8a5f1a46bfbb, type: 3}
-  ActiveStates: 
 --- !u!114 &443696806550312713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 554690262195614749}
   - component: {fileID: 528060131035060369}
   m_Layer: 12
-  m_Name: boxCollider
+  m_Name: struct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -840,7 +840,7 @@ GameObject:
   - component: {fileID: 557742544586339968}
   - component: {fileID: 557742544586339975}
   m_Layer: 12
-  m_Name: boxCollider
+  m_Name: struct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1065,7 +1065,7 @@ GameObject:
   - component: {fileID: 557742545613853310}
   - component: {fileID: 557742545613853309}
   m_Layer: 12
-  m_Name: Point Light (1)
+  m_Name: pLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1347,7 +1347,7 @@ GameObject:
   - component: {fileID: 2482652733072212753}
   - component: {fileID: 6223324217124569517}
   m_Layer: 12
-  m_Name: boxCollider (1)
+  m_Name: struct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1763,7 +1763,7 @@ GameObject:
   - component: {fileID: 8709849522261740634}
   - component: {fileID: 8406000183210585406}
   m_Layer: 12
-  m_Name: Capsule
+  m_Name: wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2022,7 +2022,7 @@ GameObject:
   - component: {fileID: 8468314955340850518}
   - component: {fileID: 7720855498832139884}
   m_Layer: 12
-  m_Name: Capsule (1)
+  m_Name: wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

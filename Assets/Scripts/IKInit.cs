@@ -53,7 +53,7 @@ public class IKInit : MonoBehaviour
 
     private IKTarget GetMatchingTarget (IKGroup ikG)
     {
-        var ikTargets = FindObjectsOfType<IKTarget>();
+        var ikTargets = Resources.FindObjectsOfTypeAll(typeof(IKTarget));
         var matchingTargets = new List<IKTarget>();
 
         foreach (IKTarget target in ikTargets)

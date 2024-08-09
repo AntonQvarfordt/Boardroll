@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         SceneManager.sceneLoaded -= OnPlaySceneLoaded;
 
-        var playManager = FindObjectOfType<PlayManager>();
+        var playManager = FindFirstObjectByType<PlayManager>();
 
         if (playManager == null)
         {

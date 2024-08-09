@@ -12,7 +12,7 @@ public class BackgroundMusicPlayer : MonoBehaviour {
             if (s_Instance != null)
                 return s_Instance;
 
-            s_Instance = FindObjectOfType<BackgroundMusicPlayer>();
+            s_Instance = FindFirstObjectByType<BackgroundMusicPlayer>();
 
             return s_Instance;
         }
