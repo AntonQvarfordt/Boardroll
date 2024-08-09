@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayManager : MonoBehaviourSingleton<PlayManager>
 {
@@ -9,12 +10,12 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
     private List<Action<Player>> OnPlayerSpawnedCallbacks = new List<Action<Player>>();
 
     public float FillRange = 50;
-    public float ModuleSpan = 10;
+    //public float ModuleSpan = 10;
 
     public Transform SceneModuleContainer;
     public List<LevelBlock> SceneModules = new List<LevelBlock>();
 
-    public GameObject SceneModulePrefab;
+    public GameObject[] SceneModulePrefab;
     public Transform SpawnPoint;
     public GameObject PlayerPrefab;
     public GameObject BoardGuyPrefab;
@@ -105,6 +106,11 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
             }
         }
 
+        foreach (LevelBlock block in removeList)
+        {
+            Debug.Log("Removing Block at Position: " + block.transform.position);
+        }
+
         foreach (LevelBlock module in removeList)
         {
             SceneModules.Remove(module);
@@ -129,20 +135,33 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
         else if (right)
         {
             var modulePos = GetRightMost().transform.position;
-            module.transform.position = new Vector3(modulePos.x + ModuleSpan, 0, 0);
+            module.transform.position = new Vector3(modulePos.x + GetRightMost().SceneModuleWidth, 0, 0);
         }
         else
         {
-            var modulePos = GetLeftMost().transform.position;
-            module.transform.position = new Vector3(modulePos.x - ModuleSpan, 0, 0);
+            var leftMost = GetLeftMost();
+            var modulePos = leftMost.transform.position;
+            module.transform.position = new Vector3(modulePos.x - module.SceneModuleWidth, 0, 0);
         }
 
         SceneModules.Add(module);
     }
 
-    private LevelBlock SpawnSceneModule()
+    private LevelBlock SpawnSceneModule(int moduleIndex = -1)
     {
-        var go = Instantiate(SceneModulePrefab, SceneModuleContainer);
+        GameObject module;
+        if (moduleIndex == -1)
+        {
+     
+            var randomNumber = Random.Range(0, SceneModulePrefab.Length);
+            module = SceneModulePrefab[randomNumber];
+        }
+        else
+        {
+            module = SceneModulePrefab[moduleIndex];
+        }
+        //Debug.Log(module.name);
+        var go = Instantiate(module, SceneModuleContainer);
         var returnValue = go.GetComponent<LevelBlock>();
         return returnValue;
     }
@@ -192,7 +211,7 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
         if (leftMost == null)
             return false;
 
-        var leftMostDistance = Mathf.Abs(_populateAroundTarget.transform.position.x - (leftMost.transform.position.x - ModuleSpan));
+        var leftMostDistance = Mathf.Abs(_populateAroundTarget.transform.position.x - (leftMost.transform.position.x - leftMost.SceneModuleWidth));
 
         if (leftMostDistance < FillRange)
             return false;
@@ -206,7 +225,7 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
         if (rightMost == null)
             return false;
 
-        var rightMostDistance = Mathf.Abs(_populateAroundTarget.transform.position.x - (rightMost.transform.position.x + ModuleSpan));
+        var rightMostDistance = Mathf.Abs(_populateAroundTarget.transform.position.x - (rightMost.transform.position.x + rightMost.SceneModuleWidth));
 
         if (rightMostDistance < FillRange)
             return false;

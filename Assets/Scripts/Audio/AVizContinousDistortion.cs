@@ -15,7 +15,7 @@ public class AVizContinousDistortion : MonoBehaviour
     private void Start()
     {
         TargetOriginalScale = Target.localScale;
-        VisBrain.eventProvider.SongLoaded += Init;
+        //VisBrain.eventProvider.SongLoaded += Init;
     }
 
     private void Init()

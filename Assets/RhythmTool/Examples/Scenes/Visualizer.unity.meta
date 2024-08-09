@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: dca6453b6ca176644a40ae571b62f570
+timeCreated: 1559675630
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Examples/Scenes/Visualizer.unity
+  uploadId: 664821

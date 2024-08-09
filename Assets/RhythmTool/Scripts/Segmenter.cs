@@ -1,148 +1,153 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-public class Segmenter
+namespace RhythmTool
 {
-    public ReadOnlyDictionary<int, float> changes { get; private set; }
-    public ReadOnlyCollection<int> changeIndices { get; private set; }
-
-    private Dictionary<int, float> _changes;
-    private List<int> _changeIndices;
-
-    private ReadOnlyCollection<float> magnitudeSmooth;
-    private ReadOnlyCollection<float> magnitudeAvg;
-
-    private int changeStart = 0;
-    private float changeSign = 0;
-
-    public Segmenter(AnalysisData analysis)
+    /// <summary>
+    /// The Segmenter find sections of the song at which large changes in average volume occur.
+    /// These changes often indicate different segments of a song.
+    /// </summary>
+    [AddComponentMenu("RhythmTool/Segmenter")]
+    public class Segmenter : Analysis<Value>
     {
-        magnitudeSmooth = analysis.magnitudeSmooth;
-        magnitudeAvg = analysis.magnitudeAvg;
-
-        _changes = new Dictionary<int, float>();
-        _changeIndices = new List<int>();
-
-        changes = new ReadOnlyDictionary<int, float>(_changes);
-        changeIndices = _changeIndices.AsReadOnly();
-    }
-
-    public void Init()
-    {
-        changeStart = 0;
-        
-        _changes.Clear();
-        _changeIndices.Clear();
-    }
-
-    public void Init(IDictionary<int, float> changes)
-    {
-        _changeIndices.Clear();
-        _changes.Clear();
-
-        foreach (KeyValuePair<int, float> item in changes)
+        public override string name
         {
-            _changes.Add(item.Key, item.Value);
-            _changeIndices.Add(item.Key);
+            get
+            {
+                return "Segments";
+            }
+        }
+        
+        [Range(0, 64), Tooltip("The threshold for detecting large differences in volume.")]
+        public float threshold = 22;
+
+        [Range(1, 16), Tooltip("How much smoothing is applied to the audio signal.")]
+        public int smoothing = 8;
+
+        private Vector2 changeWeight = new Vector2(.1f, 10);
+
+        private float changeStartSlope = .005f;
+        private float changeEndSlope = .002f;
+
+        private int iterations = 4;
+
+        private int bufferSize;
+
+        private float[][] buffer;
+        private float[] kernel;
+
+        private float w;
+
+        private float current;
+        private float next;
+        
+        private bool change;
+        private float changeSign;
+        private Vector2 changeStart;
+
+        private float maxSlope;
+        private int maxSlopeIndex;
+
+        public override void Initialize(int sampleRate, int frameSize, int hopSize)
+        {
+            base.Initialize(sampleRate, frameSize, hopSize);
+
+            bufferSize = smoothing * 16;
+
+            buffer = new float[iterations][];
+
+            for (int i = 0; i < iterations; i++)
+                buffer[i] = new float[bufferSize];
+
+            kernel = Util.HannWindow(bufferSize);
+
+            w = 0;
+
+            for (int i = 0; i < bufferSize; i++)
+                w += kernel[i];
+            
+            maxSlope = 0;
+            maxSlopeIndex = 0;
         }
 
-        _changeIndices.Sort();
-    }
-    
-    public void DetectChanges(int index)
-    {
-        if (index < 0)
-            return;
-
-        float dif = magnitudeAvg[index + 1] - magnitudeAvg[index];
-        
-        if (dif >= .05f && changeStart == 0)        
-            changeStart = index;        
-
-        if (dif <= -.08f && changeStart == 0)        
-            changeStart = index;
-
-        if (changeStart == index)
-            changeSign = Mathf.Sign(dif);
-
-        if (dif * changeSign < .04f * changeSign && changeStart != 0)
+        public override void Process(float[] samples, float[] magnitude, int frameIndex)
         {
-            int requiredLength = 22;
+            base.Process(samples, magnitude, frameIndex);
 
-            if (dif * changeSign > .04f * -changeSign)
-                requiredLength = 12;
-
-            int bestIndex = changeStart + (index - changeStart) / 2;
-            float best = magnitudeSmooth[bestIndex + 1] - magnitudeSmooth[bestIndex];
-
-            for (int i = changeStart; i < index; i++)
+            float sample = Util.Mean(magnitude, 0, 350);
+            
+            for(int i = 0; i < iterations; i++)
             {
-                float current = magnitudeSmooth[i + 1] - magnitudeSmooth[i];
+                for (int j = 0; j < bufferSize - 1; j++)
+                    buffer[i][j] = buffer[i][j + 1];
 
-                if (current * changeSign > best * changeSign)
+                if (i == 0)
+                    buffer[i][bufferSize - 1] = sample;
+                else
+                    buffer[i][bufferSize - 1] = Util.WeightedSum(buffer[i - 1], kernel, bufferSize / 2) / w;
+            }
+            
+            sample = Util.WeightedSum(buffer[iterations - 1], kernel, bufferSize / 2) / w;
+
+            current = next;
+            next = sample;
+          
+            FindSegments();
+        }
+                        
+        private void FindSegments()
+        {
+            float slope = Mathf.Abs(next - current);
+
+            if (slope > maxSlope)
+            {
+                maxSlope = slope;
+                maxSlopeIndex = frameIndex - (bufferSize / 2) * iterations;
+            }
+
+            FindChangeEnd(slope);
+            FindChangeStart(slope);
+        }
+        
+
+        private void FindChangeEnd(float slope)
+        {
+            if (change && slope * changeSign < changeEndSlope)
+            {
+                float requiredLength = threshold;
+
+                if (Mathf.Abs(slope) < changeStartSlope)
+                    requiredLength *= .75f;
+                
+                Vector2 diff = new Vector2(frameIndex - (bufferSize / 2) * iterations, current) - changeStart;
+
+                diff = Vector2.Scale(diff, changeWeight);
+
+                if (diff.magnitude > requiredLength)
                 {
-                    bestIndex = i;
-                    best = current;
+                    Value segment = new Value()
+                    {
+                        timestamp = FrameIndexToSeconds(maxSlopeIndex),
+                        value = current
+                    };
+
+                    track.Add(segment);
                 }
+
+                change = false;
             }
-
-            float length = magnitudeAvg[index] - magnitudeAvg[changeStart];
-            length = Mathf.Sqrt(Mathf.Pow(length, 2) + Mathf.Pow((index - changeStart) * .1f, 2));
-
-            if (length > requiredLength)
-            {
-                _changes.Add(bestIndex, magnitudeAvg[index] * changeSign);
-                _changeIndices.Add(bestIndex);
-            }
-
-            changeStart = 0;
         }
-    }
 
-    public int PrevChangeIndex(int index)
-    {
-        if (_changeIndices.Count == 0)
-            return 0;
+        private void FindChangeStart(float slope)
+        {
+            if (!change && Mathf.Abs(slope) > changeStartSlope)
+            {
+                maxSlope = slope;
+                maxSlopeIndex = frameIndex - (bufferSize / 2) * iterations;
 
-        int prevChange = _changeIndices.BinarySearch(index);
-        prevChange = Mathf.Max(prevChange, ~prevChange);
-        prevChange = Mathf.Clamp(prevChange - 1, 0, _changeIndices.Count - 1);
-
-        prevChange = _changeIndices[prevChange];
-        return prevChange;
-    }
-
-    public int NextChangeIndex(int index)
-    {
-        if (_changeIndices.Count == 0)
-            return 0;
-
-        int nextChange = _changeIndices.BinarySearch(index);
-        nextChange = Mathf.Max(nextChange, ~nextChange);
-        nextChange = Mathf.Clamp(nextChange, 0, _changeIndices.Count - 1);
-
-        nextChange = _changeIndices[nextChange];
-        return nextChange;
-    }
-
-    public float PrevChange(int index)
-    {
-        if (_changes.Count == 0)
-            return 0;
-
-        int prevChange = PrevChangeIndex(index);
-
-        return _changes[prevChange];
-    }
-
-    public float NextChange(int index)
-    {
-        if (_changes.Count == 0)
-            return 0;
-
-        int nextChange = NextChangeIndex(index);
-
-        return _changes[nextChange];
+                changeStart = new Vector2(maxSlopeIndex, current);
+                change = true;
+                changeSign = Mathf.Sign(slope);
+            }
+        }        
     }
 }

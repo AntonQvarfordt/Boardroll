@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 287e0accf2a9d494ca96b569cf37531b
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Examples/AudioImporter Visualizer.unitypackage
+  uploadId: 664821

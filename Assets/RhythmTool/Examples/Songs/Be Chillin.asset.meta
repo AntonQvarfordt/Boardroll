@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7041a74d64dfafa44bfd76e2ab0b2f23
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Examples/Songs/Be Chillin.asset
+  uploadId: 664821

@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: 5cf180704ed6ea94da1b11a80c41b1cb
-timeCreated: 1496474273
+guid: 90f73d4caec906740957cc50e304e3fb
+timeCreated: 1512972069
 licenseType: Store
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0
@@ -10,3 +11,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Scripts/LomontFFT.cs
+  uploadId: 664821

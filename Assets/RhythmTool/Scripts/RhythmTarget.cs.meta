@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: b4976d9794b27524c91660c3cbbb9bdf
+timeCreated: 1540109521
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Scripts/RhythmTarget.cs
+  uploadId: 664821

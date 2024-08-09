@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 4441c1fab3119af4bb6d18cb48a9c462
+timeCreated: 1539893856
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Scripts/OnsetTrack.cs
+  uploadId: 664821

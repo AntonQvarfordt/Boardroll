@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 86a44117029575e4cb59a14216f87720
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Editor/RhythmDataEditor.cs
+  uploadId: 664821

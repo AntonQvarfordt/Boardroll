@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: 8e0b76428809244498a64fc7faddda44
-timeCreated: 1496474274
+guid: 6db39287e5bc5874aaac6aba86cd9801
+timeCreated: 1512210223
 licenseType: Store
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0
@@ -10,3 +11,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15679
+  packageName: RhythmTool
+  packageVersion: 3.3
+  assetPath: Assets/RhythmTool/Scripts/Analysis.cs
+  uploadId: 664821

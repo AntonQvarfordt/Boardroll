@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using RhythmTool;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +20,9 @@ public class VisualizationBrain : MonoBehaviour {
 
     public List<Action<BeatEventData>> OnSetCallbacks = new List<Action<BeatEventData>>();
 
-	public RhythmTool rhythmTool;
+	public RhythmData DataThing;
+	public RhythmPlayer rhythmTool;
+	public RhythmTarget tgt;
 	public RhythmEventProvider eventProvider;
 	public float Volume;
 
@@ -31,8 +33,9 @@ public class VisualizationBrain : MonoBehaviour {
     {
         get
         {
-            AnalysisData all = rhythmTool.all;
-            return all.magnitude[rhythmTool.currentFrame];
+			return 0f;
+            //RhythmData all = rhythmTool.get;
+            //return all.magnitude[rhythmTool.currentFrame];
         }
     }
 
@@ -40,8 +43,9 @@ public class VisualizationBrain : MonoBehaviour {
 	{
 		get
 		{
-			AnalysisData all = rhythmTool.all;
-            return all.magnitudeSmooth[rhythmTool.currentFrame];
+			return 0f;
+			//DataThing.
+   //         return all.magnitudeSmooth[rhythmTool.currentFrame];
 		}
 	}
 
@@ -49,7 +53,7 @@ public class VisualizationBrain : MonoBehaviour {
 	{
 		get
 		{
-			return rhythmTool.songLoaded;
+			return true;
 		}
 	}
 
@@ -57,11 +61,11 @@ public class VisualizationBrain : MonoBehaviour {
 	{
 		currentSong = -1;
 
-		eventProvider.Onset += OnOnset;
-		eventProvider.Beat += OnBeat;
-		eventProvider.Change += OnChange;
-		eventProvider.SongLoaded += OnSongLoaded;
-		eventProvider.SongEnded += OnSongEnded;
+		//eventProvider. += OnOnset;
+		//eventProvider.Beat += OnBeat;
+		//eventProvider.Change += OnChange;
+		//eventProvider.SongLoaded += OnSongLoaded;
+		//eventProvider.SongEnded += OnSongEnded;
 
 		if (audioClips.Count <= 0)
 			Debug.LogWarning("no songs configured");
@@ -88,7 +92,7 @@ public class VisualizationBrain : MonoBehaviour {
 		if (currentSong >= audioClips.Count)
 			currentSong = 0;
 
-		rhythmTool.audioClip = audioClips[currentSong];
+		//rhythmTool. = audioClips[currentSong];
 	}
 
 	private void OnChange( int index , float change )
@@ -117,31 +121,32 @@ public class VisualizationBrain : MonoBehaviour {
         OnSetCallbacks.Remove(action);
     }
 
-    private void OnOnset( OnsetType type , Onset onset )
-	{
-		if (onset.rank < 4 && onset.strength < 5)
-			return;
+ //   private void OnOnset( OnsetType type , Onset onset )
+	//{
+	//	if (onset.rank < 4 && onset.strength < 5)
+ //           return;
 
-		switch (type)
-		{
-			case OnsetType.Low:
-				//Debug.Log("OnSet|low");
-				break;
-			case OnsetType.Mid:
-				//Debug.Log("OnSet|mid");
-				break;
-			case OnsetType.High:
-				//Debug.Log("OnSet|high");
-				break;
-			case OnsetType.All:
-				//Debug.Log("OnSet|all");
-                foreach (Action<BeatEventData> callback in OnSetCallbacks)
-                {
-                    callback.Invoke(GetBeatData());
-                }
-				break;
-		}
-	}
+
+ //       switch (type)
+	//	{
+	//		case OnsetType.Low:
+	//			//Debug.Log("OnSet|low");
+	//			break;
+	//		case OnsetType.Mid:
+	//			//Debug.Log("OnSet|mid");
+	//			break;
+	//		case OnsetType.High:
+	//			//Debug.Log("OnSet|high");
+	//			break;
+	//		case OnsetType.All:
+	//			//Debug.Log("OnSet|all");
+ //               foreach (Action<BeatEventData> callback in OnSetCallbacks)
+ //               {
+ //                   callback.Invoke(GetBeatData());
+ //               }
+	//			break;
+	//}
+	//}
 
     private BeatEventData GetBeatData ()
     {
