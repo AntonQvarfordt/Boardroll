@@ -106,10 +106,10 @@ public class PlayManager : MonoBehaviourSingleton<PlayManager>
             }
         }
 
-        foreach (LevelBlock block in removeList)
-        {
-            Debug.Log("Removing Block at Position: " + block.transform.position);
-        }
+        //foreach (LevelBlock block in removeList)
+        //{
+        //    Debug.Log("Removing Block at Position: " + block.transform.position);
+        //}
 
         foreach (LevelBlock module in removeList)
         {

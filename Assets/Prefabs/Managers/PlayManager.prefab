@@ -46,12 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivePlayer: {fileID: 0}
   FillRange: 50
-  ModuleSpan: 10
   SceneModuleContainer: {fileID: 0}
   SceneModules: []
   SceneModulePrefab:
-  - {fileID: 1562151603131846, guid: daa289f9a38f0e74a81759fa1e394484, type: 3}
-  - {fileID: 3882763689547917462, guid: 65ed6f18830408b4597baf7059cc5613, type: 3}
+  - {fileID: 4584529072039487802, guid: daa289f9a38f0e74a81759fa1e394484, type: 3}
+  - {fileID: 291033988894602431, guid: 65ed6f18830408b4597baf7059cc5613, type: 3}
   SpawnPoint: {fileID: 0}
   PlayerPrefab: {fileID: 556894155886013779, guid: 7b3f077f967f6b24fbeaec78a0bf54f9,
     type: 3}

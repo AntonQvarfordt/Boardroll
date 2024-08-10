@@ -87,7 +87,7 @@ public class BoardState : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private float _rBodyBaseDrag = 0.1f;
-    private float _velocityClamp = 10f;
+    private float _velocityClamp = 15f;
     private bool _grounded;
     private bool _inCatchWindow;
 
