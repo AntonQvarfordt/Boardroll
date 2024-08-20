@@ -44,6 +44,14 @@ namespace RootMotion.FinalIK {
 			return true;
 		}
 
+        /// <summary>
+        /// Set IK rotation weight for the arm.
+        /// </summary>
+        public void SetRotationWeight(float weight)
+        {
+            IKRotationWeight = weight;
+        }
+
 		/// <summary>
 		/// Reinitiate the solver with new bone Transforms.
 		/// </summary>
@@ -104,8 +112,8 @@ namespace RootMotion.FinalIK {
 		}
 		
 		private void Solve() {
-			arm.PreSolve ();
-			arm.ApplyOffsets( );
+			arm.PreSolve (1f);
+			arm.ApplyOffsets(1f);
 			arm.Solve (isLeft);
 			arm.ResetOffsets ();
 		}

@@ -17,22 +17,32 @@ namespace RootMotion.Demos {
 			[HideInInspector] public Vector3 localPosition;
 		}
 
+        [Tooltip("Optional. Assign the bone Transform that is closest to this OffsetEffector to be able to call OffsetEffector.Anchor() in LateUpdate to match its position and rotation to animation.")]
+        public Transform anchor;
 		public EffectorLink[] effectorLinks;
+
+        private Vector3 posRelToAnchor;
+        private Quaternion rotRelToAnchor = Quaternion.identity;
 
 		protected override void Start() {
 			base.Start();
 
+            if (anchor != null)
+            {
+                posRelToAnchor = anchor.InverseTransformPoint(transform.position);
+                rotRelToAnchor = Quaternion.Inverse(anchor.rotation) * transform.rotation;
+            }
+
 			// Store the default positions of the effectors relative to this GameObject's position
 			foreach (EffectorLink e in effectorLinks) {
-				e.localPosition = transform.InverseTransformPoint(ik.solver.GetEffector(e.effectorType).bone.position);
-
-				// If we are using the body effector, make sure it does not change the thigh effectors
-				if (e.effectorType == FullBodyBipedEffector.Body) ik.solver.bodyEffector.effectChildNodes = false;
+                var bone = ik.solver.GetEffector(e.effectorType).bone;
+                e.localPosition = transform.InverseTransformPoint(bone.position);
+                if (e.effectorType == FullBodyBipedEffector.Body) ik.solver.bodyEffector.effectChildNodes = false;
 			}
 		}
 
 		protected override void OnModifyOffset() {
-			// Update the effectors
+            // Update the effectors
 			foreach (EffectorLink e in effectorLinks) {
 				// Using effector positionOffset
 				Vector3 positionTarget = transform.TransformPoint(e.localPosition);
@@ -40,5 +50,13 @@ namespace RootMotion.Demos {
 				ik.solver.GetEffector(e.effectorType).positionOffset += (positionTarget - (ik.solver.GetEffector(e.effectorType).bone.position + ik.solver.GetEffector(e.effectorType).positionOffset)) * weight * e.weightMultiplier;
 			}
 		}
-	}
+
+        public void Anchor()
+        {
+            if (anchor == null) return;
+
+            transform.position = anchor.TransformPoint(posRelToAnchor);
+            transform.rotation = anchor.rotation * rotRelToAnchor;
+        }
+    }
 }

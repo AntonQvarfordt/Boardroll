@@ -67,7 +67,7 @@ namespace RootMotion.FinalIK {
 		}
 
 		/// <summary>
-		/// Sets the pose active, increasing it's angle buffer.
+		/// Sets the pose active, increasing its angle buffer.
 		/// </summary>
 		public void SetPoseActive(Pose pose) {
 			for (int i = 0; i < poses.Length; i++) {

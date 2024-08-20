@@ -26,13 +26,17 @@ namespace RootMotion.FinalIK {
 		/// </summary>
 		public delegate void GrounderDelegate();
 		/// <summary>
-		/// Called before the Grounder updates it's solver.
+		/// Called before the Grounder updates its solver.
 		/// </summary>
 		public GrounderDelegate OnPreGrounder;
 		/// <summary>
-		/// Called after the Grounder has updated it's solver and before the IK is applied.
+		/// Called after the Grounder has updated its solver and before the IK is applied.
 		/// </summary>
 		public GrounderDelegate OnPostGrounder;
+        /// <summary>
+        /// Called after the IK has updated.
+        /// </summary>
+        public GrounderDelegate OnPostIK;
 
 		/// <summary>
 		/// Resets this Grounder so characters can be teleported instananeously.
@@ -60,8 +64,10 @@ namespace RootMotion.FinalIK {
 		// Gets the bend direction for a foot
 		private Vector3 GetLegSpineBendVector(Grounding.Leg leg) {
 			Vector3 spineTangent = GetLegSpineTangent(leg);
-			float dotF = (Vector3.Dot(solver.root.forward, spineTangent.normalized) + 1) * 0.5f;
-			float w = (leg.IKPosition - leg.transform.position).magnitude;
+            float dotF = (Vector3.Dot(solver.root.forward, spineTangent.normalized) + 1) * 0.5f; // Default behaviour, not bending spine when going downhill
+            //float dotF = Mathf.Abs(Vector3.Dot(solver.root.forward, spineTangent.normalized)); // Bending spine backwards when going downhill
+            //float dotF = Vector3.Dot(solver.root.forward, spineTangent.normalized); // Bending spine forward when going downhill
+            float w = (leg.IKPosition - leg.transform.position).magnitude;
 			return spineTangent * w * dotF;
 		}
 		

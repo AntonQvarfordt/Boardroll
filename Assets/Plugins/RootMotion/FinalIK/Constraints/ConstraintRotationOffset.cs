@@ -4,7 +4,7 @@ using System.Collections;
 namespace RootMotion.FinalIK {
 
 	/// <summary>
-	/// Offsets the transform from it's (animated) rotation
+	/// Offsets the transform from its (animated) rotation
 	/// </summary>
 	[System.Serializable]
 	public class ConstraintRotationOffset: Constraint {

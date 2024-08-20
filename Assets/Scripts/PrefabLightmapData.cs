@@ -164,14 +164,14 @@ public class PrefabLightmapData : MonoBehaviour
     [UnityEditor.MenuItem("Assets/Bake Prefab Lightmaps")]
     static void GenerateLightmapInfo()
     {
-        if (UnityEditor.Lightmapping.giWorkflowMode != UnityEditor.Lightmapping.GIWorkflowMode.OnDemand)
-        {
-            Debug.LogError("ExtractLightmapData requires that you have baked you lightmaps and Auto mode is disabled.");
-            return;
-        }
+        //if (UnityEditor.Lightmapping.giWorkflowMode != UnityEditor.Lightmapping.GIWorkflowMode.OnDemand)
+        //{
+        //    Debug.LogError("ExtractLightmapData requires that you have baked you lightmaps and Auto mode is disabled.");
+        //    return;
+        //}
         UnityEditor.Lightmapping.Bake();
 
-        PrefabLightmapData[] prefabs = FindObjectsOfType<PrefabLightmapData>();
+        PrefabLightmapData[] prefabs = FindObjectsByType<PrefabLightmapData>(FindObjectsSortMode.InstanceID);
 
         foreach (var instance in prefabs)
         {

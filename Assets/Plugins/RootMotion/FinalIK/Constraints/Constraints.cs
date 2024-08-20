@@ -46,6 +46,9 @@ namespace RootMotion.FinalIK {
 		[Range(0f, 1f)]
 		public float rotationWeight;
 
+        private Vector3 defaultLocalPosition;
+        private Quaternion defaultLocalRotation;
+
 		/// <summary>
 		/// Determines whether this instance is valid.
 		/// </summary>
@@ -60,7 +63,15 @@ namespace RootMotion.FinalIK {
 			this.transform = transform;
 			this.position = transform.position;
 			this.rotation = transform.eulerAngles;
+            defaultLocalPosition = transform.localPosition;
+            defaultLocalRotation = transform.localRotation;
 		}
+
+        public void FixTransforms()
+        {
+            transform.localPosition = defaultLocalPosition;
+            transform.localRotation = defaultLocalRotation;
+        }
 
 		/// <summary>
 		/// Updates the constraints.

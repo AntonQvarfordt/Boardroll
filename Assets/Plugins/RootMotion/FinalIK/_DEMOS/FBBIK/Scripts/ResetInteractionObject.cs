@@ -5,7 +5,7 @@ using RootMotion.FinalIK;
 namespace RootMotion.Demos {
 
 	/// <summary>
-	/// Resets an interaction object to it's initial position and rotation after "resetDelay" from interaction trigger.
+	/// Resets an interaction object to its initial position and rotation after "resetDelay" from interaction trigger.
 	/// </summary>
 	public class ResetInteractionObject : MonoBehaviour {
 
@@ -27,6 +27,7 @@ namespace RootMotion.Demos {
 
 		// Called by the Interaction Object
 		void OnPickUp(Transform t) {
+            if (!enabled) return;
 			StopAllCoroutines();
 			StartCoroutine(ResetObject(Time.time + resetDelay));
 		}

@@ -26,14 +26,13 @@ namespace RootMotion.FinalIK {
 			protected float crossFader { get; private set; }
 			protected float timer { get; private set; }
 			protected Vector3 force { get; private set; }
-			protected Vector3 point { get; private set; }
-
+			
 			private float length;
 			private float crossFadeSpeed;
 			private float lastTime;
 
 			// Start processing the hit
-			public void Hit(Vector3 force, Vector3 point) {
+			public virtual void Hit(Vector3 force, Vector3 point) {
 				if (length == 0f) length = GetLength();
 				if (length <= 0f) {
 					Debug.LogError("Hit Point WeightCurve length is zero.");
@@ -50,7 +49,6 @@ namespace RootMotion.FinalIK {
 
 				// Remember hit direction and point
 				this.force = force;
-				this.point = point;
 			}
 
 			// Apply to IKSolverFullBodyBiped
@@ -159,7 +157,7 @@ namespace RootMotion.FinalIK {
 
 				private Quaternion lastValue = Quaternion.identity;
 				private Quaternion current = Quaternion.identity;
-
+                
 				// Apply a rotational offset to this effector
 				public void Apply(IKSolverFullBodyBiped solver, Quaternion offset, float crossFader) {
 					current = Quaternion.Lerp(lastValue, Quaternion.Lerp(Quaternion.identity, offset, weight), crossFader);
@@ -173,15 +171,26 @@ namespace RootMotion.FinalIK {
 				}
 			}
 
-			[Tooltip("The angle to rotate the bone around it's rigidbody's world center of mass")]
+			[Tooltip("The angle to rotate the bone around its rigidbody's world center of mass")]
 			public AnimationCurve aroundCenterOfMass;
 			[Tooltip("Linking this hit point to bone(s)")]
 			public BoneLink[] boneLinks;
 
 			private Rigidbody rigidbody;
+            private Vector3 comAxis;
 
-			// Returns the length of this hit (last key in the AnimationCurves)
-			protected override float GetLength() {
+            public override void Hit(Vector3 force, Vector3 point)
+            {
+                base.Hit(force, point);
+
+                if (rigidbody == null) rigidbody = collider.GetComponent<Rigidbody>();
+
+                Vector3 com = rigidbody != null ? rigidbody.worldCenterOfMass : collider.transform.position;
+                comAxis = Vector3.Cross(force, point - com);
+            }
+
+            // Returns the length of this hit (last key in the AnimationCurves)
+            protected override float GetLength() {
 				return aroundCenterOfMass.keys.Length > 0? aroundCenterOfMass.keys[aroundCenterOfMass.length - 1].time: 0f;
 			}
 
@@ -192,16 +201,11 @@ namespace RootMotion.FinalIK {
 
 			// Calculate offset, apply to the bones
 			protected override void OnApply(IKSolverFullBodyBiped solver, float weight) {
-				if (rigidbody == null) rigidbody = collider.GetComponent<Rigidbody>();
-				if (rigidbody != null) {
-					Vector3 comAxis = Vector3.Cross(force, point - rigidbody.worldCenterOfMass);
-					float comValue = aroundCenterOfMass.Evaluate(timer) * weight;
-					Quaternion offset = Quaternion.AngleAxis(comValue, comAxis);
+				float comValue = aroundCenterOfMass.Evaluate(timer) * weight;
+				Quaternion offset = Quaternion.AngleAxis(comValue, comAxis);
 
-					foreach (BoneLink b in boneLinks) b.Apply(solver, offset, crossFader);
-				}
+				foreach (BoneLink b in boneLinks) b.Apply(solver, offset, crossFader);
 			}
-
 		}
 
 		[Tooltip("Hit points for the FBBIK effectors")]

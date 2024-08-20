@@ -31,7 +31,7 @@ namespace RootMotion.FinalIK {
 		 * Draws the custom inspector for BipedIK.Solvers
 		 * */
 		public static void AddInspector(SerializedProperty prop, SerializedProperty[] props) {
-			EditorGUILayout.PropertyField(prop);
+			EditorGUILayout.PropertyField(prop, false);
 			
 			if (prop.isExpanded) {
 				for (int i = 0; i < props.Length; i++) {
@@ -105,7 +105,7 @@ namespace RootMotion.FinalIK {
 			EditorGUI.indentLevel = 1;
 			EditorGUILayout.BeginVertical("Box");
 			
-			EditorGUILayout.PropertyField(prop);
+			EditorGUILayout.PropertyField(prop, false);
 		}
 		
 		/*

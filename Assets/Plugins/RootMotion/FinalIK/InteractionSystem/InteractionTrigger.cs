@@ -78,9 +78,9 @@ namespace RootMotion.FinalIK {
 			[Tooltip("Max offset of the character's position from this range's center.")]
 			public float radius = 0.5f;
 			/// <summary>
-			/// If true, will rotate the trigger around it's Y axis relative to the position of the character, so the object can be interacted with from all sides.
+			/// If true, will rotate the trigger around its Y axis relative to the position of the character, so the object can be interacted with from all sides.
 			/// </summary>
-			[Tooltip("If true, will rotate the trigger around it's Y axis relative to the position of the character, so the object can be interacted with from all sides.")]
+			[Tooltip("If true, will rotate the trigger around its Y axis relative to the position of the character, so the object can be interacted with from all sides.")]
 			public bool orbit;
 			/// <summary>
 			/// Fixes the Y axis of the trigger to Vector3.up. This makes the trigger symmetrical relative to the object.
@@ -222,13 +222,13 @@ namespace RootMotion.FinalIK {
 		}
 		
 		/// <summary>
-		/// Defines the valid range of the character's and/or it's camera's position for one or multiple interactions.
+		/// Defines the valid range of the character's and/or its camera's position for one or multiple interactions.
 		/// </summary>
 		[System.Serializable]
 		public class Range {
 		
-			[HideInInspector][SerializeField] public string name; // Name is composed automatically by InteractionTriggerInspector.cs. Editor only.
-			[HideInInspector][SerializeField] public bool show = true; // Show this range in the Scene view? Editor only.
+			[HideInInspector] public string name; // Name is composed automatically by InteractionTriggerInspector.cs. Editor only.
+			[HideInInspector] public bool show = true; // Show this range in the Scene view? Editor only.
 			
 			/// <summary>
 			/// Defines the interaction object and effectors that will be triggered when calling InteractionSystem.TriggerInteraction().
@@ -279,16 +279,13 @@ namespace RootMotion.FinalIK {
 			}
 		}
 
-		// Just to see the enabled box in the Editor
-		void Start() {}
-		
 		/// <summary>
-		/// The valid ranges of the character's and/or it's camera's position for triggering interaction when the character is in contact with the collider of this trigger.
+		/// The valid ranges of the character's and/or its camera's position for triggering interaction when the character is in contact with the collider of this trigger.
 		/// </summary>
-		[Tooltip("The valid ranges of the character's and/or it's camera's position for triggering interaction when the character is in contact with the collider of this trigger.")]
+		[Tooltip("The valid ranges of the character's and/or its camera's position for triggering interaction when the character is in contact with the collider of this trigger.")]
 		public Range[] ranges = new Range[0];
 		
-		// Returns the index of the ranges that is best fit for the current position/rotation of the character and it's camera.
+		// Returns the index of the ranges that is best fit for the current position/rotation of the character and its camera.
 		public int GetBestRangeIndex(Transform character, Transform raycastFrom, RaycastHit raycastHit) {
 			if (GetComponent<Collider>() == null) {
 				Warning.Log("Using the InteractionTrigger requires a Collider component.", transform);

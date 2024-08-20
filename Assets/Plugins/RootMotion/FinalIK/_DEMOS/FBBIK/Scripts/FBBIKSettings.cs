@@ -30,7 +30,7 @@ namespace RootMotion.Demos {
 		public bool disableAfterStart; // If true, will not update after Start
 		public Limb leftArm, rightArm, leftLeg, rightLeg; // The Limbs
 
-		public float rootPin = 0f; // Weight of pinning the root node to it's animated position
+		public float rootPin = 0f; // Weight of pinning the root node to its animated position
 		public bool bodyEffectChildNodes = true; // If true, the body effector will also drag the thigh effectors
 
 		// Apply all the settings to the FBBIK solver

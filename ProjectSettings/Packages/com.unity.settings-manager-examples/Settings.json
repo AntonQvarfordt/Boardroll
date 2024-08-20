@@ -1,0 +1,11 @@
+{
+    "m_Dictionary": {
+        "m_DictionaryValues": [
+            {
+                "type": "UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "key": "MySettingsExamples.m_ColorField",
+                "value": "{\"m_Value\":{\"r\":1.0,\"g\":0.0,\"b\":0.0,\"a\":0.0}}"
+            }
+        ]
+    }
+}

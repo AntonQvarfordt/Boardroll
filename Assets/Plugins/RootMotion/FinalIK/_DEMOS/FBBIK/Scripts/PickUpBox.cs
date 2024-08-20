@@ -25,6 +25,10 @@ namespace RootMotion.Demos {
 			
 			// Rotate towards axis and upAxis
 			pivot.localRotation = Quaternion.LookRotation(axis, upAxis);
+
+			// Match rotation of pivot to character rotation (added in v2.2)
+			Quaternion q = RootMotion.QuaTools.FromToRotation(pivot.rotation, interactionSystem.transform.rotation);
+			holdPoint.rotation = q * holdPoint.rotation;
 		}
 	}
 }

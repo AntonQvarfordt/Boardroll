@@ -44,7 +44,7 @@ namespace RootMotion.FinalIK {
 		[Range(0f, 1f)]
 		public float maintainRotationWeight;
 		/// <summary>
-		/// The weight of mapping the limb to it's IK pose. This can be useful if you want to disable the effect of IK for the limb.
+		/// The weight of mapping the limb to its IK pose. This can be useful if you want to disable the effect of IK for the limb.
 		/// </summary>
 		[Range(0f, 1f)]
 		public float weight = 1f; // Added in 0.2
@@ -166,7 +166,7 @@ namespace RootMotion.FinalIK {
 					//boneMapParent.Swing(boneMap1.node.solverPosition, weight);
 				}
 				
-				// Fix the first bone to it's node
+				// Fix the first bone to its node
 				boneMap1.FixToNode(solver, weight);
 			}
 

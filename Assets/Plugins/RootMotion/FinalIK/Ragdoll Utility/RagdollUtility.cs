@@ -7,7 +7,6 @@ namespace RootMotion.FinalIK {
 	/// <summary>
 	/// Ragdoll Utility controls switching characters in and out of ragdoll mode. It also enables you to use IK effects on top of ragdoll simulation.
 	/// </summary>
-	[RequireComponent(typeof(Animator))]
 	public class RagdollUtility : MonoBehaviour {
 
 		#region Main Interface
@@ -181,6 +180,7 @@ namespace RootMotion.FinalIK {
 		private float ragdollWeightV;
 		private bool fixedFrame;
 		private bool[] disabledIKComponents = new bool[0];
+		private bool animatorDisabled;
 
 		// Find all necessary components and initiate
 		public void Start() {
@@ -226,7 +226,11 @@ namespace RootMotion.FinalIK {
 
 			// Animator has not updated yet.
 			animator.updateMode = animatorUpdateMode;
-			animator.enabled = true;
+			if (animatorDisabled)
+			{
+				animator.enabled = true;
+				animatorDisabled = false;
+			}
 
 			// Blend back to animation
 			while (ragdollWeight > 0f) {
@@ -239,7 +243,7 @@ namespace RootMotion.FinalIK {
 			yield return null;
 		}
 
-		void Update() {
+		public void Update() {
 			if (!isRagdoll) return;
 
 			// Disable IK components if applyIKOnRagdoll has been set to false while in ragdoll.
@@ -284,14 +288,14 @@ namespace RootMotion.FinalIK {
 			}
 		}
 
-		void FixedUpdate() {
+		public void FixedUpdate() {
 			// When in ragdoll, move the bones to where they were after the last physics simulation, so IK won't screw up the physics
 			if (isRagdoll && applyIkOnRagdoll) FixTransforms(1f);
 
 			fixedFrame = true;
 		}
 
-		void LateUpdate() {
+		public void LateUpdate() {
 			// When Mecanim has animated...
 			if (animator.updateMode != AnimatorUpdateMode.Fixed || (animator.updateMode == AnimatorUpdateMode.Fixed && fixedFrame)) {
 				AfterAnimation();
@@ -347,7 +351,11 @@ namespace RootMotion.FinalIK {
 			animator.updateMode = AnimatorUpdateMode.Fixed;
 
 			// Disable the Animator so it won't overwrite physics
-			animator.enabled = false;
+			if (animator.enabled)
+			{
+				animator.enabled = false;
+				animatorDisabled = true;
+			}
 			
 			for (int i = 0; i < rigidbones.Length; i++) rigidbones[i].WakeUp(applyVelocity, applyAngularVelocity);
 

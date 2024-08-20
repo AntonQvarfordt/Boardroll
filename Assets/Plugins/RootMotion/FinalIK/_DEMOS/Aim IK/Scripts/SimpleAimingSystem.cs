@@ -7,7 +7,7 @@ namespace RootMotion.Demos {
 
 	// Demonstrating 360-degree aiming system built with 6 static aiming poses and AimIK.
 	public class SimpleAimingSystem : MonoBehaviour {
-		
+
 		[Tooltip("AimPoser is a tool that returns an animation name based on direction.")]
 		public AimPoser aimPoser;
 		
@@ -36,10 +36,6 @@ namespace RootMotion.Demos {
 		
 		// LateUpdate is called once per frame
 		void LateUpdate () {
-			if (aim.solver.target == null) {
-				Debug.LogWarning("AimIK and LookAtIK need to have their 'Target' value assigned.", transform);
-			}
-
 			// Switch aim poses (Legacy animation)
 			Pose();
 
@@ -53,7 +49,7 @@ namespace RootMotion.Demos {
 			LimitAimTarget();
 
 			// Get the aiming direction
-			Vector3 direction = (aim.solver.target.position - aim.solver.bones[0].transform.position);
+			Vector3 direction = (aim.solver.IKPosition - aim.solver.bones[0].transform.position);
 			// Getting the direction relative to the root transform
 			Vector3 localDirection = transform.InverseTransformDirection(direction);
 			
@@ -82,10 +78,10 @@ namespace RootMotion.Demos {
 		// Make sure aiming target is not too close (might make the solver instable when the target is closer to the first bone than the last bone is).
 		void LimitAimTarget() {
 			Vector3 aimFrom = aim.solver.bones[0].transform.position;
-			Vector3 direction = (aim.solver.target.position - aimFrom);
+			Vector3 direction = (aim.solver.IKPosition - aimFrom);
 			direction = direction.normalized * Mathf.Max(direction.magnitude, minAimDistance);
 			
-			aim.solver.target.position = aimFrom + direction;
+			aim.solver.IKPosition = aimFrom + direction;
 		}
 		
 		// Uses Mecanim's Direct blend trees for cross-fading

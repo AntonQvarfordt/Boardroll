@@ -26,14 +26,13 @@ namespace RootMotion.FinalIK {
 			protected float crossFader { get; private set; }
 			protected float timer { get; private set; }
 			protected Vector3 force { get; private set; }
-			protected Vector3 point { get; private set; }
-
+			
 			private float length;
 			private float crossFadeSpeed;
 			private float lastTime;
 
 			// Start processing the hit
-			public void Hit(Vector3 force, AnimationCurve[] curves, Vector3 point) {
+			public virtual void Hit(Vector3 force, AnimationCurve[] curves, Vector3 point) {
 				if (length == 0f) length = GetLength(curves);
 				if (length <= 0f) {
 					Debug.LogError("Hit Point WeightCurve length is zero.");
@@ -50,7 +49,6 @@ namespace RootMotion.FinalIK {
 
 				// Remember hit direction and point
 				this.force = force;
-				this.point = point;
 			}
 
 			// Apply to IKSolverFullBodyBiped
@@ -173,15 +171,26 @@ namespace RootMotion.FinalIK {
 				}
 			}
 
-			[Tooltip("The angle to rotate the bone around it's rigidbody's world center of mass")]
+			[Tooltip("The angle to rotate the bone around its rigidbody's world center of mass")]
 			public int curveIndex;
 			[Tooltip("Linking this hit point to bone(s)")]
 			public RotationOffsetLink[] offsetLinks;
 
 			private Rigidbody rigidbody;
+            private Vector3 comAxis;
 
-			// Returns the length of this hit (last key in the AnimationCurves)
-			protected override float GetLength(AnimationCurve[] curves) {
+            public override void Hit(Vector3 force, AnimationCurve[] curves, Vector3 point)
+            {
+                base.Hit(force, curves, point);
+
+                if (rigidbody == null) rigidbody = collider.GetComponent<Rigidbody>();
+
+                Vector3 com = rigidbody != null ? rigidbody.worldCenterOfMass : collider.transform.position;
+                comAxis = Vector3.Cross(force, point - com);
+            }
+
+            // Returns the length of this hit (last key in the AnimationCurves)
+            protected override float GetLength(AnimationCurve[] curves) {
 				return curves[curveIndex].keys.Length > 0?  curves[curveIndex].keys[ curves[curveIndex].length - 1].time: 0f;
 			}
 
@@ -199,7 +208,6 @@ namespace RootMotion.FinalIK {
 
 				if (rigidbody == null) rigidbody = collider.GetComponent<Rigidbody>();
 				if (rigidbody != null) {
-					Vector3 comAxis = Vector3.Cross(force, point - rigidbody.worldCenterOfMass);
 					float comValue = curves[curveIndex].Evaluate(timer) * weight;
 					Quaternion offset = Quaternion.AngleAxis(comValue, comAxis);
 

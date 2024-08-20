@@ -37,7 +37,7 @@ namespace RootMotion.FinalIK {
 		/// <summary>
 		/// Used to record rotation of the last bone for one frame. 
 		/// If MaintainRotation is not called and maintainRotationWeight > 0, the solver will maintain the rotation of the last bone as it was before solving the %IK.
-		/// You will probably need this if you wanted to maintain the animated rotation of a foot despite of any other %IK solver that manipulates it's parents' rotation.
+		/// You will probably need this if you wanted to maintain the animated rotation of a foot despite of any other %IK solver that manipulates its parents' rotation.
 		/// So you would call %MaintainRotation() in LateUpdate() after animation and before updating the Spine %IK solver that would change the foot's rotation.
 		/// </summary>
 		public void MaintainRotation() {

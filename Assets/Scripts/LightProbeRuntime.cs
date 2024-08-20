@@ -13,7 +13,7 @@ public class LightProbeRuntime : MonoBehaviour
     {
         yield return null;
 
-        m_Lights = FindObjectsOfType<Light>();
+        m_Lights = FindObjectsByType<Light>(FindObjectsSortMode.InstanceID);
         SphericalHarmonicsL2[] bakedProbes = LightmapSettings.lightProbes.bakedProbes;
         Vector3[] probePositions = LightmapSettings.lightProbes.positions;
         int probeCount = LightmapSettings.lightProbes.count;

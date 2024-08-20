@@ -10,7 +10,7 @@ namespace RootMotion.FinalIK {
 	public class GenericPoser : Poser {
 
 		/// <summary>
-		/// Mapping a bone to it's target
+		/// Mapping a bone to its target
 		/// </summary>
 		[System.Serializable]
 		public class Map {

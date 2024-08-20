@@ -26,17 +26,13 @@ namespace RootMotion.FinalIK
                 FromTo
             }
 
-            [Tooltip("The hand target. This should not be the hand controller itself, but a child GameObject parented to it so you could adjust it's position/rotation to match the orientation of the hand bone. The best practice for setup would be to move the hand controller to the avatar's hand as it it was held by the avatar, duplicate the avatar's hand bone and parent it to the hand controller. Then assign the duplicate to this slot.")]
+            [LargeHeader("Hand")]
+
+            [Tooltip("The hand target. This should not be the hand controller itself, but a child GameObject parented to it so you could adjust its position/rotation to match the orientation of the hand bone. The best practice for setup would be to move the hand controller to the avatar's hand as it it was held by the avatar, duplicate the avatar's hand bone and parent it to the hand controller. Then assign the duplicate to this slot.")]
             /// <summary>
-            /// The hand target. This should not be the hand controller itself, but a child GameObject parented to it so you could adjust it's position/rotation to match the orientation of the hand bone. The best practice for setup would be to move the hand controller to the avatar's hand as it it was held by the avatar, duplicate the avatar's hand bone and parent it to the hand controller. Then assign the duplicate to this slot.
+            /// The hand target. This should not be the hand controller itself, but a child GameObject parented to it so you could adjust its position/rotation to match the orientation of the hand bone. The best practice for setup would be to move the hand controller to the avatar's hand as it it was held by the avatar, duplicate the avatar's hand bone and parent it to the hand controller. Then assign the duplicate to this slot.
             /// </summary>
             public Transform target;
-
-            [Tooltip("The elbow will be bent towards this Transform if 'Bend Goal Weight' > 0.")]
-            /// <summary>
-            /// The elbow will be bent towards this Transform if 'Bend Goal Weight' > 0.
-            /// </summary>
-            public Transform bendGoal;
 
             [Tooltip("Positional weight of the hand target. Note that if you have nulled the target, the hand will still be pulled to the last position of the target until you set this value to 0.")]
             /// <summary>
@@ -50,11 +46,7 @@ namespace RootMotion.FinalIK
             /// </summary>
             [Range(0f, 1f)] public float rotationWeight = 1f;
 
-            [Tooltip("Different techniques for shoulder bone rotation.")]
-            /// <summary>
-            /// Different techniques for shoulder bone rotation.
-            /// </summary>
-            public ShoulderRotationMode shoulderRotationMode = ShoulderRotationMode.YawPitch;
+            [LargeHeader("Shoulder")]
 
             [Tooltip("The weight of shoulder rotation")]
             /// <summary>
@@ -62,17 +54,47 @@ namespace RootMotion.FinalIK
             /// </summary>
             [Range(0f, 1f)] public float shoulderRotationWeight = 1f;
 
+            [Tooltip("Different techniques for shoulder bone rotation.")]
+            [ShowIf("shoulderRotationWeight", 0f, Mathf.Infinity)]
+            /// <summary>
+            /// Different techniques for shoulder bone rotation.
+            /// </summary>
+            public ShoulderRotationMode shoulderRotationMode = ShoulderRotationMode.YawPitch;
+
             [Tooltip("The weight of twisting the shoulders backwards when arms are lifted up.")]
+            [ShowRangeIf(0f, 1f, "shoulderRotationWeight", 0f, Mathf.Infinity)]
             /// <summary>
             /// The weight of twisting the shoulders backwards when arms are lifted up.
             /// </summary>
-            [Range(0f, 1f)] public float shoulderTwistWeight = 1f;
+            public float shoulderTwistWeight = 1f;
+
+            [Tooltip("Tweak this value to adjust shoulder rotation around the yaw (up) axis.")]
+            [ShowIf("shoulderRotationWeight", 0f, Mathf.Infinity)]
+            /// <summary>
+            /// Tweak this value to adjust shoulder rotation around the yaw (up) axis.
+            /// </summary>
+            public float shoulderYawOffset = 45f;
+
+            [Tooltip("Tweak this value to adjust shoulder rotation around the pitch (forward) axis.")]
+            [ShowIf("shoulderRotationWeight", 0f, Mathf.Infinity)]
+            /// <summary>
+            /// Tweak this value to adjust shoulder rotation around the pitch (forward) axis.
+            /// </summary>
+            public float shoulderPitchOffset = -30f;
+
+            [LargeHeader("Bending")]
+            [Tooltip("The elbow will be bent towards this Transform if 'Bend Goal Weight' > 0.")]
+            /// <summary>
+            /// The elbow will be bent towards this Transform if 'Bend Goal Weight' > 0.
+            /// </summary>
+            public Transform bendGoal;
 
             [Tooltip("If greater than 0, will bend the elbow towards the 'Bend Goal' Transform.")]
             /// <summary>
             /// If greater than 0, will bend the elbow towards the 'Bend Goal' Transform.
             /// </summary>
-            [Range(0f, 1f)] public float bendGoalWeight;
+            [Range(0f, 1f)]
+            public float bendGoalWeight;
 
             [Tooltip("Angular offset of the elbow bending direction.")]
             /// <summary>
@@ -92,6 +114,8 @@ namespace RootMotion.FinalIK
             /// </summary>
             public Vector3 palmToThumbAxis = Vector3.zero;
 
+            [LargeHeader("Stretching")]
+
             [Tooltip("Use this to make the arm shorter/longer. Works by displacement of hand and forearm localPosition.")]
             /// <summary>
             /// Use this to make the arm shorter/longer. Works by displacement of hand and forearm localPosition.
@@ -99,9 +123,9 @@ namespace RootMotion.FinalIK
             [Range(0.01f, 2f)]
             public float armLengthMlp = 1f;
 
-            [Tooltip("Evaluates stretching of the arm by target distance relative to arm length. Value at time 1 represents stretching amount at the point where distance to the target is equal to arm length. Value at time 2 represents stretching amount at the point where distance to the target is double the arm length. Value represents the amount of stretching. Linear stretching would be achieved with a linear curve going up by 45 degrees. Increase the range of stretching by moving the last key up and right at the same amount. Smoothing in the curve can help reduce elbow snapping (start stretching the arm slightly before target distance reaches arm length). To get a good optimal value for this curve, please go to the 'VRIK (Basic)' demo scene and copy the stretch curve over from the Pilot character.")]
+            [Tooltip("'Time' represents (target distance / arm length) and 'value' represents the amount of stretching. So value at time 1 represents stretching amount at the point where distance to the target is equal to arm length. Value at time 2 represents stretching amount at the point where distance to the target is double the arm length. Linear stretching would be achieved with a linear curve going up by 45 degrees. Increase the range of stretching by moving the last key up and right by the same amount. Smoothing in the curve can help reduce elbow snapping (start stretching the arm slightly before target distance reaches arm length). To get a good optimal value for this curve, please go to the 'VRIK (Basic)' demo scene and copy the stretch curve over from the Pilot character.")]
             /// <summary>
-            /// Evaluates stretching of the arm by target distance relative to arm length. Value at time 1 represents stretching amount at the point where distance to the target is equal to arm length. Value at time 2 represents stretching amount at the point where distance to the target is double the arm length. Value represents the amount of stretching. Linear stretching would be achieved with a linear curve going up by 45 degrees. Increase the range of stretching by moving the last key up and right at the same amount. Smoothing in the curve can help reduce elbow snapping (start stretching the arm slightly before target distance reaches arm length). To get a good optimal value for this curve, please go to the 'VRIK (Basic)' demo scene and copy the stretch curve over from the Pilot character.
+            /// 'Time' represents (target distance / arm length) and 'value' represents the amount of stretching. So value at time 1 represents stretching amount at the point where distance to the target is equal to arm length. Value at time 2 represents stretching amount at the point where distance to the target is double the arm length. Linear stretching would be achieved with a linear curve going up by 45 degrees. Increase the range of stretching by moving the last key up and right by the same amount. Smoothing in the curve can help reduce elbow snapping (start stretching the arm slightly before target distance reaches arm length). To get a good optimal value for this curve, please go to the 'VRIK (Basic)' demo scene and copy the stretch curve over from the Pilot character.
             /// </summary>
             public AnimationCurve stretchCurve = new AnimationCurve();
 
@@ -162,9 +186,6 @@ namespace RootMotion.FinalIK
             private Quaternion forearmRelToUpperArm = Quaternion.identity;
             private Vector3 upperArmBendAxis;
 
-            private const float yawOffsetAngle = 45f;
-            private const float pitchOffsetAngle = -30f;
-
             protected override void OnRead(Vector3[] positions, Quaternion[] rotations, bool hasChest, bool hasNeck, bool hasShoulders, bool hasToes, bool hasLegs, int rootIndex, int index)
             {
                 Vector3 shoulderPosition = positions[index];
@@ -208,6 +229,10 @@ namespace RootMotion.FinalIK
                     Vector3 upperArmForwardAxis = AxisTools.GetAxisVectorToDirection(upperArmRotation, rootForward);
                     if (Vector3.Dot(upperArmRotation * upperArmForwardAxis, rootForward) < 0f) upperArmForwardAxis = -upperArmForwardAxis;
                     upperArmBendAxis = Vector3.Cross(Quaternion.Inverse(upperArmRotation) * (forearmPosition - upperArmPosition), upperArmForwardAxis);
+                    if (upperArmBendAxis == Vector3.zero)
+                    {
+                        Debug.LogError("VRIK can not calculate which way to bend the arms because the arms are perfectly straight. Please rotate the elbow bones slightly in their natural bending direction in the Editor.");
+                    }
                 }
 
                 if (hasShoulder)
@@ -225,7 +250,7 @@ namespace RootMotion.FinalIK
                 }
             }
 
-            public override void PreSolve()
+            public override void PreSolve(float scale)
             {
                 if (target != null)
                 {
@@ -240,7 +265,7 @@ namespace RootMotion.FinalIK
                 forearmRelToUpperArm = Quaternion.Inverse(upperArm.solverRotation) * forearm.solverRotation;
             }
 
-            public override void ApplyOffsets()
+            public override void ApplyOffsets(float scale)
             {
                 position += handPositionOffset;
             }
@@ -274,7 +299,7 @@ namespace RootMotion.FinalIK
                 forearm.solverPosition += elbowAdd;
                 hand.solverPosition += elbowAdd + handAdd;
             }
-
+            
             public void Solve(bool isLeft)
             {
                 chestRotation = Quaternion.LookRotation(rootRotation * chestForwardAxis, rootRotation * chestUpAxis);
@@ -295,7 +320,7 @@ namespace RootMotion.FinalIK
                             sDir = sDir.normalized;
 
                             // Shoulder Yaw
-                            float yOA = isLeft ? yawOffsetAngle : -yawOffsetAngle;
+                            float yOA = isLeft ? shoulderYawOffset : -shoulderYawOffset;
                             Quaternion yawOffset = Quaternion.AngleAxis((isLeft ? -90f : 90f) + yOA, chestUp);
                             Quaternion workingSpace = yawOffset * chestRotation;
 
@@ -331,7 +356,7 @@ namespace RootMotion.FinalIK
                             // Shoulder Pitch
                             Quaternion pitchOffset = Quaternion.AngleAxis(isLeft ? -90f : 90f, chestUp);
                             workingSpace = pitchOffset * chestRotation;
-                            workingSpace = Quaternion.AngleAxis(isLeft ? pitchOffsetAngle : -pitchOffsetAngle, chestForward) * workingSpace;
+                            workingSpace = Quaternion.AngleAxis(isLeft ? shoulderPitchOffset : -shoulderPitchOffset, chestForward) * workingSpace;
 
                             //Debug.DrawRay(Vector3.up * 2f, workingSpace * Vector3.forward);
                             //Debug.DrawRay(Vector3.up * 2f, workingSpace * Vector3.up);
@@ -343,8 +368,8 @@ namespace RootMotion.FinalIK
 
                             float pitch = Mathf.Atan2(sDirWorking.y, sDirWorking.z) * Mathf.Rad2Deg;
 
-                            pitch -= pitchOffsetAngle;
-                            pitch = DamperValue(pitch, -45f - pitchOffsetAngle, 45f - pitchOffsetAngle);
+                            pitch -= shoulderPitchOffset;
+                            pitch = DamperValue(pitch, -45f - shoulderPitchOffset, 45f - shoulderPitchOffset);
 
                             Quaternion pitchRotation = Quaternion.AngleAxis(-pitch, workingSpace * Vector3.right);
 
@@ -413,13 +438,13 @@ namespace RootMotion.FinalIK
                     }
                 }
 
-                if (LOD < 1)
+                if (LOD < 1 && positionWeight > 0f)
                 {
                     // Fix upperarm twist relative to bend normal
                     Quaternion space = Quaternion.LookRotation(upperArm.solverRotation * upperArmBendAxis, forearm.solverPosition - upperArm.solverPosition);
                     Vector3 upperArmTwist = Quaternion.Inverse(space) * bendNormal;
                     float angle = Mathf.Atan2(upperArmTwist.x, upperArmTwist.z) * Mathf.Rad2Deg;
-                    upperArm.solverRotation = Quaternion.AngleAxis(angle, forearm.solverPosition - upperArm.solverPosition) * upperArm.solverRotation;
+                    upperArm.solverRotation = Quaternion.AngleAxis(angle * positionWeight, forearm.solverPosition - upperArm.solverPosition) * upperArm.solverRotation;
 
                     // Fix forearm twist relative to upper arm
                     Quaternion forearmFixed = upperArm.solverRotation * forearmRelToUpperArm;

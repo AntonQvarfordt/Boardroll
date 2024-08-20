@@ -219,7 +219,7 @@ namespace RootMotion.FinalIK {
 
 			if (OnPostSolve != null) OnPostSolve();
 
-			// Phase 3: Map biped to it's solved state
+			// Phase 3: Map biped to its solved state
 			WritePose();
 
 			// Reset effector position offsets to Vector3.zero

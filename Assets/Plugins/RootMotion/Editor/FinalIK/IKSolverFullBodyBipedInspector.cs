@@ -91,7 +91,7 @@ namespace RootMotion.FinalIK {
 
 					if (Inspector.DotButton(chain.nodes[1].transform.position, Quaternion.identity, size * 0.5f, size)) {
 						Warning.logged = false;
-						Warning.Log("The bend direction of this limb appears to be inverted. Please rotate this bone so that the limb is bent in it's natural bending direction. If this limb is supposed to be bent in the direction pointed by the arrow, ignore this warning.", root, true);
+						Warning.Log("The bend direction of this limb appears to be inverted. Please rotate this bone so that the limb is bent in its natural bending direction. If this limb is supposed to be bent in the direction pointed by the arrow, ignore this warning.", root, true);
 					}
 				}
 
@@ -107,7 +107,7 @@ namespace RootMotion.FinalIK {
 
 				if (Inspector.DotButton(chain.nodes[1].transform.position, Quaternion.identity, size * 0.5f, size)) {
 					Warning.logged = false;
-					Warning.Log("The limb is completely stretched out. Full Body Biped IK does not know which way the limb should be bent. Please rotate this bone slightly in it's bending direction.", root, true);
+					Warning.Log("The limb is completely stretched out. Full Body Biped IK does not know which way the limb should be bent. Please rotate this bone slightly in its bending direction.", root, true);
 				}
 
 				GUI.color = Color.white;
@@ -219,7 +219,7 @@ namespace RootMotion.FinalIK {
 
 				DrawLabel("Mapping", null);
 				
-				AddProperty(mapping.FindPropertyRelative("weight"), new GUIContent("Mapping Weight", "The weight of mapping the limb to it's IK pose. This can be useful if you want to disable the effect of IK for the limb."));
+				AddProperty(mapping.FindPropertyRelative("weight"), new GUIContent("Mapping Weight", "The weight of mapping the limb to its IK pose. This can be useful if you want to disable the effect of IK for the limb."));
 				AddProperty(mapping.FindPropertyRelative("maintainRotationWeight"), new GUIContent(GetEndBoneMappingName(chainType), "The weight of maintaining the bone's animated rotation in world space."));
 				
 				GUILayout.Space(5);

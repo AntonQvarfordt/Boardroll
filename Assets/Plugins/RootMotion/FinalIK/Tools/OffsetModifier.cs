@@ -88,9 +88,9 @@ namespace RootMotion.FinalIK {
 		private void ModifyOffset() {
 			if (!enabled) return;
 			if (weight <= 0f) return;
-			if (deltaTime <= 0f) return;
 			if (ik == null) return;
 			weight = Mathf.Clamp(weight, 0f, 1f);
+			if (deltaTime <= 0f) return;
 
 			OnModifyOffset();
 

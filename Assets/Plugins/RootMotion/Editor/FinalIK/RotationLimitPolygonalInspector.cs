@@ -144,7 +144,8 @@ namespace RootMotion.FinalIK
                 {
                     Handles.BeginGUI();
 
-                    GUILayout.BeginArea(new Rect(Screen.width - 240, Screen.height - 180, 230, 130), "Limit Point " + i.ToString(), "Window");
+                    //GUILayout.BeginArea(new Rect(Screen.width - 240, Screen.height - 180, 230, 130), "Limit Point " + i.ToString(), "Window");
+                    GUILayout.BeginArea(new Rect(10, 160, 230, 130), "Limit Point " + i.ToString(), "Window");
 
                     if (Inspector.Button("Delete", "Delete this point", script))
                     {

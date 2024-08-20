@@ -28,19 +28,28 @@ namespace RootMotion.FinalIK {
 				
 				EditorGUILayout.Space();
 			}
-			
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.target"), new GUIContent("Target", "The target Transform. Solver IKPosition will be automatically set to the position of the target."));
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.bendGoal"), new GUIContent("Bend Goal", "If assigned, the knee will be bent in the direction towards this transform."));
 
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("IKPositionWeight"), new GUIContent("Position Weight", "Solver weight for smooth blending."));
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("IKRotationWeight"), new GUIContent("Rotation Weight", "Weight of last bone's rotation to IKRotation."));
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("isLeft"), new GUIContent("Is Left", "Check this if this is the left arm, uncheck if right."));
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.shoulderRotationMode"), new GUIContent("Shoulder Rotation Mode", " Different techniques for shoulder bone rotation."));
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.shoulderRotationWeight"), new GUIContent("Shoulder Rotation Weight", " The weight of shoulder rotation"));
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.bendGoalWeight"), new GUIContent("Bend Goal Weight", "Weight of the bend goal."));
+            // Hand
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("isLeft"), new GUIContent("Is Left", "Check this if this is the left arm, uncheck if right."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.target"), new GUIContent("Target", "The target Transform. Solver IKPosition will be automatically set to the position of the target."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("IKPositionWeight"), new GUIContent("Position Weight", "Solver weight for smooth blending."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("IKRotationWeight"), new GUIContent("Rotation Weight", "Weight of last bone's rotation to IKRotation."));
+
+            // Shoulder
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.shoulderRotationMode"), new GUIContent("Shoulder Rotation Mode", " Different techniques for shoulder bone rotation."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.shoulderRotationWeight"), new GUIContent("Shoulder Rotation Weight", " The weight of shoulder rotation."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.shoulderTwistWeight"), new GUIContent("Shoulder Twist Weight", " The weight of twisting the shoulders backwards when arms are lifted up."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.shoulderYawOffset"), new GUIContent("Shoulder Yaw Offset", " Tweak this value to adjust shoulder rotation around the yaw (up) axis."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.shoulderPitchOffset"), new GUIContent("Shoulder Pitch Offset", " Tweak this value to adjust shoulder rotation around the pitch (forward) axis."));
+
+            // Bending
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.bendGoal"), new GUIContent("Bend Goal", "If assigned, the knee will be bent in the direction towards this transform."));
+            EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.bendGoalWeight"), new GUIContent("Bend Goal Weight", "Weight of the bend goal."));
 			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.swivelOffset"), new GUIContent("Swivel Offset", "Angular offset of the arm's bending direction."));
 			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.wristToPalmAxis"), new GUIContent("Wrist To Palm Axis", "Local axis of the hand bone that points from the wrist towards the palm. Used for defining hand bone orientation."));
 			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.palmToThumbAxis"), new GUIContent("Palm To Thumb Axis", "Local axis of the hand bone that points from the palm towards the thumb. Used for defining hand bone orientation."));
+
+            // Stretching
 			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.armLengthMlp"), new GUIContent("Arm Length Mlp", "Use this to make the arm shorter/longer."));
 			EditorGUILayout.PropertyField(prop.FindPropertyRelative("arm.stretchCurve"), new GUIContent("Stretch Curve", "Evaluates stretching of the arm by target distance relative to arm length. Value at time 1 represents stretching amount at the point where distance to the target is equal to arm length. Value at time 2 represents stretching amount at the point where distance to the target is double the arm length. Value represents the amount of stretching. Linear stretching would be achieved with a linear curve going up by 45 degrees. Increase the range of stretching by moving the last key up and right at the same amount. Smoothing in the curve can help reduce elbow snapping (start stretching the arm slightly before target distance reaches arm length)."));
 		}

@@ -84,9 +84,9 @@ namespace RootMotion.FinalIK {
 		[Tooltip("The last bone in the spine that is the common parent for both forelegs.")]
 		public Transform lastSpineBone;
 		/// <summary>
-		/// The head (optional, if you intend to maintain it's rotation).
+		/// The head (optional, if you intend to maintain its rotation).
 		/// </summary>
-		[Tooltip("The head (optional, if you intend to maintain it's rotation).")]
+		[Tooltip("The head (optional, if you intend to maintain its rotation).")]
 		public Transform head;
 		/// <summary>
 		/// %IK componets of the hindlegs. Can be any type of IK components.
@@ -104,7 +104,17 @@ namespace RootMotion.FinalIK {
 		#endregion Main Interface
 
 		public override void ResetPosition() {
-			solver.Reset();
+            for (int i = 0; i < legs.Length; i++)
+            {
+                legs[i].GetIKSolver().IKPosition = feet[i].transform.position;
+                if (legs[i] is LimbIK)
+                {
+                    var leg = legs[i] as LimbIK;
+                    leg.solver.IKRotation = solver.legs[i].transform.rotation;
+                }
+            }
+
+            solver.Reset();
 			forelegSolver.Reset();
 		}
 		
@@ -291,10 +301,10 @@ namespace RootMotion.FinalIK {
 			// Interpolate the angle
 			angle = Mathf.Lerp(angle, angleTarget, Time.deltaTime * rootRotationSpeed);
 
-			if (characterRootRigidbody == null) {
-				characterRoot.rotation = Quaternion.Slerp(characterRoot.rotation, Quaternion.AngleAxis(-angle, characterRoot.right) * horizontalRotation, weight);
-			} else {
-				characterRootRigidbody.MoveRotation(Quaternion.Slerp(characterRoot.rotation, Quaternion.AngleAxis(-angle, characterRoot.right) * horizontalRotation, weight));
+            if (characterRootRigidbody == null) {
+                characterRoot.rotation = Quaternion.Slerp(characterRoot.rotation, Quaternion.AngleAxis(-angle, characterRoot.right) * horizontalRotation, weight);
+            } else {
+                characterRootRigidbody.MoveRotation(Quaternion.Slerp(characterRoot.rotation, Quaternion.AngleAxis(-angle, characterRoot.right) * horizontalRotation, weight));
 			}
 		}
 		
@@ -413,7 +423,9 @@ namespace RootMotion.FinalIK {
 			solvedPelvisLocalPosition = pelvis.localPosition;
 			solvedPelvisLocalRotation = pelvis.localRotation;
 			if (head != null) solvedHeadLocalRotation = head.localRotation;
-		}
+
+            if (OnPostIK != null) OnPostIK();
+        }
 		
 		// Cleaning up the delegates
 		void OnDestroy() {

@@ -169,7 +169,7 @@ namespace RootMotion.FinalIK {
 			}
 			
 			/*
-			 * Moves the bone to the solver position of it's node
+			 * Moves the bone to the solver position of its node
 			 * */
 			public void FixToNode(IKSolverFullBody solver, float weight, IKSolver.Node fixNode = null) {
 				if (fixNode == null) fixNode = solver.GetNode(chainIndex, nodeIndex);
@@ -183,7 +183,7 @@ namespace RootMotion.FinalIK {
 			}
 			
 			/*
-			 * Gets the bone's position relative to it's 3 plane nodes
+			 * Gets the bone's position relative to its 3 plane nodes
 			 * */
 			public Vector3 GetPlanePosition(IKSolverFullBody solver) {
 				return solver.GetNode(plane1ChainIndex, plane1NodeIndex).solverPosition + (GetTargetRotation(solver) * planePosition);
@@ -191,14 +191,14 @@ namespace RootMotion.FinalIK {
 			}
 			
 			/*
-			 * Positions the bone relative to it's 3 plane nodes
+			 * Positions the bone relative to its 3 plane nodes
 			 * */
 			public void PositionToPlane(IKSolverFullBody solver) {
 				transform.position = GetPlanePosition(solver);
 			}
 			
 			/*
-			 * Rotates the bone relative to it's 3 plane nodes
+			 * Rotates the bone relative to its 3 plane nodes
 			 * */
 			public void RotateToPlane(IKSolverFullBody solver, float weight) {
 				Quaternion r = GetTargetRotation(solver) * defaultLocalTargetRotation;

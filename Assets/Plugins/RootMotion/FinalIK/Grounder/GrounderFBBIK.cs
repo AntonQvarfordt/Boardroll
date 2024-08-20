@@ -136,6 +136,7 @@ namespace RootMotion.FinalIK {
 
 			// Add to the FBBIK OnPreUpdate delegate to know when it solves
 			ik.solver.OnPreUpdate += OnSolverUpdate;
+            ik.solver.OnPostUpdate += OnPostSolverUpdate;
 
 			// Initiate Grounding
 			solver.Initiate(ik.references.root, feet);
@@ -191,9 +192,18 @@ namespace RootMotion.FinalIK {
 			if (ik == null) ik = GetComponentInChildren<FullBodyBipedIK>();
 		}
 
-		// Cleaning up the delegate
-		void OnDestroy() {
-			if (initiated && ik != null) ik.solver.OnPreUpdate -= OnSolverUpdate;
+        private void OnPostSolverUpdate()
+        {
+            if (OnPostIK != null) OnPostIK();
+        }
+
+        // Cleaning up the delegate
+        void OnDestroy() {
+            if (initiated && ik != null)
+            {
+                ik.solver.OnPreUpdate -= OnSolverUpdate;
+                ik.solver.OnPostUpdate -= OnPostSolverUpdate;
+            }
 		}
 	}
 }

@@ -53,5 +53,5 @@ namespace RootMotion.Demos {
 				aim.solver.IKPositionWeight = aimWeight.Evaluate(hitWeight) * weight;
 			}
 		}
-	}
+    }
 }

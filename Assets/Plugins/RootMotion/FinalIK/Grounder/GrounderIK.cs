@@ -58,8 +58,21 @@ namespace RootMotion.FinalIK {
 		#endregion Main Interface
 
 		public override void ResetPosition() {
-			solver.Reset();
-		}
+            for (int i = 0; i < legs.Length; i++) {
+                legs[i].GetIKSolver().IKPosition = feet[i].transform.position;
+                if (legs[i] is LimbIK)
+                {
+                    var leg = legs[i] as LimbIK;
+                    leg.solver.IKRotation = solver.legs[i].transform.rotation;
+                }
+                footRotations[i] = feet[i].rotation;
+            }
+
+            animatedPelvisLocalPosition = pelvis.localPosition;
+            solvedPelvisLocalPosition = pelvis.localPosition;
+
+            solver.Reset();
+        }
 
 		private Transform[] feet = new Transform[0];
 		private Quaternion[] footRotations = new Quaternion[0];
@@ -118,8 +131,8 @@ namespace RootMotion.FinalIK {
 				rootRotationWeight = Mathf.Clamp(rootRotationWeight, 0f, 1f);
 				rootRotationSpeed = Mathf.Clamp(rootRotationSpeed, 0f, rootRotationSpeed);
 
-				// Root rotation
-				if (characterRoot != null && rootRotationSpeed > 0f && rootRotationWeight > 0f) {
+                // Root rotation
+				if (characterRoot != null && rootRotationSpeed > 0f && rootRotationWeight > 0f && solver.isGrounded) {
 					Vector3 normal = solver.GetLegsPlaneNormal();
                     
 					// Root rotation weight
@@ -248,7 +261,9 @@ namespace RootMotion.FinalIK {
 
 			// Store the local position of the pelvis so we know it it changes
 			solvedPelvisLocalPosition = pelvis.localPosition;
-		}
+
+            if (OnPostIK != null) OnPostIK();
+        }
 
 		// Cleaning up the delegates
 		void OnDestroy() {

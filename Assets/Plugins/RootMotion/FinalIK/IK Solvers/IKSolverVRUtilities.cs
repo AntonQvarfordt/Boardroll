@@ -124,11 +124,11 @@ namespace RootMotion.FinalIK {
 				RotateAroundPoint(bones, index, bones[index].solverPosition, q);
 			}
 
-			// TODO Move to IKSolverTrigonometric
-			/// <summary>
-			/// Solve the bone chain virtually using both solverPositions and SolverRotations. This will work the same as IKSolverTrigonometric.Solve.
-			/// </summary>
-			public static void SolveTrigonometric(VirtualBone[] bones, int first, int second, int third, Vector3 targetPosition, Vector3 bendNormal, float weight) {
+            // TODO Move to IKSolverTrigonometric
+            /// <summary>
+            /// Solve the bone chain virtually using both solverPositions and SolverRotations. This will work the same as IKSolverTrigonometric.Solve.
+            /// </summary>
+            public static void SolveTrigonometric(VirtualBone[] bones, int first, int second, int third, Vector3 targetPosition, Vector3 bendNormal, float weight) {
 				if (weight <= 0f) return;
 
 				// Direction of the limb in solver
@@ -236,7 +236,7 @@ namespace RootMotion.FinalIK {
 					}
 				}
 			}
-		}
+        }
 	}
 }
 

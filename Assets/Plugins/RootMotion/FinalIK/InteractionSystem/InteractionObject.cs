@@ -348,7 +348,7 @@ namespace RootMotion.FinalIK {
 		/// Gets the InteractionTarget of the specified effector type and InteractionSystem tag.
 		/// </summary>
 		public InteractionTarget GetTarget(FullBodyBipedEffector effectorType, InteractionSystem interactionSystem) {
-			if (interactionSystem.tag == string.Empty || interactionSystem.tag == "") {
+			if (string.IsNullOrEmpty(interactionSystem.tag)) {
 				foreach (InteractionTarget target in targets) {
 					if (target.effectorType == effectorType) return target;
 				}
@@ -357,7 +357,7 @@ namespace RootMotion.FinalIK {
 			}
 
 			foreach (InteractionTarget target in targets) {
-				if (target.effectorType == effectorType && target.tag == interactionSystem.tag) return target;
+				if (target.effectorType == effectorType && target.CompareTag(interactionSystem.tag)) return target;
 			}
 			
 			return null;
@@ -386,7 +386,7 @@ namespace RootMotion.FinalIK {
 			if (tag == string.Empty || tag == "") return GetTarget(effectorType);
 			
 			for (int i = 0; i < targets.Length; i++) {
-				if (targets[i].effectorType == effectorType && targets[i].tag == tag) return targets[i].transform;
+				if (targets[i].effectorType == effectorType && targets[i].CompareTag(tag)) return targets[i].transform;
 			}
 
 			return transform;
@@ -398,15 +398,29 @@ namespace RootMotion.FinalIK {
 		}
 
 		// Applies the weight curves and multipliers to the FBBIK solver
-		public void Apply(IKSolverFullBodyBiped solver, FullBodyBipedEffector effector, InteractionTarget target, float timer, float weight) {
+		public void Apply(IKSolverFullBodyBiped solver, FullBodyBipedEffector effector, InteractionTarget target, float timer, float weight, bool isPaused) {
 
 			for (int i = 0; i < weightCurves.Length; i++) {
+				if (isPaused)
+                {
+					if (weightCurves[i].type == WeightCurve.Type.PositionOffsetX) continue;
+					if (weightCurves[i].type == WeightCurve.Type.PositionOffsetY) continue;
+					if (weightCurves[i].type == WeightCurve.Type.PositionOffsetZ) continue;
+				}
+
 				float mlp = target == null? 1f: target.GetValue(weightCurves[i].type);
 
 				Apply(solver, effector, weightCurves[i].type, weightCurves[i].GetValue(timer), weight * mlp);
 			}
 
 			for (int i = 0; i < multipliers.Length; i++) {
+				if (isPaused)
+				{
+					if (multipliers[i].result == WeightCurve.Type.PositionOffsetX) continue;
+					if (multipliers[i].result == WeightCurve.Type.PositionOffsetY) continue;
+					if (multipliers[i].result == WeightCurve.Type.PositionOffsetZ) continue;
+				}
+
 				if (multipliers[i].curve == multipliers[i].result) {
 					if (!Warning.logged) Warning.Log("InteractionObject Multiplier 'Curve' " + multipliers[i].curve.ToString() + "and 'Result' are the same.", transform);
 				}
@@ -463,41 +477,49 @@ namespace RootMotion.FinalIK {
 			Initiate();
 		}
 
-		// Apply the curve to the specified solver, effector, with the value and weight.
-		private void Apply(IKSolverFullBodyBiped solver, FullBodyBipedEffector effector, WeightCurve.Type type, float value, float weight) {
-			switch(type) {
-			case WeightCurve.Type.PositionWeight:
-				solver.GetEffector(effector).positionWeight = Mathf.Lerp(solver.GetEffector(effector).positionWeight, value, weight);
-				return;
-			case WeightCurve.Type.RotationWeight:
-				solver.GetEffector(effector).rotationWeight = Mathf.Lerp(solver.GetEffector(effector).rotationWeight, value, weight);
-				return;
-			case WeightCurve.Type.PositionOffsetX:
-				solver.GetEffector(effector).position += (positionOffsetSpace != null? positionOffsetSpace.rotation: solver.GetRoot().rotation) * Vector3.right * value * weight;
-				return;
-			case WeightCurve.Type.PositionOffsetY:
-				solver.GetEffector(effector).position += (positionOffsetSpace != null? positionOffsetSpace.rotation: solver.GetRoot().rotation) * Vector3.up * value * weight;
-				return;
-			case WeightCurve.Type.PositionOffsetZ:
-				solver.GetEffector(effector).position += (positionOffsetSpace != null? positionOffsetSpace.rotation: solver.GetRoot().rotation) * Vector3.forward * value * weight;
-				return;
-			case WeightCurve.Type.Pull:
-				solver.GetChain(effector).pull = Mathf.Lerp(solver.GetChain(effector).pull, value, weight);
-				return;
-			case WeightCurve.Type.Reach:
-				solver.GetChain(effector).reach = Mathf.Lerp(solver.GetChain(effector).reach, value, weight);
-				return;
-			case WeightCurve.Type.Push:
-				solver.GetChain(effector).push = Mathf.Lerp(solver.GetChain(effector).push, value, weight);
-				return;
-			case WeightCurve.Type.PushParent:
-				solver.GetChain(effector).pushParent = Mathf.Lerp(solver.GetChain(effector).pushParent, value, weight);
-				return;
-            case WeightCurve.Type.BendGoalWeight:
-                solver.GetChain(effector).bendConstraint.weight = Mathf.Lerp(solver.GetChain(effector).bendConstraint.weight, value, weight);
-                return;
+        // Apply the curve to the specified solver, effector, with the value and weight.
+        private void Apply(IKSolverFullBodyBiped solver, FullBodyBipedEffector effector, WeightCurve.Type type, float value, float weight)
+        {
+            switch (type)
+            {
+                case WeightCurve.Type.PositionWeight:
+                    solver.GetEffector(effector).positionWeight = Mathf.Lerp(solver.GetEffector(effector).positionWeight, value, weight);
+                    return;
+                case WeightCurve.Type.RotationWeight:
+                    solver.GetEffector(effector).rotationWeight = Mathf.Lerp(solver.GetEffector(effector).rotationWeight, value, weight);
+                    return;
+                case WeightCurve.Type.PositionOffsetX:
+                    Vector3 xOffset = (positionOffsetSpace != null ? positionOffsetSpace.rotation : solver.GetRoot().rotation) * Vector3.right * value;
+                    solver.GetEffector(effector).position += xOffset * weight;
+                    //solver.GetEffector(effector).positionOffset += xOffset;
+                    return;
+                case WeightCurve.Type.PositionOffsetY:
+                    Vector3 yOffset = (positionOffsetSpace != null ? positionOffsetSpace.rotation : solver.GetRoot().rotation) * Vector3.up * value;
+                    solver.GetEffector(effector).position += yOffset * weight;
+                    //solver.GetEffector(effector).positionOffset += yOffset;
+                    return;
+                case WeightCurve.Type.PositionOffsetZ:
+                    Vector3 zOffset = (positionOffsetSpace != null ? positionOffsetSpace.rotation : solver.GetRoot().rotation) * Vector3.forward * value;
+                    solver.GetEffector(effector).position += zOffset * weight;
+                    //solver.GetEffector(effector).positionOffset += zOffset;
+                    return;
+                case WeightCurve.Type.Pull:
+                    solver.GetChain(effector).pull = Mathf.Lerp(solver.GetChain(effector).pull, value, weight);
+                    return;
+                case WeightCurve.Type.Reach:
+                    solver.GetChain(effector).reach = Mathf.Lerp(solver.GetChain(effector).reach, value, weight);
+                    return;
+                case WeightCurve.Type.Push:
+                    solver.GetChain(effector).push = Mathf.Lerp(solver.GetChain(effector).push, value, weight);
+                    return;
+                case WeightCurve.Type.PushParent:
+                    solver.GetChain(effector).pushParent = Mathf.Lerp(solver.GetChain(effector).pushParent, value, weight);
+                    return;
+                case WeightCurve.Type.BendGoalWeight:
+                    solver.GetChain(effector).bendConstraint.weight = Mathf.Lerp(solver.GetChain(effector).bendConstraint.weight, value, weight);
+                    return;
             }
-		}
+        }
 
 		// Gets the interaction target Transform
 		private Transform GetTarget(FullBodyBipedEffector effectorType) {

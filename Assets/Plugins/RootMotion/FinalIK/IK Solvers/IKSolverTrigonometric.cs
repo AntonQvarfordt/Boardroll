@@ -279,7 +279,7 @@ namespace RootMotion.FinalIK {
 		}
 
 		// Set the defaults for the bones
-		private void InitiateBones() {
+		public void InitiateBones() {
 			bone1.Initiate(bone2.transform.position, bendNormal);
 			bone2.Initiate(bone3.transform.position, bendNormal);
 

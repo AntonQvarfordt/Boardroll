@@ -68,7 +68,12 @@ namespace RootMotion.Demos {
 		[Header("Crouching")]
 		public float crouchCapsuleScaleMlp = 0.6f;			// the capsule collider scale multiplier while crouching
 
-		public bool onGround { get; private set; }
+        /// <summary>
+        /// Enable this while playing an animation that should be driven 100% by root motion, such as climbing walls
+        /// </summary>
+        public bool fullRootMotion { get; set; }
+
+        public bool onGround { get; private set; }
 		public AnimState animState = new AnimState();
 
 		protected Vector3 moveDirection; // The current move direction of the character in Strafe move mode
@@ -80,6 +85,7 @@ namespace RootMotion.Demos {
 		private Vector3 moveDirectionVelocity;
 		private float wallRunWeight;
 		private float lastWallRunWeight;
+        private float fixedDeltaTime;
 		private Vector3 fixedDeltaPosition;
 		private Quaternion fixedDeltaRotation = Quaternion.identity;
 		private bool fixedFrame;
@@ -110,24 +116,18 @@ namespace RootMotion.Demos {
 
 		// When the Animator moves
 		public override void Move(Vector3 deltaPosition, Quaternion deltaRotation) {
-			// Accumulate delta position, update in FixedUpdate to maintain consitency
+            // Accumulate delta position, update in FixedUpdate to maintain consitency
+            fixedDeltaTime += Time.deltaTime;
 			fixedDeltaPosition += deltaPosition;
 			fixedDeltaRotation *= deltaRotation;
 		}
 
-		void FixedUpdate() {
-            gravity = GetGravity();
+        void FixedUpdate() {
+            gravity = fullRootMotion? Vector3.zero: GetGravity();
 
 			verticalVelocity = V3Tools.ExtractVertical(r.linearVelocity, gravity, 1f);
 			velocityY = verticalVelocity.magnitude;
 			if (Vector3.Dot(verticalVelocity, gravity) > 0f) velocityY = -velocityY;
-
-			/*
-			if (animator != null && animator.updateMode == AnimatorUpdateMode.AnimatePhysics) {
-				smoothPhysics = false;
-				characterAnimation.smoothFollow = false;
-			}
-			*/
 
 			// Smoothing out the fixed time step
 			r.interpolation = smoothPhysics? RigidbodyInterpolation.Interpolate: RigidbodyInterpolation.None;
@@ -135,6 +135,8 @@ namespace RootMotion.Demos {
 
             // Move
 			MoveFixed(fixedDeltaPosition);
+
+            fixedDeltaTime = 0f;
 			fixedDeltaPosition = Vector3.zero;
 
 			r.MoveRotation(transform.rotation * fixedDeltaRotation);
@@ -148,7 +150,7 @@ namespace RootMotion.Demos {
 			if (userControl.state.move == Vector3.zero && groundDistance < airborneThreshold * 0.5f) HighFriction();
 			else ZeroFriction();
 
-			bool stopSlide = onGround && userControl.state.move == Vector3.zero && r.linearVelocity.magnitude < 0.5f && groundDistance < airborneThreshold * 0.5f;
+			bool stopSlide = !fullRootMotion && onGround && userControl.state.move == Vector3.zero && r.linearVelocity.magnitude < 0.5f && groundDistance < airborneThreshold * 0.5f;
 
 			// Individual gravity
 			if (gravityTarget != null) {
@@ -189,7 +191,7 @@ namespace RootMotion.Demos {
         }
 
         protected virtual void Update() {
-			// Fill in animState
+            // Fill in animState
 			animState.onGround = onGround;
 			animState.moveDirection = GetMoveDirection();
 			animState.yVelocity = Mathf.Lerp(animState.yVelocity, velocityY, Time.deltaTime * 10f);
@@ -214,39 +216,52 @@ namespace RootMotion.Demos {
             // Process horizontal wall-running
             WallRun();
 
-            Vector3 velocity = deltaPosition / Time.deltaTime;
-			
-			// Add velocity of the rigidbody the character is standing on
-			velocity += V3Tools.ExtractHorizontal(platformVelocity, gravity, 1f);
-			
-			if (onGround) {
-				// Rotate velocity to ground tangent
-				if (velocityToGroundTangentWeight > 0f) {
-					Quaternion rotation = Quaternion.FromToRotation(transform.up, normal);
-					velocity = Quaternion.Lerp(Quaternion.identity, rotation, velocityToGroundTangentWeight) * velocity;
+            Vector3 velocity = fixedDeltaTime > 0f? deltaPosition / fixedDeltaTime: Vector3.zero;
+
+            // Add velocity of the rigidbody the character is standing on
+            if (!fullRootMotion)
+            {
+                velocity += V3Tools.ExtractHorizontal(platformVelocity, gravity, 1f);
+
+                if (onGround)
+                {
+                    // Rotate velocity to ground tangent
+                    if (velocityToGroundTangentWeight > 0f)
+                    {
+                        Quaternion rotation = Quaternion.FromToRotation(transform.up, normal);
+                        velocity = Quaternion.Lerp(Quaternion.identity, rotation, velocityToGroundTangentWeight) * velocity;
+                    }
 				}
-			} else {
-				// Air move
-				//Vector3 airMove = new Vector3 (userControl.state.move.x * airSpeed, 0f, userControl.state.move.z * airSpeed);
-				Vector3 airMove = V3Tools.ExtractHorizontal(userControl.state.move * airSpeed, gravity, 1f);
-				velocity = Vector3.Lerp(r.linearVelocity, airMove, Time.deltaTime * airControl);
-			}
+                else
+                {
+                    // Air move
+                    //Vector3 airMove = new Vector3 (userControl.state.move.x * airSpeed, 0f, userControl.state.move.z * airSpeed);
+                    Vector3 airMove = V3Tools.ExtractHorizontal(userControl.state.move * airSpeed, gravity, 1f);
+                    velocity = Vector3.Lerp(r.linearVelocity, airMove, Time.deltaTime * airControl);
+                }				
 
-			if (onGround && Time.time > jumpEndTime) {
-				r.linearVelocity = r.linearVelocity - transform.up * stickyForce * Time.deltaTime;
-			}
-			
-			// Vertical velocity
-			Vector3 verticalVelocity = V3Tools.ExtractVertical(r.linearVelocity, gravity, 1f);
-			Vector3 horizontalVelocity = V3Tools.ExtractHorizontal(velocity, gravity, 1f);
+				if (onGround && Time.time > jumpEndTime)
+                {
+                    r.linearVelocity = r.linearVelocity - transform.up * stickyForce * Time.deltaTime;
+                }
 
-			if (onGround) {
-				if (Vector3.Dot(verticalVelocity, gravity) < 0f) {
-					verticalVelocity = Vector3.ClampMagnitude(verticalVelocity, maxVerticalVelocityOnGround);
-				}
-			}
+                // Vertical velocity
+                Vector3 verticalVelocity = V3Tools.ExtractVertical(r.linearVelocity, gravity, 1f);
+                Vector3 horizontalVelocity = V3Tools.ExtractHorizontal(velocity, gravity, 1f);
 
-			r.linearVelocity = horizontalVelocity + verticalVelocity;
+                if (onGround)
+                {
+                    if (Vector3.Dot(verticalVelocity, gravity) < 0f)
+                    {
+                        verticalVelocity = Vector3.ClampMagnitude(verticalVelocity, maxVerticalVelocityOnGround);
+                    }
+                }
+
+                r.linearVelocity = horizontalVelocity + verticalVelocity;
+            } else
+            {
+                r.linearVelocity = velocity;
+            }
 
             // Dampering forward speed on the slopes (Not working since Unity 2017.2)
             //float slopeDamper = !onGround? 1f: GetSlopeDamper(-deltaPosition / Time.deltaTime, normal);
@@ -305,6 +320,7 @@ namespace RootMotion.Demos {
 
 		// Should the character be enabled to do a wall run?
 		private bool CanWallRun() {
+            if (fullRootMotion) return false;
 			if (Time.time < jumpEndTime - 0.1f) return false;
 			if (Time.time > jumpEndTime - 0.1f + wallRunMaxLength) return false;
 			if (velocityY < wallRunMinVelocityY) return false;
@@ -443,8 +459,9 @@ namespace RootMotion.Demos {
 
 			// Interpolate the additive velocity of the platform the character might be standing on
 			platformVelocity = Vector3.Lerp(platformVelocity, platformVelocityTarget, Time.deltaTime * platformFriction);
+            if (fullRootMotion) stickyForce = 0f;
 
-			stickyForce = stickyForceTarget;//Mathf.Lerp(stickyForce, stickyForceTarget, Time.deltaTime * 5f);
+            stickyForce = stickyForceTarget;//Mathf.Lerp(stickyForce, stickyForceTarget, Time.deltaTime * 5f);
 
 			// remember when we were last in air, for jump delay
 			if (!onGround) lastAirTime = Time.time;

@@ -5,8 +5,6 @@ using RootMotion.FinalIK;
 namespace RootMotion.Demos {
 
 	// Extends the default Animator controller for 3rd person view to add IK
-	[RequireComponent(typeof(AimIK))]
-	[RequireComponent(typeof(FullBodyBipedIK))]
 	public class AnimatorController3rdPersonIK: AnimatorController3rdPerson {
 
 		[Range(0f, 1f)] public float headLookWeight = 1f;
@@ -102,7 +100,7 @@ namespace RootMotion.Demos {
 			}
 		}
 
-		// Final calculations before FBBIK solves. Recoil has already solved by, so we can use it's calculated offsets. 
+		// Final calculations before FBBIK solves. Recoil has already solved by, so we can use its calculated offsets. 
 		// Here we set the left hand position relative to the position and rotation of the right hand.
 		private void OnPreRead() {
 			Quaternion r = recoil != null? recoil.rotationOffset * rightHandRotation: rightHandRotation;

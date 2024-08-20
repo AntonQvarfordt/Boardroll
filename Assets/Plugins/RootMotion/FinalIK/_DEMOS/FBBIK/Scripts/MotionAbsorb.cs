@@ -29,7 +29,7 @@ namespace RootMotion.Demos {
 
 			private IKEffector e;
 
-			// Set effector position and rotation to match it's bone
+			// Set effector position and rotation to match its bone
 			public void SetToBone(IKSolverFullBodyBiped solver, Mode mode) {
 				e = solver.GetEffector(effector);
 				// Using world space position and rotation here for the sake of simplicity of the demo
@@ -92,7 +92,7 @@ namespace RootMotion.Demos {
 			// Reset timer
 			timer = 1f;
 
-			// Set effector position and rotation to match it's bone
+			// Set effector position and rotation to match its bone
 			for (int i = 0; i < absorbers.Length; i++) absorbers[i].SetToBone(ik.solver, mode);
 		}
 

@@ -43,13 +43,21 @@ namespace RootMotion.FinalIK {
 			return true;
 		}
 
-		/// <summary>
-		/// Reinitiate the solver with new bone Transforms.
-		/// </summary>
-		/// <returns>
-		/// Returns true if the new chain is valid.
-		/// </returns>
-		public bool SetChain(Transform pelvis, Transform thigh, Transform calf, Transform foot, Transform toe, Transform root) {
+        /// <summary>
+        /// Set IK rotation weight for the leg.
+        /// </summary>
+        public void SetRotationWeight(float weight)
+        {
+            IKRotationWeight = weight;
+        }
+
+        /// <summary>
+        /// Reinitiate the solver with new bone Transforms.
+        /// </summary>
+        /// <returns>
+        /// Returns true if the new chain is valid.
+        /// </returns>
+        public bool SetChain(Transform pelvis, Transform thigh, Transform calf, Transform foot, Transform toe, Transform root) {
 			this.pelvis.transform = pelvis;
 			this.thigh.transform = thigh;
 			this.calf.transform = calf;
@@ -105,8 +113,8 @@ namespace RootMotion.FinalIK {
 		private void Solve() {
 			leg.heelPositionOffset += heelOffset;
 			
-			leg.PreSolve ();
-			leg.ApplyOffsets( );
+			leg.PreSolve (1f);
+			leg.ApplyOffsets(1f);
 			leg.Solve (true);
 			leg.ResetOffsets ();
 		}

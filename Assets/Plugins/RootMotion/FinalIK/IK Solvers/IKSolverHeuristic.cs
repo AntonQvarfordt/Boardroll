@@ -103,7 +103,7 @@ namespace RootMotion.FinalIK {
 			}
 
 			if (!allowCommonParent && !HierarchyIsValid(bones)) {
-				message = "Invalid bone hierarchy detected. IK requires for it's bones to be parented to each other in descending order.";
+				message = "Invalid bone hierarchy detected. IK requires for its bones to be parented to each other in descending order.";
 				return false;
 			}
 			

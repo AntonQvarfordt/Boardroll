@@ -29,6 +29,7 @@ namespace RootMotion.FinalIK {
 		/// Map this instance to the poseRoot.
 		/// </summary>
 		public abstract void AutoMapping();
+		public virtual void AutoMapping(Transform[] bones) { }
 
 		/// <summary>
 		/// For manual update of the poser.

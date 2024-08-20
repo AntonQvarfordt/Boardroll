@@ -19,7 +19,7 @@ using System;
 			IKSolverHeuristicInspector.AddTarget(prop);
 			if (!prop.FindPropertyRelative("XY").boolValue) EditorGUILayout.PropertyField(prop.FindPropertyRelative("poleTarget"), new GUIContent("Pole Target", "If assigned, will automatically set polePosition to the position of this Transform."));
 
-			EditorGUILayout.PropertyField(prop.FindPropertyRelative("transform"), new GUIContent("Aim Transform", "The transform that you want to be aimed at the target. Needs to be a lineal descendant of the bone hierarchy. For example, if you wish to aim a gun, it should be the gun, one of it's children or the hand bone."));
+			EditorGUILayout.PropertyField(prop.FindPropertyRelative("transform"), new GUIContent("Aim Transform", "The transform that you want to be aimed at the target. Needs to be a lineal descendant of the bone hierarchy. For example, if you wish to aim a gun, it should be the gun, one of its children or the hand bone."));
 			EditorGUILayout.PropertyField(prop.FindPropertyRelative("axis"), new GUIContent("Axis", "The local axis of the Transform that you want to be aimed at IKPosition."));
 			if (!prop.FindPropertyRelative("XY").boolValue) EditorGUILayout.PropertyField(prop.FindPropertyRelative("poleAxis"), new GUIContent("Pole Axis", "Keeps that axis of the Aim Transform directed at the polePosition."));
 

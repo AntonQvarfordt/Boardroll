@@ -154,6 +154,8 @@ namespace RootMotion.FinalIK {
 				// Revert the upper arms
 				ik.references.leftUpperArm.rotation = leftArmRotation;
 				ik.references.rightUpperArm.rotation = rightArmRotation;
+
+                ik.solvers.lookAt.SetDirty();
 			}
 
 			if (OnPostGrounder != null) OnPostGrounder();
@@ -178,6 +180,8 @@ namespace RootMotion.FinalIK {
 
 			// Store the local position of the pelvis so we know it it changes
 			solvedPelvisLocalPosition = ik.references.pelvis.localPosition;
+
+            if (OnPostIK != null) OnPostIK();
 		}
 
 		// Cleaning up the delegates

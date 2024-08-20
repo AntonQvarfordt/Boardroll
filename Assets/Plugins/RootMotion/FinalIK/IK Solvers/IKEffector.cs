@@ -63,7 +63,7 @@ namespace RootMotion.FinalIK {
 		public float maintainRelativePositionWeight;
 
 		/// <summary>
-		/// Pins the effector to the animated position of it's bone.
+		/// Pins the effector to the animated position of its bone.
 		/// </summary>
 		public void PinToBone(float positionWeight, float rotationWeight) {
 			position = bone.position;

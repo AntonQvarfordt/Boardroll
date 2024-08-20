@@ -17,6 +17,8 @@ namespace RootMotion.FinalIK {
 		[System.Serializable]
 		public class References {
             public Transform root;			// 0
+
+            [LargeHeader("Spine")]
 			public Transform pelvis;		// 1
 			public Transform spine;         // 2
 
@@ -27,18 +29,27 @@ namespace RootMotion.FinalIK {
             public Transform neck; 			// 4 Optional
 			public Transform head;          // 5
 
+            [LargeHeader("Left Arm")]
             [Tooltip("Optional")]
-            public Transform leftShoulder;	// 6 Optional
-			public Transform leftUpperArm;	// 7
-			public Transform leftForearm;	// 8
-			public Transform leftHand;      // 9
+            public Transform leftShoulder;  // 6 Optional
+            [Tooltip("VRIK also supports armless characters.If you do not wish to use arms, leave all arm references empty.")]
+            public Transform leftUpperArm;	// 7
+            [Tooltip("VRIK also supports armless characters.If you do not wish to use arms, leave all arm references empty.")]
+            public Transform leftForearm;	// 8
+            [Tooltip("VRIK also supports armless characters.If you do not wish to use arms, leave all arm references empty.")]
+            public Transform leftHand;      // 9
 
+            [LargeHeader("Right Arm")]
             [Tooltip("Optional")]
             public Transform rightShoulder;	// 10 Optional
-			public Transform rightUpperArm;	// 11
-			public Transform rightForearm;	// 12
-			public Transform rightHand;     // 13
+            [Tooltip("VRIK also supports armless characters.If you do not wish to use arms, leave all arm references empty.")]
+            public Transform rightUpperArm;	// 11
+            [Tooltip("VRIK also supports armless characters.If you do not wish to use arms, leave all arm references empty.")]
+            public Transform rightForearm;	// 12
+            [Tooltip("VRIK also supports armless characters.If you do not wish to use arms, leave all arm references empty.")]
+            public Transform rightHand;     // 13
 
+            [LargeHeader("Left Leg")]
             [Tooltip("VRIK also supports legless characters.If you do not wish to use legs, leave all leg references empty.")]
             public Transform leftThigh;     // 14 Optional
 
@@ -51,6 +62,7 @@ namespace RootMotion.FinalIK {
             [Tooltip("Optional")]
 			public Transform leftToes;      // 17 Optional
 
+            [LargeHeader("Right Leg")]
             [Tooltip("VRIK also supports legless characters.If you do not wish to use legs, leave all leg references empty.")]
             public Transform rightThigh;    // 18 Optional
 
@@ -62,6 +74,37 @@ namespace RootMotion.FinalIK {
 
             [Tooltip("Optional")]
             public Transform rightToes;		// 21 Optional
+
+            public References() { }
+
+            public References(BipedReferences b)
+            {
+                root = b.root;
+                pelvis = b.pelvis;
+                spine = b.spine[0];
+                chest = b.spine.Length > 1? b.spine[1]: null;
+                head = b.head;
+
+                leftShoulder = b.leftUpperArm.parent;
+                leftUpperArm = b.leftUpperArm;
+                leftForearm = b.leftForearm;
+                leftHand = b.leftHand;
+
+                rightShoulder = b.rightUpperArm.parent;
+                rightUpperArm = b.rightUpperArm;
+                rightForearm = b.rightForearm;
+                rightHand = b.rightHand;
+
+                leftThigh = b.leftThigh;
+                leftCalf = b.leftCalf;
+                leftFoot = b.leftFoot;
+                leftToes = b.leftFoot.GetChild(0);
+
+                rightThigh = b.rightThigh;
+                rightCalf = b.rightCalf;
+                rightFoot = b.rightFoot;
+                rightToes = b.rightFoot.GetChild(0);
+            }
 
             /// <summary>
             /// Returns an array of all the Transforms in the definition.
@@ -81,14 +124,24 @@ namespace RootMotion.FinalIK {
 						root == null ||
 						pelvis == null ||
 						spine == null ||
-						head == null ||
-						leftUpperArm == null ||
-						leftForearm == null ||
-						leftHand == null ||
-						rightUpperArm == null ||
-						rightForearm == null ||
-						rightHand == null
+						head == null
 					) return false;
+
+                    bool noArmBones =
+                        leftUpperArm == null &&
+                        leftForearm == null &&
+                        leftHand == null &&
+                        rightUpperArm == null &&
+                        rightForearm == null &&
+                        rightHand == null;
+
+                    bool atLeastOneArmBoneMissing =
+                        leftUpperArm == null ||
+                        leftForearm == null ||
+                        leftHand == null ||
+                        rightUpperArm == null ||
+                        rightForearm == null ||
+                        rightHand == null;
 
                     // If all leg bones are null, it is valid
                     bool noLegBones =
@@ -99,8 +152,6 @@ namespace RootMotion.FinalIK {
                         rightCalf == null &&
                         rightFoot == null;
 
-                    if (noLegBones) return true;
-
                     bool atLeastOneLegBoneMissing =
                         leftThigh == null ||
                         leftCalf == null ||
@@ -109,7 +160,8 @@ namespace RootMotion.FinalIK {
                         rightCalf == null ||
                         rightFoot == null;
 
-                    if (atLeastOneLegBoneMissing) return false;
+                    if (atLeastOneLegBoneMissing && !noLegBones) return false;
+                    if (atLeastOneArmBoneMissing && !noArmBones) return false;
 
                     // Shoulder, toe and neck bones are optional
                     return true;

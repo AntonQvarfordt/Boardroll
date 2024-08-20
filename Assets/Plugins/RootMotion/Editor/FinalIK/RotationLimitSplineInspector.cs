@@ -275,7 +275,8 @@ namespace RootMotion.FinalIK
             if (selectedHandle != -1)
             {
                 Handles.BeginGUI();
-                GUILayout.BeginArea(new Rect(Screen.width - 240, Screen.height - 200, 230, 150), "Handle " + selectedHandle.ToString(), "Window");
+                //GUILayout.BeginArea(new Rect(Screen.width - 240, Screen.height - 200, 230, 150), "Handle " + selectedHandle.ToString(), "Window");
+                GUILayout.BeginArea(new Rect(10, 120, 230, 150), "Handle " + selectedHandle.ToString(), "Window");
 
                 if (Inspector.Button("Delete", "Delete this handle", script))
                 {

@@ -8,13 +8,13 @@ namespace RootMotion.FinalIK {
 	/// </summary>
 	[System.Serializable]
 	public partial class Grounding {
-		
-		#region Main Interface
 
-		/// <summary>
-		/// The raycasting quality. Fastest is a single raycast per foot, Simple is three raycasts, Best is one raycast and a capsule cast per foot.
-		/// </summary>
-		[System.Serializable]
+        #region Main Interface
+
+        /// <summary>
+        /// The raycasting quality. Fastest is a single raycast per foot, Simple is three raycasts, Best is one raycast and a capsule cast per foot.
+        /// </summary>
+        [System.Serializable]
 		public enum Quality {
 			Fastest,
 			Simple,
@@ -145,10 +145,20 @@ namespace RootMotion.FinalIK {
 			}
 		}
 
-		/// <summary>
-		/// Raycasts or sphereCasts to find the root ground point. Distance of the Ray/Sphere cast is maxDistanceMlp x maxStep. Use this instead of rootHit if the Grounder is weighed out/disabled and not updated.
-		/// </summary>
-		public RaycastHit GetRootHit(float maxDistanceMlp = 10f) {
+        // For overriding ray/capsule/sphere casting functions
+        public delegate bool OnRaycastDelegate(Vector3 origin, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask, QueryTriggerInteraction queryTriggerInteraction);
+        public OnRaycastDelegate Raycast = Physics.Raycast;
+
+        public delegate bool OnCapsuleCastDelegate(Vector3 point1, Vector3 point2, float radius, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask, QueryTriggerInteraction queryTriggerInteraction);
+        public OnCapsuleCastDelegate CapsuleCast = Physics.CapsuleCast;
+
+        public delegate bool OnSphereCastDelegate(Vector3 origin, float radius, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask, QueryTriggerInteraction queryTriggerInteraction);
+        public OnSphereCastDelegate SphereCast = Physics.SphereCast;
+
+        /// <summary>
+        /// Raycasts or sphereCasts to find the root ground point. Distance of the Ray/Sphere cast is maxDistanceMlp x maxStep. Use this instead of rootHit if the Grounder is weighed out/disabled and not updated.
+        /// </summary>
+        public RaycastHit GetRootHit(float maxDistanceMlp = 10f) {
 			RaycastHit h = new RaycastHit();
 			Vector3 _up = up;
 			
@@ -162,8 +172,8 @@ namespace RootMotion.FinalIK {
 			
 			if (maxStep <= 0f) return h;
 			
-			if (quality != Quality.Best) Physics.Raycast(legsCenter + _up * maxStep, -_up, out h, maxStep * distMlp, layers, QueryTriggerInteraction.Ignore);
-			else Physics.SphereCast(legsCenter + _up * maxStep, rootSphereCastRadius, -up, out h, maxStep * distMlp, layers, QueryTriggerInteraction.Ignore);
+			if (quality != Quality.Best) Raycast(legsCenter + _up * maxStep, -_up, out h, maxStep * distMlp, layers, QueryTriggerInteraction.Ignore);
+			else SphereCast(legsCenter + _up * maxStep, rootSphereCastRadius, -up, out h, maxStep * distMlp, layers, QueryTriggerInteraction.Ignore);
 			
 			return h;
 		}
@@ -256,9 +266,11 @@ namespace RootMotion.FinalIK {
 
 				if (leg.isGrounded) isGrounded = true;
 			}
-			
-			// Precess pelvis
-			pelvis.Process(-lowestOffset * lowerPelvisWeight, -highestOffset * liftPelvisWeight, isGrounded);
+
+            // Precess pelvis
+            lowestOffset = Mathf.Max(lowestOffset, 0f);
+            highestOffset = Mathf.Min(highestOffset, 0f);
+            pelvis.Process(-lowestOffset * lowerPelvisWeight, -highestOffset * liftPelvisWeight, isGrounded);
 		}
 
 		// Calculate the normal of the plane defined by leg positions, so we know how to rotate the body
@@ -268,7 +280,7 @@ namespace RootMotion.FinalIK {
             Vector3 _up = up;
             Vector3 normal = _up;
 
-			// Go through all the legs, rotate the normal by it's offset
+			// Go through all the legs, rotate the normal by its offset
 			for (int i = 0; i < legs.Length; i++) {
 				// Direction from the root to the leg
 				Vector3 legDirection = legs[i].IKPosition - root.position;

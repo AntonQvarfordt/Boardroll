@@ -263,7 +263,7 @@ using System;
 					SolverRotate(rotateBone, fromTo, true);
 					SolverMoveChildrenAroundPoint(rotateBone, fromTo);
 
-					// Moving the bone so that last bone maintains it's initial position
+					// Moving the bone so that last bone maintains its initial position
 					SolverMove(rotateBone, lastBoneBeforeLimit - bones[bones.Length - 1].solverPosition);
 				} else {
 					// last bone

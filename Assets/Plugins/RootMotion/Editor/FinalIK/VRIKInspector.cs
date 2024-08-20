@@ -30,5 +30,5 @@ namespace RootMotion.FinalIK {
 				// TODO Set dirty
 			}
 		}
-	}
+    }
 }

@@ -8,7 +8,10 @@ namespace RootMotion.Demos {
 	// The bones are moved in the solving process, but it will not update the IK targets parented to the bones. All IK target positions/rotations need to be set before the solver updates.
 	public class TwoHandedProp : MonoBehaviour {
 
-		[Tooltip("The left hand target parented to the right hand.")] public Transform leftHandTarget;
+        [Range(0f, 1f)] public float weight = 1f;
+        [Tooltip("The left hand target parented to the right hand.")] public Transform leftHandTarget;
+        [Tooltip("Left hand poser (poses fingers to match the left hand target).")] public Poser leftHandPoser;
+        [Tooltip("The weight of pinning the left hand to the prop.")] [Range(0f, 1f)] public float leftHandWeight = 1f;
 
 		private FullBodyBipedIK ik;
 		private Vector3 targetPosRelativeToRight;
@@ -19,10 +22,6 @@ namespace RootMotion.Demos {
 
 			// Get a call from FBBIK each time it has finished updating
 			ik.solver.OnPostUpdate += AfterFBBIK;
-
-			// Weight in the effectors
-			ik.solver.leftHandEffector.positionWeight = 1f;
-			ik.solver.rightHandEffector.positionWeight = 1f;
 
 			if (ik.solver.rightHandEffector.target == null) Debug.LogError("Right Hand Effector needs a Target in this demo.");
 		}
@@ -35,13 +34,21 @@ namespace RootMotion.Demos {
 			// Set the position/rotation of the left hand target relative to the right hand effector target.
 			ik.solver.leftHandEffector.position = ik.solver.rightHandEffector.target.position + ik.solver.rightHandEffector.target.rotation * targetPosRelativeToRight;
 			ik.solver.leftHandEffector.rotation = ik.solver.rightHandEffector.target.rotation * targetRotRelativeToRight;
-		}
 
-		// Called by FBBIK after it updates
-		void AfterFBBIK() {
+            // Weights
+            ik.solver.rightHandEffector.positionWeight = weight;
+
+            float wL = leftHandWeight * weight;
+            ik.solver.leftHandEffector.positionWeight = wL;
+            leftHandPoser.weight = wL;
+        }
+
+        // Called by FBBIK after it updates
+        void AfterFBBIK() {
 			// Rotate the hand bones to effector.rotation directly instead of using effector.rotationWeight that might fail to get the limb bending right under some circumstances
-			ik.solver.leftHandEffector.bone.rotation = ik.solver.leftHandEffector.rotation;
-			ik.solver.rightHandEffector.bone.rotation = ik.solver.rightHandEffector.rotation;
+			ik.solver.leftHandEffector.bone.rotation = Quaternion.Slerp(ik.solver.leftHandEffector.bone.rotation, ik.solver.leftHandEffector.rotation, leftHandWeight * weight);
+
+			ik.solver.rightHandEffector.bone.rotation = Quaternion.Slerp(ik.solver.rightHandEffector.bone.rotation, ik.solver.rightHandEffector.rotation, weight);
 		}
 
 		// Clean up the delegate

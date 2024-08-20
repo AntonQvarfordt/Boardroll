@@ -65,12 +65,12 @@ namespace RootMotion.FinalIK {
 						return false;
 					}
 
-					// Check if the child chain doesn't have this chain among it's children
+					// Check if the child chain doesn't have this chain among its children
 					for (int o = 0; o < chains.Length; o++) {
 						if (childIndex == o) {
 							for (int n = 0; n < chains[o].children.Length; n++) {
 								if (chains[o].children[n] == i) {
-									message = "Circular parenting. " + chains[o].ik.name + " already has " + chains[i].ik.name + " listed as it's child.";
+									message = "Circular parenting. " + chains[o].ik.name + " already has " + chains[i].ik.name + " listed as its child.";
 									return false;
 								}
 							}

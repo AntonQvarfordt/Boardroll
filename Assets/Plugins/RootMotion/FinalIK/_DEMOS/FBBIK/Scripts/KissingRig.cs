@@ -92,8 +92,8 @@ namespace RootMotion.Demos {
 
 		public Partner partner1, partner2; // The partners
 
-		public float weight; // The master weight
-		public int iterations = 3; // The number of iterating this rig. 
+		[Range(0f, 1f)] public float weight; // The master weight
+		[Range(1, 4)] public int iterations = 3; // The number of iterating this rig. 
 		// As the IK targets of one FBBIK partner depend on the solved pose of another FBBIK partner and vice versa, 
 		// the rig will have to be iterated a couple of times to make it work.
 
