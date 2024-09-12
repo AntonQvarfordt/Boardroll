@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 24ce64b1d995394438c999f86a0b86b8
+timeCreated: 1543337886
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 100604
+  packageName: Fantastic Cartoon VFX
+  packageVersion: 5.0.2
+  assetPath: Assets/Hovl Studio/Fantastic cartoon VFX/Prefabs/Lightning bolt.prefab
+  uploadId: 656313

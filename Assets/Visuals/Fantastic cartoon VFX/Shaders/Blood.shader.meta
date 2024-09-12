@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: cc2d382d747a5de4a81070504954be72
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 100604
+  packageName: Fantastic Cartoon VFX
+  packageVersion: 5.0.2
+  assetPath: Assets/Hovl Studio/Fantastic cartoon VFX/Shaders/Blood.shader
+  uploadId: 656313

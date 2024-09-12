@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f7356c7b8ae37d442bd94188e69e6cb0
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 100604
+  packageName: Fantastic Cartoon VFX
+  packageVersion: 5.0.2
+  assetPath: Assets/Hovl Studio/Fantastic cartoon VFX/Shaders/Tornado.shader
+  uploadId: 656313

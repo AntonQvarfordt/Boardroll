@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 692e41969c202a041835fb5db6bdc4be
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 100604
+  packageName: Fantastic Cartoon VFX
+  packageVersion: 5.0.2
+  assetPath: Assets/Hovl Studio/Fantastic cartoon VFX/Shaders/LightGlowOld.shader
+  uploadId: 656313
