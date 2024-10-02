@@ -12,12 +12,12 @@ public class ColorPalettePackageEditor : Editor
 		base.OnInspectorGUI();
 		var targetScript = (ColorPalettePackage)target;
 
-		if (GUILayout.Button("Set Active"))
-		{
-			var dataContainer = new SaveData();
-			dataContainer.fileName = "ColorPalette";
-			dataContainer["ColorPalette"] = targetScript.GetColors();
-			dataContainer.Save();
-		}
+		//if (GUILayout.Button("Set Active"))
+		//{
+		//	var dataContainer = new SaveData();
+		//	dataContainer.fileName = "ColorPalette";
+		//	dataContainer["ColorPalette"] = targetScript.GetColors();
+		//	dataContainer.Save();
+		//}
 	}
 }

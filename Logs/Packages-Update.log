@@ -89,3 +89,12 @@ The following packages were updated:
   com.unity.ugui from version 1.0.0 to 2.0.0
 The following packages were removed:
   com.unity.textmeshpro@3.0.6
+
+=== Thu Sep 19 22:56:21 2024
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.collab-proxy from version 2.4.4 to 2.5.1
+  com.unity.inputsystem from version 1.9.0 to 1.11.0
